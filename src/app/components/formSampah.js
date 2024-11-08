@@ -4,9 +4,9 @@ const FormInputSampah = () => {
         <>
         <div className=" xl:w-full flex justify-center">
             <form className="bg-slate-200 flex flex-col p-2 xl:p-4 xl:w-[90%] rounded-md">
-                <label className="block text-lg text-black font-medium">Tanggal</label>
+                <label className="block lg:text-lg text-black font-medium">Tanggal</label>
                 <input type="date" name="" id="" className="h-10 rounded-sm w-60 px-2 mb-2"/>
-                <label className="block text-lg text-black font-medium">Nasabah</label>
+                <label className="block lg:text-lg text-black font-medium">Nasabah</label>
                 <div className="flex items-center  mb-2">
                     <div className="bg-gray-400 px-4 w-20 py-2 rounded-l-md">
                         <select className="bg-gray-400 text-white focus:outline-none">
@@ -30,10 +30,20 @@ const FormInputSampah = () => {
                     </button>
                 </div>
 
-                <label className="block text-lg text-black font-medium">Jenis Sampah</label>
-                <input type="text" name="" id="" className="h-10 rounded-sm mb-2"/>
-                <label className="block text-lg text-black font-medium">Jumlah Setoran</label>
-                <input type="text" name="" id="" className="h-10 rounded-sm mb-2"/>
+                <div className="flex justify-between lg:w-[50%]">
+                    <div>
+                        <label className="block lg:text-lg text-black font-medium">Jumlah Sampah Halus</label>
+                        <input type="number" name="" id="" className="h-10 rounded-sm mb-2 w-40 lg:w-72"/>
+                        <label className="block lg:text-lg text-black font-medium">Jumlah Sampah Kasar</label>
+                        <input type="number" name="" id="" className="h-10 rounded-sm mb-2 w-40 lg:w-72"/>
+                    </div>
+                    <div>
+                        <label className="block lg:text-lg text-black font-medium">Jenis Sampah Halus</label>
+                        <input type="text" name="" id="" className="h-10 rounded-sm mb-2 w-40 lg:w-72"/>
+                        <label className="block lg:text-lg text-black font-medium">Jenis Sampah Kasar</label>
+                        <input type="text" name="" id="" className="h-10 rounded-sm mb-2 w-40 lg:w-72"/>
+                    </div>
+                </div>
                 <p className="block text-md text-black font-medium py-3">Harga Saat Ini : <span>250</span></p>
                 <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Simpan</button>
             </form>

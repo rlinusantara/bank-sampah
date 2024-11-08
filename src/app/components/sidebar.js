@@ -1,4 +1,4 @@
-import { ChevronFirst, ChevronLast,Database,UserRoundPlus,TicketPlus,HandCoins,Banknote, LayoutDashboard } from "lucide-react";
+import { ChevronFirst, ChevronLast,Database,UserRoundPlus,TicketPlus,HandCoins,Banknote, LayoutDashboard, Egg } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,7 +9,7 @@ export default function SidebarAdmin() {
   const SidebarItem = ({ icon, text, active, alert ,link}) => {
     return (
     <Link href={link}>
-      <li className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${
+      <li className={`relative flex items-center p-2 mb-1 h-12 lg:h-16 rounded-md cursor-pointer transition-colors group ${
         active
           ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
           : "hover:bg-indigo-50 text-gray-600"
@@ -21,21 +21,21 @@ export default function SidebarAdmin() {
         {alert && (
           <div className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${expanded ? "" : "top-2"}`}></div>
         )}
-        {/* {!expanded && (
+        {!expanded && (
           <div className={`absolute left-full rounded-md px-2 py-1 ml-6 bg-indigo-100 text-indigo-800 text-sm invisible opacity-20 -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0`}>
             {text}
           </div>
-        )} */}
+        )}
       </li>
       </Link>
     );
   };
 
   return (
-    <div className="flex">
-      <aside className="h-screen">
+    <div className="flex fixed h-full z-50 ">
+      <aside className="h-full">
         <nav className="h-full flex flex-col bg-white border-r shadow-sm">
-          <div className="p-4 pb-2 flex justify-between items-center">
+          <div className="p-4 pb-2 mb-3 flex justify-between items-center">
             <Image
               src="/logo.png"
               alt="logo"
@@ -45,19 +45,20 @@ export default function SidebarAdmin() {
             />
             <button
               onClick={() => setExpanded((curr) => !curr)}
-              className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
+              className="p-1.5 rounded-lg text-black bg bg-indigo-100"
             >
-              {expanded ? <ChevronFirst /> : <ChevronLast />}
+              {expanded ? <ChevronFirst size={30}/> : <ChevronLast size={30}/>}
             </button>
           </div>
 
           <ul className="flex-1 px-3">
-            <SidebarItem icon={<LayoutDashboard size={20}/>} text="Dashboard" link="/dashboard"/>
-            <SidebarItem icon={<Database size={20} />} text="Data Nasabah" link="/data-nasabah" />
-            <SidebarItem icon={<UserRoundPlus size={20} />} text="Tambah Nasabah" link="/data-nasabah" />
-            <SidebarItem icon={<TicketPlus size={20} />} text="Setoran Masuk" link="/data-nasabah" />
-            <SidebarItem icon={<HandCoins size={20} />} text="Setoran Keluar" link="/data-nasabah" />
-            <SidebarItem icon={<Banknote size={20}/>} text="Harga Sampah" link="/data-nasabah" />
+            <SidebarItem icon={<LayoutDashboard size={30}/>} text="Dashboard" link="/dashboard"/>
+            <SidebarItem icon={<TicketPlus size={30} />} text="Setoran Masuk" link="/data-nasabah" />
+            <SidebarItem icon={<HandCoins size={30} />} text="Setoran Keluar" link="/data-nasabah" />
+            <SidebarItem icon={<Database size={30} />} text="Data Nasabah" link="/data-nasabah" />
+            <SidebarItem icon={<UserRoundPlus size={30} />} text="Tambah Nasabah" link="/data-nasabah" />
+            <SidebarItem icon={<Banknote size={30}/>} text="Harga Sampah" link="/data-nasabah" />
+            <SidebarItem icon={<Egg size={30}/>} text="Pendataan Telur BSF" link="/data-nasabah" />
           </ul>
         </nav>
       </aside>

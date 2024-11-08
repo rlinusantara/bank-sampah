@@ -1,11 +1,11 @@
-import SidebarAdmin from "./Sidebar";
+import SidebarAdmin from "./sidebar";
 
 const AdminLayout = ({children}) => {
     return (
         <>
-            <div className="flex flex-grow w-screen md:w-full min-h-screen">
+            <div className="flex flex-grow w-full lg:w-full min-h-screen bg-slate-200">
                 <SidebarAdmin/>
-                <div>
+                <div className="p-1">
                     {children}
                 </div>
             </div>
