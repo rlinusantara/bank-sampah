@@ -1,14 +1,19 @@
-const errorHandling = (err, req, res) => {
+import ResponseErr from "@/helpers/responseErr";
+import Joi from "joi";
+
+const errorHandling = (err) => {
   if (!err) {
     next();
     return;
   }
 
   if (err instanceof ResponseErr) {
-    return res.status(err.getStatus).json({ errors: [err.message] });
+    return Response.json({ errors: [err.message] }, { status: err.getStatus });
   } else if (err instanceof Joi.ValidationError) {
-    return res.status(400).json({ errors: err.message.split(".") });
+    return Response.json({ errors: err.message.split(".") }, { status: 400 });
   }
 
-  return res.status(500).json({ errors: [err.message] });
+  return Response.json({ errors: [err.message] }, { status: 500 });
 };
+
+export default errorHandling;
