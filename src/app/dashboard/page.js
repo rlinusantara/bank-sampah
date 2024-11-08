@@ -1,13 +1,15 @@
 "use client"
 import AdminLayout from "../components/adminLayout";
+import Grafik from "../components/grafik";
 import Statistik from "../components/statistik";
 
 const Dashboard = () => {
     return (
         <>
         <AdminLayout>
-            <div className="p-1">
+            <div className="p-4 ml-16 lg:ml-20">
                 <Statistik/>
+                <Grafik/>
             </div>
         </AdminLayout>
         </>

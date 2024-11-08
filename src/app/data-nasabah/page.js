@@ -5,7 +5,9 @@ const Daftarnasabah = () => {
     return (
         <>
             <AdminLayout>
-                <h1>Test</h1>
+                <div className="p-4 ml-16 lg:ml-20">
+                    <p className="text-black">test 123</p>
+                </div>
             </AdminLayout>
         </>
     );
