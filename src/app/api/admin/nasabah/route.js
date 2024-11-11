@@ -1,7 +1,7 @@
 import NasabahCol from "@/db/models/nasabah";
 import onlyLogin from "@/middlewares/onlyLogin";
 
-export async function getAllNasabah(req) {
+async function getAllNasabah(req) {
   try {
     const nasabah = await NasabahCol.aggregate([
       {

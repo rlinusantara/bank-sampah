@@ -35,7 +35,7 @@ async function login(req) {
       }
     );
 
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     cookieStore.set("secret", token, {
       path: "/",
       httpOnly: true,

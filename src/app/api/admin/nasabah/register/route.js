@@ -4,7 +4,7 @@ import errorHandling from "@/middlewares/errorHandling";
 import onlyLogin from "@/middlewares/onlyLogin";
 import NasabahValidation from "@/validation/nasabah";
 
-export async function registerNasabah(req) {
+async function registerNasabah(req) {
   try {
     const body = await req.json();
     await NasabahValidation.register(body);
@@ -17,7 +17,7 @@ export async function registerNasabah(req) {
     const insert = new NasabahCol(body);
     await insert.save();
 
-    return Response.json({ message: "Hello World" });
+    return Response.json({ message: "Berhasil register nasabah" });
   } catch (error) {
     return errorHandling(error);
   }
