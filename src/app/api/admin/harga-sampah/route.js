@@ -42,23 +42,23 @@ async function editHargaSampah(req) {
   }
 }
 
-export const POST = (req) => {
+export const POST = async (req) => {
   try {
     if (!process.env.SECRET_KEY) {
       throw new ResponseErr(500, "Env error");
     }
-    return onlyLogin(addHargaSampah, req, process.env.SECRET_KEY);
+    return await onlyLogin(addHargaSampah, req, process.env.SECRET_KEY);
   } catch (error) {
     return errorHandling(error);
   }
 };
 
-export const PUT = (req) => {
+export const PUT = async (req) => {
   try {
     if (!process.env.SECRET_KEY) {
       throw new ResponseErr(500, "Env error");
     }
-    return onlyLogin(editHargaSampah, req, process.env.SECRET_KEY);
+    return await onlyLogin(editHargaSampah, req, process.env.SECRET_KEY);
   } catch (error) {
     return errorHandling(error);
   }

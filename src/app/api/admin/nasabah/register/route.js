@@ -23,12 +23,12 @@ async function registerNasabah(req) {
   }
 }
 
-export const POST = (req) => {
+export const POST = async (req) => {
   try {
     if (!process.env.SECRET_KEY) {
       throw new ResponseErr(500, "Env error");
     }
-    return onlyLogin(registerNasabah, req, process.env.SECRET_KEY);
+    return await onlyLogin(registerNasabah, req, process.env.SECRET_KEY);
   } catch (error) {
     return errorHandling(error);
   }

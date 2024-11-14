@@ -16,12 +16,12 @@ async function getAllNasabah(req) {
   }
 }
 
-export const GET = (req) => {
+export const GET = async (req) => {
   try {
     if (!process.env.SECRET_KEY) {
       throw new ResponseErr(500, "Env error");
     }
-    return onlyLogin(getAllNasabah, req, process.env.SECRET_KEY);
+    return await onlyLogin(getAllNasabah, req, process.env.SECRET_KEY);
   } catch (error) {
     return errorHandling(error);
   }

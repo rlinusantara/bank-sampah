@@ -1,4 +1,3 @@
-import AdminCol from "@/db/models/admin";
 import HargaSampahCol from "@/db/models/harga_sampah";
 import NasabahCol from "@/db/models/nasabah";
 import SetoranMasukCol from "@/db/models/setoran_masuk_nasabah";
