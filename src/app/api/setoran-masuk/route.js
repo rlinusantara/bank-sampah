@@ -4,9 +4,11 @@ import SetoranMasukCol from "@/db/models/setoran_masuk_nasabah";
 import ResponseErr from "@/helpers/responseErr";
 import errorHandling from "@/middlewares/errorHandling";
 import SetoranMasukValidation from "@/validation/setoran_masuk";
+import connectDB from "@/db/connection";
 
 export const POST = async (req) => {
   try {
+    await connectDB();
     const body = await req.json();
     await SetoranMasukValidation.add(body);
 

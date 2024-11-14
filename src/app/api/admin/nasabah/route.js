@@ -1,8 +1,10 @@
 import NasabahCol from "@/db/models/nasabah";
 import onlyLogin from "@/middlewares/onlyLogin";
+import connectDB from "@/db/connection";
 
 async function getAllNasabah(req) {
   try {
+    await connectDB();
     const nasabah = await NasabahCol.aggregate([
       {
         $project: {

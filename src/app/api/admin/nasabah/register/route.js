@@ -3,9 +3,11 @@ import ResponseErr from "@/helpers/responseErr";
 import errorHandling from "@/middlewares/errorHandling";
 import onlyLogin from "@/middlewares/onlyLogin";
 import NasabahValidation from "@/validation/nasabah";
+import connectDB from "@/db/connection";
 
 async function registerNasabah(req) {
   try {
+    await connectDB();
     const body = await req.json();
     await NasabahValidation.register(body);
 
