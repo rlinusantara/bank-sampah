@@ -3,19 +3,26 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --text: #111311;
+    --background: #f8faf7;
+    --primary: #347928;
+    --secondary: #a1df96;
+    --accent: #74e261;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+@font-face {
+  font-family: 'nunito';
+  src: url('/fonts/nunito-reguler.woff') format('truetype'); 
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-nunito {
+  font-family: 'nunito', sans-serif;
 }
