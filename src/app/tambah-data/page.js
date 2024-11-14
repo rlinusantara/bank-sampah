@@ -4,7 +4,7 @@ const TambahData = () => {
     return (
         <>
         <Layout>
-            <h1 className="text-center xl:text-2xl font-bold p-3">FORM INPUT DATA BANK SAMPAH</h1>
+            <h1 className="text-center xl:text-2xl font-bold p-3 font-nunito">FORM INPUT DATA BANK SAMPAH</h1>
             <FormInputSampah/>
         </Layout>
         </>

@@ -58,7 +58,7 @@ const Grafik = () => {
     
     return (
         <>
-            <div className="text-black">
+            <div className="text-black font-nunito">
                 <div>
                     <h2>Line Chart</h2>
                     <Line data={lineChartData} />
