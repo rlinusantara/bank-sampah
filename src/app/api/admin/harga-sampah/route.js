@@ -3,9 +3,11 @@ import ResponseErr from "@/helpers/responseErr";
 import errorHandling from "@/middlewares/errorHandling";
 import onlyLogin from "@/middlewares/onlyLogin";
 import HargaSampahValidation from "@/validation/harga_sampah";
+import connectDB from "@/db/connection";
 
 async function addHargaSampah(req) {
   try {
+    await connectDB();
     const body = await req.json();
     await HargaSampahValidation.add(body);
 
@@ -28,6 +30,7 @@ async function addHargaSampah(req) {
 
 async function editHargaSampah(req) {
   try {
+    await connectDB();
     const body = await req.json();
     await HargaSampahValidation.add(body);
 
