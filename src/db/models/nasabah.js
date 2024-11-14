@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { schemaSetoranMasuk } from "./setoran_masuk_nasabah";
 
 const SetoranKeluarCol = new mongoose.Schema({
   tabungan_keluar: {
@@ -26,6 +27,7 @@ const nasabahSchema = new mongoose.Schema({
     default: 0,
   },
   setoran_keluar: [SetoranKeluarCol],
+  history_setoran_masuk: [schemaSetoranMasuk],
 });
 
 const NasabahCol =
