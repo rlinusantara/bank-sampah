@@ -9,6 +9,7 @@ async function getAllNasabah(req) {
       {
         $project: {
           setoran_keluar: 0,
+          history_setoran_masuk: 0,
         },
       },
     ]);
