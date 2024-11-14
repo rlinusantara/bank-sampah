@@ -24,7 +24,7 @@ const onlyLogin = async (handler, req, secret) => {
       throw new ResponseErr(401, "Silahkan login terlebih dahulu");
     }
 
-    return handler(req);
+    return await handler(req);
   } catch (error) {
     return errorHandling(error, req);
   }

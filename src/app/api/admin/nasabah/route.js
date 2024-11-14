@@ -1,12 +1,15 @@
 import NasabahCol from "@/db/models/nasabah";
 import onlyLogin from "@/middlewares/onlyLogin";
+import connectDB from "@/db/connection";
 
 async function getAllNasabah(req) {
   try {
+    await connectDB();
     const nasabah = await NasabahCol.aggregate([
       {
         $project: {
           setoran_keluar: 0,
+          history_setoran_masuk: 0,
         },
       },
     ]);
@@ -16,12 +19,12 @@ async function getAllNasabah(req) {
   }
 }
 
-export const GET = (req) => {
+export const GET = async (req) => {
   try {
     if (!process.env.SECRET_KEY) {
       throw new ResponseErr(500, "Env error");
     }
-    return onlyLogin(getAllNasabah, req, process.env.SECRET_KEY);
+    return await onlyLogin(getAllNasabah, req, process.env.SECRET_KEY);
   } catch (error) {
     return errorHandling(error);
   }

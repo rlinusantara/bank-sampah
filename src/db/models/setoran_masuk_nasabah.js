@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const schemaSetoranMasuk = new mongoose.Schema({
+export const schemaSetoranMasuk = new mongoose.Schema({
   tanggal_setoran: {
     type: Date,
     required: true,
