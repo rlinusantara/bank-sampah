@@ -4,9 +4,11 @@ import { cookies } from "next/headers";
 import errorHandling from "./errorHandling";
 import mongoose from "mongoose";
 import AdminCol from "@/db/models/admin";
+import connectDB from "@/db/connection";
 
 const onlyLogin = async (handler, req, secret) => {
   try {
+    await connectDB();
     const cookie = await cookies();
     if (!cookie.has("secret")) {
       throw new ResponseErr(401, "Silahkan login terlebih dahulu");
