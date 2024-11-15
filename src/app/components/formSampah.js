@@ -9,8 +9,8 @@ const FormInputSampah = () => {
   const [loading, setLoading] = useState(true);
   const [tanggal, setTanggal] = useState("");
   const [nasabah, setNasabah] = useState([]);
-  const [jumlahSampahHalus, setJumlahSampahHalus] = useState("");
-  const [jumlahSampahKasar, setJumlahSampahKasar] = useState("");
+  const [jumlahSampahHalus, setJumlahSampahHalus] = useState(0);
+  const [jumlahSampahKasar, setJumlahSampahKasar] = useState(0);
   const [jenisSampah, setJenisSampah] = useState("");
   const [_id, setId] = useState("");
   const form = useRef();
@@ -140,7 +140,7 @@ const FormInputSampah = () => {
               Jumlah Sampah Kasar
             </label>
             <input
-              onChange={(e) => setJumlahSampahKasar(e.target.value)}
+              onChange={(e) => setJumlahSampahKasar(+e.target.value)}
               type="number"
               name=""
               id=""

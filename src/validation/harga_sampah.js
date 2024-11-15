@@ -3,7 +3,7 @@ import Joi from "joi";
 class Schema {
   static get addSchema() {
     return Joi.object({
-      harga_satuan: Joi.number().required(),
+      harga_satuan: Joi.number().required().strict(),
     });
   }
 }
