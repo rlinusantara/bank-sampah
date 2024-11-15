@@ -3,11 +3,12 @@ import {
   ChevronLast,
   Database,
   UserRoundPlus,
-  TicketPlus,
+  ClipboardPlus,
   HandCoins,
   Banknote,
   LayoutDashboard,
   Egg,
+  FileClock
 } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
@@ -84,9 +85,14 @@ export default function SidebarAdmin() {
               link="/dashboard"
             />
             <SidebarItem
-              icon={<TicketPlus size={30} />}
+              icon={<ClipboardPlus size={30} />}
               text="Setoran Masuk"
-              link="/data-nasabah"
+              link="/setoran-masuk"
+            />
+            <SidebarItem
+              icon={<FileClock size={30} />}
+              text="Draft Setoran"
+              link="/draft-setoran"
             />
             <SidebarItem
               icon={<HandCoins size={30} />}
@@ -101,7 +107,7 @@ export default function SidebarAdmin() {
             <SidebarItem
               icon={<UserRoundPlus size={30} />}
               text="Tambah Nasabah"
-              link="/data-nasabah"
+              link="/tambah-nasabah"
             />
             <SidebarItem
               icon={<Banknote size={30} />}

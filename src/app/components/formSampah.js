@@ -98,7 +98,7 @@ const FormInputSampah = () => {
         <form
           ref={form}
           onSubmit={sendData}
-          className="bg-accent flex flex-col mx-2 p-2 xl:p-4 xl:w-[90%] w-full rounded-xl"
+          className="bg-accent flex flex-col mx-2 p-2 xl:p-4 xl:w-[1000px] w-full rounded-xl"
         >
           <label className="block lg:text-lg text-black font-medium ">
             Tanggal
@@ -133,7 +133,7 @@ const FormInputSampah = () => {
               type="number"
               name=""
               id=""
-              className="h-10 rounded-lg px-2 mb-2 w-full lg:w-72 text-black"
+              className="h-10 rounded-lg px-2 mb-2 w-full xl:w-full text-black"
               required
               step="any"
             />
@@ -145,7 +145,7 @@ const FormInputSampah = () => {
               type="number"
               name=""
               id=""
-              className="h-10 rounded-lg px-2 mb-2 w-full lg:w-72 text-black"
+              className="h-10 rounded-lg px-2 mb-2 w-full xl:w-full text-black"
               required
               step="any"
             />
@@ -157,7 +157,7 @@ const FormInputSampah = () => {
               type="text"
               name=""
               id=""
-              className="h-10 rounded-lg mb-2 px-2 w-full lg:w-72 text-black"
+              className="h-10 rounded-lg mb-2 px-2 w-full xl:w-full text-black"
               required
             />
           </div>
