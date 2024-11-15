@@ -6,8 +6,8 @@ class Schema {
     return Joi.object({
       tanggal_setoran: Joi.date(),
       jenis_sampah: Joi.string().trim().required(),
-      sampah_halus: Joi.number().required(),
-      sampah_kasar: Joi.number().required(),
+      sampah_halus: Joi.number().required().strict(),
+      sampah_kasar: Joi.number().required().strict(),
       id_nasabah: Joi.custom((value, helper) => {
         if (!mongoose.isValidObjectId(value)) {
           return helper.error("any.id_invalid");
