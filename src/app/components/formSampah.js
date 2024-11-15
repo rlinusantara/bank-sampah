@@ -135,6 +135,7 @@ const FormInputSampah = () => {
               id=""
               className="h-10 rounded-lg px-2 mb-2 w-full lg:w-72 text-black"
               required
+              step="any"
             />
             <label className="block lg:text-lg text-black font-medium">
               Jumlah Sampah Kasar
@@ -146,6 +147,7 @@ const FormInputSampah = () => {
               id=""
               className="h-10 rounded-lg px-2 mb-2 w-full lg:w-72 text-black"
               required
+              step="any"
             />
             <label className="block lg:text-lg text-black font-medium">
               Jenis Sampah
