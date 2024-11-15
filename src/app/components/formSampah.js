@@ -129,7 +129,7 @@ const FormInputSampah = () => {
               Jumlah Sampah Halus
             </label>
             <input
-              onChange={(e) => setJumlahSampahHalus(e.target.value)}
+              onChange={(e) => setJumlahSampahHalus(+e.target.value)}
               type="number"
               name=""
               id=""
