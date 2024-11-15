@@ -18,7 +18,7 @@ body {
 }
 @font-face {
   font-family: 'nunito';
-  src: url('/fonts/nunito-reguler.woff') format('truetype'); 
+  src: url('/fonts/nunito.ttf') format('truetype'); 
   font-weight: normal;
   font-style: normal;
 }
