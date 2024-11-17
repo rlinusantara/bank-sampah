@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 import AdminCol from "@/db/models/admin";
 import connectDB from "@/db/connection";
 
-const onlyLogin = async (handler, req, secret) => {
+const onlyLogin = async (handler, req, secret, params = {}) => {
   try {
     await connectDB();
     const cookie = await cookies();
@@ -26,7 +26,7 @@ const onlyLogin = async (handler, req, secret) => {
       throw new ResponseErr(401, "Silahkan login terlebih dahulu");
     }
 
-    return await handler(req);
+    return await handler(req, params);
   } catch (error) {
     return errorHandling(error, req);
   }

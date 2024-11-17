@@ -5,7 +5,6 @@ let isConnected = false;
 
 async function connectDB() {
   if (isConnected) {
-    console.log("menggunakan koneksi lama");
     return;
   }
   const url = process.env.DB;
