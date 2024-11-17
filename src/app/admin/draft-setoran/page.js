@@ -2,16 +2,17 @@
 import AdminLayout from "@/app/components/adminLayout";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import format from "date-format";
 
 const DraftSetoran = () => {
   const [popUp, setPopUp] = useState(false);
   const [dataSetoranMasuk, setDataSetoranMasuk] = useState([]);
+  const [detilSetoran, setDetilSetoran] = useState({});
 
   useEffect(function () {
-    axios.get("/api/admin/setoran-masuk").then((res) => {
-      console.log(res.data.data);
-      setDataSetoranMasuk(res.data.data);
-    });
+    axios
+      .get("/api/admin/setoran-masuk")
+      .then((res) => setDataSetoranMasuk(res.data.data));
   }, []);
 
   return (
@@ -43,12 +44,17 @@ const DraftSetoran = () => {
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                     >
-                      Budiono Siregar
+                      {value.nama_nasabah}
                     </th>
-                    <td className="px-6 py-4">12-09-2024</td>
+                    <td className="px-6 py-4">
+                      {format("dd:MM:yyyy", new Date(value.tanggal_setoran))}
+                    </td>
                     <td className="px-6 py-4 text-center">
                       <button
-                        onClick={() => setPopUp(true)}
+                        onClick={() => {
+                          setDetilSetoran(value);
+                          setPopUp(true);
+                        }}
                         className="bg-primary py-1 px-3 rounded-md text-white text-center"
                       >
                         Detil
@@ -75,21 +81,30 @@ const DraftSetoran = () => {
               </div>
               <div className="p-2 mx-2">
                 <label>Tanggal</label>
-                <p className="bg-slate-300 rounded-md p-1 px-2">12-09-2024</p>
+                <p className="bg-slate-300 rounded-md p-1 px-2">
+                  {" "}
+                  {format("dd:MM:yyyy", new Date(detilSetoran.tanggal_setoran))}
+                </p>
                 <label>Nama</label>
                 <p className="bg-slate-300 rounded-md p-1 px-2">
-                  Budiono Siregar
+                  {detilSetoran.nama_nasabah}
                 </p>
                 <label>Jumlah Sampah Halus</label>
                 <p className="bg-slate-300 rounded-md p-1 px-2">
-                  2 <span>Kg.</span>
+                  {detilSetoran.sampah_halus} <span>Kg.</span>
                 </p>
                 <label>Jumlah Sampah Kasar</label>
                 <p className="bg-slate-300 rounded-md p-1 px-2">
-                  2 <span>Kg.</span>
+                  {detilSetoran.sampah_kasar} <span>Kg.</span>
+                </p>
+                <label>Jumlah Setoran</label>
+                <p className="bg-slate-300 rounded-md p-1 px-2">
+                  {detilSetoran.jumlah_setoran} <span>Kg.</span>
                 </p>
                 <label>Jenis Sampah</label>
-                <p className="bg-slate-300 rounded-md p-1 px-2">Makanan</p>
+                <p className="bg-slate-300 rounded-md p-1 px-2">
+                  {detilSetoran.jenis_sampah}
+                </p>
               </div>
               <div className="flex justify-around w-72 mt-2">
                 <button className="text-center font-medium bg-accent py-1 w-20 rounded-md">
