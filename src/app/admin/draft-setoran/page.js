@@ -3,17 +3,38 @@ import AdminLayout from "@/app/components/adminLayout";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import format from "date-format";
+import SpinnerLoading from "@/app/components/spinner";
 
 const DraftSetoran = () => {
   const [popUp, setPopUp] = useState(false);
   const [dataSetoranMasuk, setDataSetoranMasuk] = useState([]);
   const [detilSetoran, setDetilSetoran] = useState({});
+  const [btnLoading, setBtnLoading] = useState(false);
+  const [btnDisable, setBtnDisable] = useState(false);
 
   useEffect(function () {
     axios
       .get("/api/admin/setoran-masuk")
       .then((res) => setDataSetoranMasuk(res.data.data));
   }, []);
+
+  const setoranDiTolak = async (id) => {
+    try {
+      setBtnDisable(true);
+      setBtnLoading(true);
+
+      await axios.delete(`/api/admin/setoran-masuk/${id}/tolak`);
+
+      const filterData = [...dataSetoranMasuk].filter((v) => v._id !== id);
+      setDataSetoranMasuk(filterData);
+
+      setBtnDisable(false);
+      setBtnLoading(false);
+      setPopUp(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -107,11 +128,18 @@ const DraftSetoran = () => {
                 </p>
               </div>
               <div className="flex justify-around w-72 mt-2">
-                <button className="text-center font-medium bg-accent py-1 w-20 rounded-md">
+                <button
+                  disabled={btnDisable}
+                  className="text-center font-medium bg-accent py-1 w-20 rounded-md"
+                >
                   Setujui
                 </button>
-                <button className="text-center text-white font-medium bg-red-600 py-1 w-20 rounded-md">
-                  Tolak
+                <button
+                  disabled={btnDisable}
+                  className="text-center text-white font-medium bg-red-600 py-1 w-20 rounded-md flex justify-center items-center"
+                  onClick={() => setoranDiTolak(detilSetoran._id)}
+                >
+                  {btnLoading ? <SpinnerLoading w="w-5" h="h-5" /> : "Tolak"}
                 </button>
               </div>
             </div>
