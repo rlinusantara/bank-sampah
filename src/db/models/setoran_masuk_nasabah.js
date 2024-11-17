@@ -29,6 +29,10 @@ export const schemaSetoranMasuk = new mongoose.Schema({
     type: String,
     required: true,
   },
+  nama_nasabah: {
+    type: String,
+    required: true,
+  },
   setujui: {
     type: Boolean,
     default: false,
