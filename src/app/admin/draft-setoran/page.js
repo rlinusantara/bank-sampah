@@ -13,11 +13,15 @@ const DraftSetoran = () => {
   const [btnDisable, setBtnDisable] = useState(false);
   const [isLoading, setIsloading] = useState(true);
   const [btnLoadingSetuju, setBtnLoadingSetuju] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(function () {
     axios.get("/api/admin/setoran-masuk").then((res) => {
-      setDataSetoranMasuk(res.data.data);
+      if (res.data.data.length === 0) {
+        setIsEmpty(true);
+      }
       setIsloading(false);
+      setDataSetoranMasuk(res.data.data);
     });
   }, []);
 
@@ -110,6 +114,14 @@ const DraftSetoran = () => {
             {isLoading ? (
               <section className="flex justify-center items-center mt-2">
                 <SpinnerLoading />
+              </section>
+            ) : (
+              ""
+            )}
+
+            {isEmpty ? (
+              <section className="flex justify-center">
+                <p>Data kosong</p>
               </section>
             ) : (
               ""
