@@ -23,6 +23,9 @@ const Header = () => {
                     <li>
                         <Link href="/grafik" className="text-gray-900 dark:text-white hover:underline">Grafik</Link>
                     </li>
+                    <li>
+                        <Link href="/admin/login" className="text-gray-900 dark:text-white hover:underline">Dashboard</Link>
+                    </li>
                     </ul>
                 </div>
                 </div>

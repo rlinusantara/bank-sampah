@@ -63,29 +63,29 @@ const Login = () => {
   };
 
   return (
-    <section className="h-[100vh] flex justify-center items-center">
-      <section className="w-10/12 relative overflow-hidden pt-16">
+    <section className="h-[100vh] flex justify-center items-center bg-secondary">
+      <section className="w-10/12 relative bg-accent p-4 rounded-lg xl:w-2/5 xl:p-8">
         <div
-          className={`duration-300 transition-all p-4 mb-4 ${msg?.textColor} rounded-lg ${msg?.bgColor} absolute top-0 ${showMsg}  w-fit`}
+          className={`duration-300 transition-all p-3 mb-4 fixed top-80 ${msg?.textColor} rounded-lg ${msg?.bgColor} absolute top-0 ${showMsg}  w-fit`}
           role="alert"
         >
-          <span className="font-semibold">{msg?.title}: </span> {msg?.text}
+          <span className="font-semibold">{msg?.title} </span> {msg?.text}
         </div>
 
-        <h1 className="font-medium text-center">Silahkan login</h1>
+        <h1 className="font-bold text-center text-2xl p-2">Silahkan Login</h1>
 
         <form className="w-full" onSubmit={submit} ref={form}>
           <div className="mb-5">
             <label
               htmlFor="username"
-              className="block mb-2 text-sm font-medium text-gray-900 "
+              className="block mb-2 text-base font-medium text-gray-900 "
             >
               Username
             </label>
             <input
               type="username"
               id="username"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 outline-none"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg block w-full p-2.5 outline-none"
               required
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -93,7 +93,7 @@ const Login = () => {
           <div className="mb-5">
             <label
               htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-900 "
+              className="block mb-2 text-base font-medium text-gray-900 "
             >
               Password
             </label>
@@ -101,7 +101,7 @@ const Login = () => {
               <input
                 type={showHidePassword ? "text" : "password"}
                 id="password"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 outline-none"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg  block w-full p-2.5 outline-none"
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -115,7 +115,7 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center flex justify-center items-center"
+            className="text-white bg-primary  font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center flex justify-center items-center"
             disabled={btnDisable}
           >
             {btnLoading ? <SpinnerLoading w="w-6" h="h-6" /> : "Login"}
