@@ -1,6 +1,6 @@
 "use client"
-import AdminLayout from "../components/adminLayout";
-import FormInputSampah from "../components/formSampah";
+import AdminLayout from "../../components/adminLayout";
+import FormInputSampah from "../../components/formSampah";
 
 const SetoranMasuk = () => {
     return (

@@ -8,7 +8,8 @@ import {
   Banknote,
   LayoutDashboard,
   Egg,
-  FileClock
+  FileClock,
+  DatabaseBackup
 } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
@@ -19,7 +20,7 @@ export default function SidebarAdmin() {
     return (
       <Link href={link}>
         <li
-          className={`relative flex items-center p-2 mb-1 h-12 lg:h-16 rounded-md cursor-pointer transition-colors group ${
+          className={`relative flex items-center p-2  h-12 lg:h-16 rounded-md cursor-pointer transition-colors group ${
             active
               ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
               : "hover:bg-indigo-50 text-gray-600"
@@ -53,7 +54,7 @@ export default function SidebarAdmin() {
   };
 
   return (
-    <div className="flex fixed h-full z-50 ">
+    <div className="flex fixed h-full z-50">
       <aside className="h-full">
         <nav className="h-full flex flex-col bg-white border-r shadow-sm">
           <div className="p-4 pb-2 mb-3 flex justify-between items-center">
@@ -82,42 +83,47 @@ export default function SidebarAdmin() {
             <SidebarItem
               icon={<LayoutDashboard size={30} />}
               text="Dashboard"
-              link="/dashboard"
+              link="/admin/dashboard"
             />
             <SidebarItem
               icon={<ClipboardPlus size={30} />}
               text="Setoran Masuk"
-              link="/setoran-masuk"
+              link="/admin/setoran-masuk"
             />
             <SidebarItem
-              icon={<FileClock size={30} />}
+              icon={<DatabaseBackup size={30} />}
               text="Draft Setoran"
-              link="/draft-setoran"
+              link="/admin/draft-setoran"
             />
             <SidebarItem
               icon={<HandCoins size={30} />}
-              text="Setoran Keluar"
-              link="/data-nasabah"
+              text="Penarikan Uang"
+              link="/admin/penarikan-uang"
             />
             <SidebarItem
               icon={<Database size={30} />}
               text="Data Nasabah"
-              link="/data-nasabah"
+              link="/admin/data-nasabah"
+            />
+            <SidebarItem
+              icon={<DatabaseBackup size={30} />}
+              text="Data Setoran"
+              link="/admin/data-nasabah"
             />
             <SidebarItem
               icon={<UserRoundPlus size={30} />}
               text="Tambah Nasabah"
-              link="/tambah-nasabah"
+              link="/admin/tambah-nasabah"
             />
             <SidebarItem
               icon={<Banknote size={30} />}
               text="Harga Sampah"
-              link="/data-nasabah"
+              link="/admin/data-nasabah"
             />
             <SidebarItem
               icon={<Egg size={30} />}
               text="Pendataan Telur BSF"
-              link="/data-nasabah"
+              link="/admin/data-nasabah"
             />
           </ul>
         </nav>
