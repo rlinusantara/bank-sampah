@@ -19,6 +19,7 @@ const FormInputSampah = () => {
   const [msg, setMsg] = useState("");
   const [btnDisable, setBtnDisable] = useState(false);
   const [popUpIsLoading, setPopUpisLoading] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   const sendData = async (e) => {
     e.preventDefault();
@@ -56,6 +57,9 @@ const FormInputSampah = () => {
           label: item.nama,
           value: item._id,
         }));
+        if (p.length === 0) {
+          setIsEmpty(true);
+        }
         setNasabah(p);
         setLoading(false);
       } catch (error) {
@@ -123,6 +127,16 @@ const FormInputSampah = () => {
               onChange={setId}
               required
             />
+          )}
+          {isEmpty ? (
+            <input
+              disabled
+              type="text"
+              className="h-10 rounded-lg px-2 mb-2 w-full xl:w-full text-black bg-white"
+              placeholder="Data nasabah kosong"
+            />
+          ) : (
+            ""
           )}
           <div className="">
             <label className="block lg:text-lg  text-black font-medium">
