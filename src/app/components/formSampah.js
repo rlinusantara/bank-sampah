@@ -41,7 +41,7 @@ const FormInputSampah = () => {
       }, 1000);
     } catch (error) {
       setPopUpisLoading(false);
-      if (error.response.data.errors) {
+      if (error?.response?.data?.errors) {
         setMsg(error.response.data.errors.join("\n\n"));
       } else {
         setMsg(error.message);

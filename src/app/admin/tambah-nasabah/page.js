@@ -1,6 +1,5 @@
 "use client";
-
-import AdminLayout from "../components/adminLayout";
+import AdminLayout from "@/app/components/adminLayout";
 import { useState, useEffect } from "react";
 const TambahNasabah = () => {
   const [popUp, setPopUp] = useState(false);
@@ -9,7 +8,10 @@ const TambahNasabah = () => {
       <AdminLayout>
         <div className="ml-16 w-80 xl:w-[100%] xl:relative xl:left-32">
           <h1 className="text-center text-xl font-bold p-2">Tambah Nasabah</h1>
-          <form onSubmit={()=>setPopUp(true)} className="bg-accent flex flex-col mx-2 p-2 xl:p-4 xl:w-[1000px] w-full rounded-xl">
+          <form
+            onSubmit={() => setPopUp(true)}
+            className="bg-accent flex flex-col mx-2 p-2 xl:p-4 xl:w-[1000px] w-full rounded-xl"
+          >
             <label className="block lg:text-lg text-black font-medium">
               nama
             </label>
@@ -37,7 +39,10 @@ const TambahNasabah = () => {
                   <button className="text-center font-medium bg-accent py-1 w-20 rounded-md">
                     Simpan
                   </button>
-                  <button onClick={()=>setPopUp(false)} className="text-center text-white font-medium bg-red-600 py-1 w-20 rounded-md">
+                  <button
+                    onClick={() => setPopUp(false)}
+                    className="text-center text-white font-medium bg-red-600 py-1 w-20 rounded-md"
+                  >
                     Batal
                   </button>
                 </div>
