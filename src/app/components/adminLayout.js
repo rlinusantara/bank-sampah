@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import DashNav from "./dashNav";
 import SidebarAdmin from "./sidebar";
 import axios from "axios";
 import SpinnerLoading from "./spinner";
@@ -29,10 +30,15 @@ const AdminLayout = ({ children }) => {
 
   return (
     <>
-      <div className="flex flex-grow w-full lg:w-full min-h-screen bg-slate-200">
-        <SidebarAdmin />
-        <div className="p-1">{children}</div>
-      </div>
+       <div className="w-full lg:w-full min-h-screen bg-slate-200">
+            <DashNav/>
+            <div className="flex flex-grow ">
+                <SidebarAdmin/>
+                <div className="p-1">
+                    {children}
+                </div>
+            </div>
+        </div>
     </>
   );
 };

@@ -4,7 +4,6 @@ import AdminLayout from "@/app/components/adminLayout";
 import SpinnerLoading from "@/app/components/spinner";
 import formatRupiah from "@/helpers/formatRupiah";
 import axios from "axios";
-import { useState } from "react";
 import { UserRoundPlus, X } from "lucide-react";
 
 const DaftarNasabah = () => {
@@ -102,8 +101,8 @@ const DaftarNasabah = () => {
                     <X />
                   </button>
                 </div>
-                <div
-                  // onSubmit={() => setConfirm(true)}
+                <form
+                  onSubmit={() => setConfirm(true)}
                   className="flex flex-col"
                 >
                   <label className="block lg:text-lg text-black font-medium">
@@ -123,7 +122,7 @@ const DaftarNasabah = () => {
                   >
                     Simpan
                   </button>
-                </div>
+                </form>
               </div>
             </div>
           ) : (

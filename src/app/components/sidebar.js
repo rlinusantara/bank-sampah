@@ -7,7 +7,7 @@ import {
   Banknote,
   LayoutDashboard,
   Egg,
-  DatabaseBackup
+  DatabaseBackup,
 } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
@@ -52,75 +52,77 @@ export default function SidebarAdmin() {
   };
 
   return (
-    <div className="flex fixed h-full z-50">
-      <aside className="h-full">
-        <nav className="h-full flex flex-col bg-white border-r shadow-sm">
-          <div className="p-4 pb-2 mb-3 flex justify-between items-center">
-            <Image
-              src="/logo.png"
-              alt="logo"
-              width={500}
-              height={500}
-              className={`overflow-hidden transition-all ${
-                expanded ? "w-24" : "w-0"
-              }`}
-            />
-            <button
-              onClick={() => setExpanded((curr) => !curr)}
-              className="p-1.5 rounded-lg text-black bg bg-indigo-100"
-            >
-              {expanded ? (
-                <ChevronFirst size={30} />
-              ) : (
-                <ChevronLast size={30} />
-              )}
-            </button>
-          </div>
+    <div>
+      <div className="flex fixed h-full z-50">
+        <aside className="h-full">
+          <nav className="h-full flex flex-col bg-white border-r shadow-sm">
+            <div className="p-4 pb-2 mb-3 flex justify-between items-center">
+              <Image
+                src="/logo.png"
+                alt="logo"
+                width={500}
+                height={500}
+                className={`overflow-hidden transition-all ${
+                  expanded ? "w-24" : "w-0"
+                }`}
+              />
+              <button
+                onClick={() => setExpanded((curr) => !curr)}
+                className="p-1.5 rounded-lg text-black bg bg-indigo-100"
+              >
+                {expanded ? (
+                  <ChevronFirst size={30} />
+                ) : (
+                  <ChevronLast size={30} />
+                )}
+              </button>
+            </div>
 
-          <ul className="flex-1 px-3">
-            <SidebarItem
-              icon={<LayoutDashboard size={30} />}
-              text="Dashboard"
-              link="/admin/dashboard"
-            />
-            <SidebarItem
-              icon={<ClipboardPlus size={30} />}
-              text="Setoran Masuk"
-              link="/admin/setoran-masuk"
-            />
-            <SidebarItem
-              icon={<DatabaseBackup size={30} />}
-              text="Draft Setoran"
-              link="/admin/draft-setoran"
-            />
-            <SidebarItem
-              icon={<HandCoins size={30} />}
-              text="Penarikan Uang"
-              link="/admin/penarikan-uang"
-            />
-            <SidebarItem
-              icon={<Users size={30} />}
-              text="Data Nasabah"
-              link="/admin/data-nasabah"
-            />
-            <SidebarItem
-              icon={<DatabaseBackup size={30} />}
-              text="Data Setoran"
-              link="/admin/data-nasabah"
-            />
-            <SidebarItem
-              icon={<Banknote size={30} />}
-              text="Harga Sampah"
-              link="/admin/data-nasabah"
-            />
-            <SidebarItem
-              icon={<Egg size={30} />}
-              text="Pendataan Telur BSF"
-              link="/admin/data-nasabah"
-            />
-          </ul>
-        </nav>
-      </aside>
+            <ul className="flex-1 px-3">
+              <SidebarItem
+                icon={<LayoutDashboard size={30} />}
+                text="Dashboard"
+                link="/admin/dashboard"
+              />
+              <SidebarItem
+                icon={<ClipboardPlus size={30} />}
+                text="Setoran Masuk"
+                link="/admin/setoran-masuk"
+              />
+              <SidebarItem
+                icon={<DatabaseBackup size={30} />}
+                text="Draft Setoran"
+                link="/admin/draft-setoran"
+              />
+              <SidebarItem
+                icon={<HandCoins size={30} />}
+                text="Penarikan Uang"
+                link="/admin/penarikan-uang"
+              />
+              <SidebarItem
+                icon={<Users size={30} />}
+                text="Data Nasabah"
+                link="/admin/data-nasabah"
+              />
+              <SidebarItem
+                icon={<DatabaseBackup size={30} />}
+                text="Data Setoran"
+                link="/admin/data-nasabah"
+              />
+              <SidebarItem
+                icon={<Banknote size={30} />}
+                text="Harga Sampah"
+                link="/admin/data-nasabah"
+              />
+              <SidebarItem
+                icon={<Egg size={30} />}
+                text="Pendataan Telur BSF"
+                link="/admin/data-nasabah"
+              />
+            </ul>
+          </nav>
+        </aside>
+      </div>
     </div>
   );
 }
