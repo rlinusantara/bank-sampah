@@ -42,9 +42,6 @@ const DaftarNasabah = () => {
               className="border p-2 flex-grow mr-2 rounded"
               onChange={(e) => btnCari(e.target.value)}
             />
-            <button className="bg-primary text-white p-2 rounded">
-              <Search />
-            </button>
           </div>
           <table className="min-w-full border">
             <thead>
