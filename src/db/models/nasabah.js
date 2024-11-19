@@ -66,6 +66,10 @@ const nasabahSchema = new mongoose.Schema({
   },
   setoran_keluar: [SetoranKeluarCol],
   history_setoran_masuk: [schemaSetoranMasuk],
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const NasabahCol =

@@ -19,7 +19,16 @@ async function registerNasabah(req) {
     const insert = new NasabahCol(body);
     await insert.save();
 
-    return Response.json({ message: "Berhasil register nasabah" });
+    const nasabahRes = {
+      nama: body.nama,
+      total_tabungan: 0,
+      total_setoran: 0,
+    };
+
+    return Response.json({
+      message: "Berhasil register nasabah",
+      data: nasabahRes,
+    });
   } catch (error) {
     return errorHandling(error);
   }
