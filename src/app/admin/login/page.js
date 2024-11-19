@@ -1,9 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import SpinnerLoading from "@/app/components/spinner";
-import { redirect } from "next/navigation";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const [showHidePassword, setShowHidePassword] = useState(false);
@@ -14,6 +14,16 @@ const Login = () => {
   const form = useRef();
   const [msg, setMsg] = useState({});
   const [showMsg, setShowMsg] = useState("-translate-x-full");
+  const [isLogin, setIsLogin] = useState(true);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    axios
+      .post("/api/admin/islogin")
+      .then(() => router.push("/admin/dashboard"))
+      .catch(() => setIsLogin(false));
+  }, []);
 
   const submit = async (e) => {
     try {
@@ -39,7 +49,7 @@ const Login = () => {
         setShowMsg("-translate-x-0");
 
         setTimeout(() => {
-          redirect("/admin/dashboard");
+          router.push("/admin/dashboard");
         }, 1000);
       }, 2000);
     } catch (error) {
@@ -61,6 +71,14 @@ const Login = () => {
       setShowMsg("-translate-x-0");
     }
   };
+
+  if (isLogin) {
+    return (
+      <section className="w-full bg-white h-[100vh] flex justify-center items-center">
+        <SpinnerLoading />
+      </section>
+    );
+  }
 
   return (
     <section className="h-[100vh] flex justify-center items-center bg-secondary">
@@ -103,6 +121,7 @@ const Login = () => {
                 id="password"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg  block w-full p-2.5 outline-none"
                 required
+                autoComplete="off"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <i
@@ -127,3 +146,17 @@ const Login = () => {
 };
 
 export default Login;
+
+// const Login = () => {
+//   const [isLogin, setIsLogin] = useState(true);
+
+//   useEffect(function () {
+//     axios.post("/api/admin/islogin").then((res) => {
+//       redirect("/admin/dashboard");
+//     });
+//   }, []);
+
+//   return <section>ojsdfs</section>;
+// };
+
+// export default Login;
