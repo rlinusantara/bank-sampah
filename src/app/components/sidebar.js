@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   Egg,
   DatabaseBackup,
+  FileClock,
 } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
@@ -105,14 +106,14 @@ export default function SidebarAdmin() {
                 link="/admin/data-nasabah"
               />
               <SidebarItem
-                icon={<DatabaseBackup size={30} />}
-                text="Data Setoran"
-                link="/admin/data-nasabah"
+                icon={<FileClock size={30} />}
+                text="Riwayat Setoran"
+                link="/admin/histori-setoran"
               />
               <SidebarItem
                 icon={<Banknote size={30} />}
                 text="Harga Sampah"
-                link="/admin/data-nasabah"
+                link="/admin/harga-sampah"
               />
               <SidebarItem
                 icon={<Egg size={30} />}
