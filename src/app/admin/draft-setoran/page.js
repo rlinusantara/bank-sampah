@@ -14,6 +14,7 @@ const DraftSetoran = () => {
   const [isLoading, setIsloading] = useState(true);
   const [btnLoadingSetuju, setBtnLoadingSetuju] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [btnXDisable, setBtnXDisable] = useState(false);
 
   useEffect(function () {
     axios.get("/api/admin/setoran-masuk").then((res) => {
@@ -29,6 +30,7 @@ const DraftSetoran = () => {
     try {
       setBtnDisable(true);
       setBtnLoadingTolak(true);
+      setBtnXDisable(true);
 
       await axios.delete(`/api/admin/setoran-masuk/${id}/tolak`);
 
@@ -37,7 +39,12 @@ const DraftSetoran = () => {
 
       setBtnDisable(false);
       setBtnLoadingTolak(false);
+      setBtnXDisable(false);
       setPopUp(false);
+
+      if (dataSetoranMasuk.length === 1) {
+        setIsEmpty(true);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -47,6 +54,7 @@ const DraftSetoran = () => {
     try {
       setBtnDisable(true);
       setBtnLoadingSetuju(true);
+      setBtnXDisable(true);
 
       await axios.post(`/api/admin/setoran-masuk/${id}/setuju`);
 
@@ -56,8 +64,13 @@ const DraftSetoran = () => {
       setBtnDisable(false);
       setBtnLoadingSetuju(false);
       setPopUp(false);
+      setBtnXDisable(false);
+
+      if (dataSetoranMasuk.length === 1) {
+        setIsEmpty(true);
+      }
     } catch (error) {
-      console.log();
+      console.log(error);
     }
   };
 
@@ -100,6 +113,7 @@ const DraftSetoran = () => {
                         onClick={() => {
                           setDetilSetoran(value);
                           setPopUp(true);
+                          setBtnLoadingSetuju(false);
                         }}
                         className="bg-primary py-1 px-3 rounded-md text-white text-center"
                       >
@@ -129,70 +143,76 @@ const DraftSetoran = () => {
           </div>
 
           {popUp ? (
-            <div className="bg-background rounded-md relative bottom-20 py-5 mx-2">
-              <div className="flex justify-between p-2 mx-5">
-                <h1 className="w-96 text-center text-lg font-bold">
-                  Detil Setoran Nasabah
-                </h1>
-                <button
-                  onClick={() => setPopUp(false)}
-                  className="font-extrabold text-xl"
-                >
-                  X
-                </button>
+            <section className="fixed top-0 left-0 right-0 bottom-0 layar-hitam z-10 flex justify-center items-center">
+              <div className="bg-background rounded-md relative bottom-20 py-5 mx-2 w-80 mt-20">
+                <div className="flex justify-between p-2 mx-5">
+                  <h1 className="w-96 text-center text-lg font-bold">
+                    Detil Setoran Nasabah
+                  </h1>
+                  <button
+                    disabled={btnXDisable}
+                    onClick={() => setPopUp(false)}
+                    className="font-extrabold text-xl"
+                  >
+                    X
+                  </button>
+                </div>
+                <div className="p-2 mx-2">
+                  <label>Tanggal</label>
+                  <p className="bg-slate-300 rounded-md p-1 px-2">
+                    {" "}
+                    {format(
+                      "dd:MM:yyyy",
+                      new Date(detilSetoran.tanggal_setoran)
+                    )}
+                  </p>
+                  <label>Nama</label>
+                  <p className="bg-slate-300 rounded-md p-1 px-2">
+                    {detilSetoran.nama_nasabah}
+                  </p>
+                  <label>Jumlah Sampah Halus</label>
+                  <p className="bg-slate-300 rounded-md p-1 px-2">
+                    {detilSetoran.sampah_halus} <span>Kg.</span>
+                  </p>
+                  <label>Jumlah Sampah Kasar</label>
+                  <p className="bg-slate-300 rounded-md p-1 px-2">
+                    {detilSetoran.sampah_kasar} <span>Kg.</span>
+                  </p>
+                  <label>Jumlah Setoran</label>
+                  <p className="bg-slate-300 rounded-md p-1 px-2">
+                    {detilSetoran.jumlah_setoran} <span>Kg.</span>
+                  </p>
+                  <label>Jenis Sampah</label>
+                  <p className="bg-slate-300 rounded-md p-1 px-2">
+                    {detilSetoran.jenis_sampah}
+                  </p>
+                </div>
+                <div className="flex justify-around w-72 mt-2">
+                  <button
+                    disabled={btnDisable}
+                    className="text-center font-medium bg-accent py-1 w-20 rounded-md flex justify-center items-center"
+                    onClick={() => setoranDiSetujui(detilSetoran._id)}
+                  >
+                    {btnLoadingSetuju ? (
+                      <SpinnerLoading w="w-5" h="h-5" />
+                    ) : (
+                      "Setuju"
+                    )}
+                  </button>
+                  <button
+                    disabled={btnDisable}
+                    className="text-center text-white font-medium bg-red-600 py-1 w-20 rounded-md flex justify-center items-center"
+                    onClick={() => setoranDiTolak(detilSetoran._id)}
+                  >
+                    {btnLoadingTolak ? (
+                      <SpinnerLoading w="w-5" h="h-5" />
+                    ) : (
+                      "Tolak"
+                    )}
+                  </button>
+                </div>
               </div>
-              <div className="p-2 mx-2">
-                <label>Tanggal</label>
-                <p className="bg-slate-300 rounded-md p-1 px-2">
-                  {" "}
-                  {format("dd:MM:yyyy", new Date(detilSetoran.tanggal_setoran))}
-                </p>
-                <label>Nama</label>
-                <p className="bg-slate-300 rounded-md p-1 px-2">
-                  {detilSetoran.nama_nasabah}
-                </p>
-                <label>Jumlah Sampah Halus</label>
-                <p className="bg-slate-300 rounded-md p-1 px-2">
-                  {detilSetoran.sampah_halus} <span>Kg.</span>
-                </p>
-                <label>Jumlah Sampah Kasar</label>
-                <p className="bg-slate-300 rounded-md p-1 px-2">
-                  {detilSetoran.sampah_kasar} <span>Kg.</span>
-                </p>
-                <label>Jumlah Setoran</label>
-                <p className="bg-slate-300 rounded-md p-1 px-2">
-                  {detilSetoran.jumlah_setoran} <span>Kg.</span>
-                </p>
-                <label>Jenis Sampah</label>
-                <p className="bg-slate-300 rounded-md p-1 px-2">
-                  {detilSetoran.jenis_sampah}
-                </p>
-              </div>
-              <div className="flex justify-around w-72 mt-2">
-                <button
-                  disabled={btnDisable}
-                  className="text-center font-medium bg-accent py-1 w-20 rounded-md flex justify-center items-center"
-                  onClick={() => setoranDiSetujui(detilSetoran._id)}
-                >
-                  {btnLoadingSetuju ? (
-                    <SpinnerLoading w="w-5" h="h-5" />
-                  ) : (
-                    "Setuju"
-                  )}
-                </button>
-                <button
-                  disabled={btnDisable}
-                  className="text-center text-white font-medium bg-red-600 py-1 w-20 rounded-md flex justify-center items-center"
-                  onClick={() => setoranDiTolak(detilSetoran._id)}
-                >
-                  {btnLoadingTolak ? (
-                    <SpinnerLoading w="w-5" h="h-5" />
-                  ) : (
-                    "Tolak"
-                  )}
-                </button>
-              </div>
-            </div>
+            </section>
           ) : (
             ""
           )}

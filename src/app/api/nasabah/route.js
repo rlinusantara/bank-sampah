@@ -8,8 +8,8 @@ async function getAllNasabah(req) {
     const nasabah = await NasabahCol.aggregate([
       {
         $project: {
-          _id: 1,
-          nama: 1,
+          setoran_keluar: 0,
+          history_setoran_masuk: 0,
         },
       },
     ]);

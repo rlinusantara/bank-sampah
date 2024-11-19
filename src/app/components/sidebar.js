@@ -53,7 +53,7 @@ export default function SidebarAdmin() {
 
   return (
     <div>
-      <div className="flex fixed h-full z-50">
+      <div className="flex fixed h-full z-10">
         <aside className="h-full">
           <nav className="h-full flex flex-col bg-white border-r shadow-sm">
             <div className="p-4 pb-2 mb-3 flex justify-between items-center">
