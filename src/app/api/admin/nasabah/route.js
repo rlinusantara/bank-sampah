@@ -12,6 +12,11 @@ async function getAllNasabah(req) {
           history_setoran_masuk: 0,
         },
       },
+      {
+        $sort: {
+          created_at: -1,
+        },
+      },
     ]);
     return Response.json({ message: "Hello World1", data: nasabah });
   } catch (error) {

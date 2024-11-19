@@ -13,7 +13,13 @@ const DaftarNasabah = () => {
   const [popUp, setPopUp] = useState(false);
   const [confirm, setConfirm] = useState(false);
 
-  useState(function () {
+  const [namaNasabah, setNamaNasabah] = useState("");
+  const [msg, setMsg] = useState("");
+  const [addLoading, setAddLoading] = useState(false);
+  const [addBtnDisable, setAddBtnDisable] = useState(false);
+  const [addBtnDisableTolak, setAddBtnDisableTolak] = useState(false);
+
+  useEffect(function () {
     axios.get("/api/admin/nasabah").then((res) => {
       if (res.data.data.length === 0) {
         setIsEmpty(true);
@@ -23,9 +29,31 @@ const DaftarNasabah = () => {
     });
   }, []);
 
+  const AddNasabah = async () => {
+    try {
+      setAddLoading(true);
+      setAddBtnDisable(true);
+      setAddBtnDisableTolak(true);
+      const res = await axios.post("/api/admin/nasabah/register", {
+        nama: namaNasabah,
+      });
+
+      setMsg(res.data.message);
+      setAddLoading(false);
+      setAddBtnDisableTolak(false);
+      setConfirm(false);
+      setPopUp(false);
+      setNasabah([res.data.data, ...nasabah]);
+    } catch (error) {
+      setAddBtnDisableTolak(false);
+      setAddLoading(false);
+      console.log(error);
+    }
+  };
+
   return (
     <>
- <AdminLayout>
+      <AdminLayout>
         <div className="borderw-80 ml-[78px]">
           <h1 className="text-center text-xl font-bold p-2">Data Nasabah</h1>
           <div className="relative overflow-x-auto">
@@ -96,13 +124,24 @@ const DaftarNasabah = () => {
                   </h1>
                   <button
                     className="flex justify-around items-center py-2 px-3"
-                    onClick={() => setPopUp(false)}
+                    onClick={() => {
+                      setPopUp(false);
+                      setConfirm(false);
+                      setNamaNasabah("");
+                    }}
+                    disabled={addBtnDisable}
                   >
                     <X />
                   </button>
                 </div>
                 <form
-                  onSubmit={() => setConfirm(true)}
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (namaNasabah) {
+                      setConfirm(true);
+                      setAddBtnDisable(false);
+                    }
+                  }}
                   className="flex flex-col"
                 >
                   <label className="block lg:text-lg text-black font-medium">
@@ -110,13 +149,11 @@ const DaftarNasabah = () => {
                   </label>
                   <input
                     type="text"
-                    name=""
-                    id=""
                     className="h-10 rounded-lg mb-2 px-2 w-full xl:w-full text-black"
                     required
+                    onChange={(e) => setNamaNasabah(e.target.value)}
                   />
                   <button
-                    onClick={() => setConfirm(true)}
                     type="submit"
                     className="text-white bg-primary font-bold rounded-lg text-base px-5 py-2.5 me-2 mt-2"
                   >
@@ -136,12 +173,21 @@ const DaftarNasabah = () => {
               <div className="flex flex-col justify-between h-40 my-2">
                 <h1 className="text-xl font-bold">Konfirmasi Penambahan</h1>
                 <div className="flex justify-around">
-                  <button className="text-center font-medium bg-accent py-1 w-20 rounded-md">
-                    Simpan
+                  <button
+                    className="text-center font-medium bg-accent py-1 w-20 rounded-md flex justify-center items-center"
+                    onClick={AddNasabah}
+                    disabled={addBtnDisable}
+                  >
+                    {addLoading ? <SpinnerLoading w="w-5" h="h-5" /> : "Simpan"}
                   </button>
                   <button
-                    onClick={() => setConfirm(false)}
+                    onClick={() => {
+                      setConfirm(false);
+                      setNamaNasabah("");
+                      setPopUp(false);
+                    }}
                     className="text-center text-white font-medium bg-red-600 py-1 w-20 rounded-md"
+                    disabled={addBtnDisableTolak}
                   >
                     Batal
                   </button>
