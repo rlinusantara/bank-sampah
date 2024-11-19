@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { schemaSetoranMasuk } from "./setoran_masuk_nasabah";
 
 const SetoranKeluarCol = new mongoose.Schema({
   tabungan_keluar: {
@@ -9,6 +8,45 @@ const SetoranKeluarCol = new mongoose.Schema({
   tanggal_setoran_keluar: {
     type: String,
     required: true,
+  },
+});
+
+export const schemaSetoranMasuk = new mongoose.Schema({
+  tanggal_setoran: {
+    type: Date,
+    required: true,
+  },
+  jenis_sampah: {
+    type: String,
+    required: true,
+  },
+  harga_satuan: {
+    type: Number,
+    required: true,
+  },
+  sampah_halus: {
+    type: Number,
+    required: true,
+  },
+  sampah_kasar: {
+    type: Number,
+    required: true,
+  },
+  jumlah_setoran: {
+    type: Number,
+    required: true,
+  },
+  id_nasabah: {
+    type: String,
+    required: true,
+  },
+  nama_nasabah: {
+    type: String,
+    required: true,
+  },
+  tanggal_setoran_disetujui: {
+    type: Date,
+    default: Date.now,
   },
 });
 

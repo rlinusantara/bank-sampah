@@ -9,19 +9,26 @@ const DraftSetoran = () => {
   const [popUp, setPopUp] = useState(false);
   const [dataSetoranMasuk, setDataSetoranMasuk] = useState([]);
   const [detilSetoran, setDetilSetoran] = useState({});
-  const [btnLoading, setBtnLoading] = useState(false);
+  const [btnLoadingTolak, setBtnLoadingTolak] = useState(false);
   const [btnDisable, setBtnDisable] = useState(false);
+  const [isLoading, setIsloading] = useState(true);
+  const [btnLoadingSetuju, setBtnLoadingSetuju] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(function () {
-    axios
-      .get("/api/admin/setoran-masuk")
-      .then((res) => setDataSetoranMasuk(res.data.data));
+    axios.get("/api/admin/setoran-masuk").then((res) => {
+      if (res.data.data.length === 0) {
+        setIsEmpty(true);
+      }
+      setIsloading(false);
+      setDataSetoranMasuk(res.data.data);
+    });
   }, []);
 
   const setoranDiTolak = async (id) => {
     try {
       setBtnDisable(true);
-      setBtnLoading(true);
+      setBtnLoadingTolak(true);
 
       await axios.delete(`/api/admin/setoran-masuk/${id}/tolak`);
 
@@ -29,10 +36,28 @@ const DraftSetoran = () => {
       setDataSetoranMasuk(filterData);
 
       setBtnDisable(false);
-      setBtnLoading(false);
+      setBtnLoadingTolak(false);
       setPopUp(false);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const setoranDiSetujui = async (id) => {
+    try {
+      setBtnDisable(true);
+      setBtnLoadingSetuju(true);
+
+      await axios.post(`/api/admin/setoran-masuk/${id}/setuju`);
+
+      const filterData = [...dataSetoranMasuk].filter((v) => v._id !== id);
+      setDataSetoranMasuk(filterData);
+
+      setBtnDisable(false);
+      setBtnLoadingSetuju(false);
+      setPopUp(false);
+    } catch (error) {
+      console.log();
     }
   };
 
@@ -43,7 +68,7 @@ const DraftSetoran = () => {
           <h1 className="text-center text-xl font-bold p-2">
             Draft Setoran Menunggu Acc
           </h1>
-          <div className="relative overflow-x-auto">
+          <div className="relative">
             <table className="w-full text-sm rtl:text-right text-gray-500 table-fixed text-center">
               <thead className="text-xs text-gray-700 bg-accent ">
                 <tr>
@@ -85,6 +110,22 @@ const DraftSetoran = () => {
                 ))}
               </tbody>
             </table>
+
+            {isLoading ? (
+              <section className="flex justify-center items-center mt-2">
+                <SpinnerLoading />
+              </section>
+            ) : (
+              ""
+            )}
+
+            {isEmpty ? (
+              <section className="flex justify-center">
+                <p>Data kosong</p>
+              </section>
+            ) : (
+              ""
+            )}
           </div>
 
           {popUp ? (
@@ -130,16 +171,25 @@ const DraftSetoran = () => {
               <div className="flex justify-around w-72 mt-2">
                 <button
                   disabled={btnDisable}
-                  className="text-center font-medium bg-accent py-1 w-20 rounded-md"
+                  className="text-center font-medium bg-accent py-1 w-20 rounded-md flex justify-center items-center"
+                  onClick={() => setoranDiSetujui(detilSetoran._id)}
                 >
-                  Setujui
+                  {btnLoadingSetuju ? (
+                    <SpinnerLoading w="w-5" h="h-5" />
+                  ) : (
+                    "Setuju"
+                  )}
                 </button>
                 <button
                   disabled={btnDisable}
                   className="text-center text-white font-medium bg-red-600 py-1 w-20 rounded-md flex justify-center items-center"
                   onClick={() => setoranDiTolak(detilSetoran._id)}
                 >
-                  {btnLoading ? <SpinnerLoading w="w-5" h="h-5" /> : "Tolak"}
+                  {btnLoadingTolak ? (
+                    <SpinnerLoading w="w-5" h="h-5" />
+                  ) : (
+                    "Tolak"
+                  )}
                 </button>
               </div>
             </div>

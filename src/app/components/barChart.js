@@ -20,23 +20,13 @@ ChartJS.register(
   Legend
 );
 
-export default function HorizontalBarChart() {
+export default function HorizontalBarChart({ dataTabungan = [], labels = [] }) {
   const data = {
-    labels: [
-      "Giraffes",
-      "Orangutans",
-      "Monkeys",
-      "Cat",
-      "Horse",
-      "Ca",
-      "bu",
-      "sdf",
-      "asdf",
-    ],
+    labels: labels,
     datasets: [
       {
         label: "Tabungan",
-        data: [100, 200, 400, 500, 600, 700, 800, 900, 1000],
+        data: dataTabungan,
         backgroundColor: ["#347928"],
         borderColor: ["#347928"],
         borderWidth: 1,
