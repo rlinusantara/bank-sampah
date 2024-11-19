@@ -1,14 +1,12 @@
 import {
   ChevronFirst,
   ChevronLast,
-  Database,
-  UserRoundPlus,
+  Users,
   ClipboardPlus,
   HandCoins,
   Banknote,
   LayoutDashboard,
   Egg,
-  FileClock,
   DatabaseBackup
 } from "lucide-react";
 import { useState } from "react";
@@ -101,7 +99,7 @@ export default function SidebarAdmin() {
               link="/admin/penarikan-uang"
             />
             <SidebarItem
-              icon={<Database size={30} />}
+              icon={<Users size={30} />}
               text="Data Nasabah"
               link="/admin/data-nasabah"
             />
@@ -109,11 +107,6 @@ export default function SidebarAdmin() {
               icon={<DatabaseBackup size={30} />}
               text="Data Setoran"
               link="/admin/data-nasabah"
-            />
-            <SidebarItem
-              icon={<UserRoundPlus size={30} />}
-              text="Tambah Nasabah"
-              link="/admin/tambah-nasabah"
             />
             <SidebarItem
               icon={<Banknote size={30} />}
