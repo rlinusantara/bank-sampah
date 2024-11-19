@@ -43,6 +43,7 @@ const DaftarNasabah = () => {
       setAddBtnDisableTolak(false);
       setConfirm(false);
       setPopUp(false);
+      setIsEmpty(false);
       setNasabah([res.data.data, ...nasabah]);
     } catch (error) {
       setAddBtnDisableTolak(false);
