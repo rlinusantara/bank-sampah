@@ -1,12 +1,16 @@
+import DashNav from "./dashNav";
 import SidebarAdmin from "./sidebar";
 
 const AdminLayout = ({children}) => {
     return (
         <>
-            <div className="flex flex-grow w-full lg:w-full min-h-screen bg-slate-200">
-                <SidebarAdmin/>
-                <div className="p-1">
-                    {children}
+            <div className="w-full lg:w-full min-h-screen bg-slate-200">
+                <DashNav/>
+                <div className="flex flex-grow ">
+                    <SidebarAdmin/>
+                    <div className="p-1">
+                        {children}
+                    </div>
                 </div>
             </div>
         </>
