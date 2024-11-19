@@ -16,12 +16,15 @@ const Header = () => {
             <nav className="bg-primary">
                 <div className="max-w-screen-xl px-4 py-3 mx-auto">
                 <div className="flex items-center">
-                    <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
+                    <ul className="flex flex-row font-medium mt-0 space-x-5 rtl:space-x-reverse text-sm">
                     <li>
                         <Link href="/tambah-data" className="text-gray-900 dark:text-white hover:underline" aria-current="page">Tambah Data</Link>
                     </li>
                     <li>
                         <Link href="/grafik" className="text-gray-900 dark:text-white hover:underline">Grafik</Link>
+                    </li>
+                    <li>
+                        <Link href="/daftar-nasabah" className="text-gray-900 dark:text-white hover:underline">Daftar Nasabah</Link>
                     </li>
                     <li>
                         <Link href="/admin/login" className="text-gray-900 dark:text-white hover:underline">Dashboard</Link>
