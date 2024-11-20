@@ -61,37 +61,60 @@ const handleSetoranMasukSetujui = async (res, params) => {
     if (!checkSetoran) {
       throw new ResponseErr(404, "Setoran tidak ada");
     }
-
     const nasabah = await NasabahCol.findById(checkSetoran.id_nasabah);
     if (!nasabah) {
       throw new ResponseErr(404, "Setoran tidak ada");
     }
 
-    await NasabahCol.updateOne(
-      { _id: checkSetoran.id_nasabah },
-      {
-        $set: {
-          total_tabungan:
-            (checkSetoran.sampah_halus + checkSetoran.sampah_kasar) *
-              checkSetoran.harga_satuan +
-            nasabah.total_tabungan,
-          total_setoran:
-            checkSetoran.sampah_halus +
-            checkSetoran.sampah_kasar +
-            nasabah.total_setoran,
-        },
-        $push: {
-          history_setoran_masuk: {
-            tanggal_setoran: checkSetoran.tanggal_setoran,
-            jenis_sampah: checkSetoran.jenis_sampah,
-            harga_satuan: checkSetoran.harga_satuan,
-            sampah_halus: checkSetoran.sampah_halus,
-            sampah_kasar: checkSetoran.sampah_kasar,
-            jumlah_setoran: checkSetoran.jumlah_setoran,
+    if (checkSetoran.sampah_halus === 0 && checkSetoran.sampah_kasar === 0) {
+      await NasabahCol.updateOne(
+        { _id: checkSetoran.id_nasabah },
+        {
+          $set: {
+            total_tabungan:
+              checkSetoran.jumlah_setoran * checkSetoran.harga_satuan +
+              nasabah.total_tabungan,
+            total_setoran: checkSetoran.jumlah_setoran + nasabah.total_setoran,
           },
-        },
-      }
-    );
+          $push: {
+            history_setoran_masuk: {
+              tanggal_setoran: checkSetoran.tanggal_setoran,
+              jenis_sampah: checkSetoran.jenis_sampah,
+              harga_satuan: checkSetoran.harga_satuan,
+              sampah_halus: checkSetoran.sampah_halus,
+              sampah_kasar: checkSetoran.sampah_kasar,
+              jumlah_setoran: checkSetoran.jumlah_setoran,
+            },
+          },
+        }
+      );
+    } else {
+      await NasabahCol.updateOne(
+        { _id: checkSetoran.id_nasabah },
+        {
+          $set: {
+            total_tabungan:
+              (checkSetoran.sampah_halus + checkSetoran.sampah_kasar) *
+                checkSetoran.harga_satuan +
+              nasabah.total_tabungan,
+            total_setoran:
+              checkSetoran.sampah_halus +
+              checkSetoran.sampah_kasar +
+              nasabah.total_setoran,
+          },
+          $push: {
+            history_setoran_masuk: {
+              tanggal_setoran: checkSetoran.tanggal_setoran,
+              jenis_sampah: checkSetoran.jenis_sampah,
+              harga_satuan: checkSetoran.harga_satuan,
+              sampah_halus: checkSetoran.sampah_halus,
+              sampah_kasar: checkSetoran.sampah_kasar,
+              jumlah_setoran: checkSetoran.jumlah_setoran,
+            },
+          },
+        }
+      );
+    }
 
     await session.commitTransaction();
     return Response.json({ message: "Setoran disetujui" }, { status: 200 });
