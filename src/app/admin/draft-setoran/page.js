@@ -77,7 +77,7 @@ const DraftSetoran = () => {
   return (
     <>
       <AdminLayout>
-        <div className="w-80 ml-[78px]">
+        <div className="w-[280px] ml-[73px]">
           <h1 className="text-center text-xl font-bold p-2">
             Draft Setoran Menunggu Acc
           </h1>

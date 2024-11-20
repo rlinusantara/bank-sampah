@@ -20,6 +20,7 @@ const FormInputSampah = () => {
   const [btnDisable, setBtnDisable] = useState(false);
   const [popUpIsLoading, setPopUpisLoading] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [tipeInput, setTipeInput] = useState("satu");
 
   const sendData = async (e) => {
     e.preventDefault();
@@ -98,94 +99,190 @@ const FormInputSampah = () => {
 
   return (
     <>
-      <div className=" xl:w-full flex justify-center font-nunito">
-        <form
-          ref={form}
-          onSubmit={sendData}
-          className="bg-accent flex flex-col mx-2 p-2 xl:p-4 xl:w-[1000px] w-full rounded-xl"
-        >
-          <label className="block lg:text-lg text-black font-medium ">
-            Tanggal
-          </label>
-          <input
-            onChange={(e) => setTanggal(e.target.value)}
-            type="date"
-            name=""
-            id=""
-            className="h-10 rounded-lg px-2 mb-2 text-black"
-            required
-          />
-          <label className="block lg:text-lg text-black font-medium">
-            Nasabah
-          </label>
-          {nasabah.length > 0 && (
-            <Select
-              ref={selectRef}
-              options={nasabah}
-              placeholder="Pilih Nasabah"
-              className="w-full rounded-lg"
-              onChange={setId}
-              required
-            />
-          )}
-          {isEmpty ? (
-            <input
-              disabled
-              type="text"
-              className="h-10 rounded-lg px-2 mb-2 w-full xl:w-full text-black bg-white"
-              placeholder="Data nasabah kosong"
-            />
-          ) : (
-            ""
-          )}
+      <div className="flex justify-center">
+        <div className="flex flex-col  bg-accent mx-2 p-2 xl:p-4 xl:w-[1000px] w-full rounded-xl">
           <div className="">
-            <label className="block lg:text-lg  text-black font-medium">
-              Jumlah Sampah Halus
+            <label className="block mb-2 text-lg font-medium text-gray-900 ">
+              Pilih Jenis Input
             </label>
-            <input
-              onChange={(e) => setJumlahSampahHalus(+e.target.value)}
-              type="number"
-              name=""
-              id=""
-              className="h-10 rounded-lg px-2 mb-2 w-full xl:w-full text-black"
-              required
-              step="any"
-            />
-            <label className="block lg:text-lg text-black font-medium">
-              Jumlah Sampah Kasar
-            </label>
-            <input
-              onChange={(e) => setJumlahSampahKasar(+e.target.value)}
-              type="number"
-              name=""
-              id=""
-              className="h-10 rounded-lg px-2 mb-2 w-full xl:w-full text-black"
-              required
-              step="any"
-            />
-            <label className="block lg:text-lg text-black font-medium">
-              Jenis Sampah
-            </label>
-            <input
-              onChange={(e) => setJenisSampah(e.target.value)}
-              type="text"
-              name=""
-              id=""
-              className="h-10 rounded-lg mb-2 px-2 w-full xl:w-full text-black"
-              required
-            />
+            <select
+              onChange={(e) => setTipeInput(e.target.value)}
+              className="h-10 w-full rounded-lg px-2 mb-2 text-black"
+            >
+              <option value="satu">1 Jenis</option>
+              <option value="dua">2 Jenis</option>
+            </select>
           </div>
-          <p className="block text-md text-black font-medium py-3">
-            Harga Saat Ini : <span>250</span>
-          </p>
-          <button
-            disabled={btnDisable}
-            type="submit"
-            className="text-white bg-primary font-bold rounded-lg text-base px-5 py-2.5 me-2 mb-2"
-          >
-            Simpan
-          </button>
-        </form>
+          {tipeInput === "dua" && (
+            <form
+              ref={form}
+              onSubmit={sendData}
+              className="flex flex-col"
+            >
+              <label className="block lg:text-lg text-black font-medium ">
+                Tanggal
+              </label>
+              <input
+                onChange={(e) => setTanggal(e.target.value)}
+                type="date"
+                name=""
+                id=""
+                className="h-10 rounded-lg px-2 mb-2 text-black"
+                required
+              />
+              <label className="block lg:text-lg text-black font-medium">
+                Nasabah
+              </label>
+              {nasabah.length > 0 && (
+                <Select
+                  ref={selectRef}
+                  options={nasabah}
+                  placeholder="Pilih Nasabah"
+                  className="w-full rounded-lg"
+                  onChange={setId}
+                  required
+                />
+              )}
+              {isEmpty ? (
+                <input
+                  disabled
+                  type="text"
+                  className="h-10 rounded-lg px-2 mb-2 w-full xl:w-full text-black bg-white"
+                  placeholder="Data nasabah kosong"
+                />
+              ) : (
+                ""
+              )}
+              <div className="">
+                <label className="block lg:text-lg  text-black font-medium">
+                  Jumlah Sampah Halus
+                </label>
+                <input
+                  onChange={(e) => setJumlahSampahHalus(+e.target.value)}
+                  type="number"
+                  name=""
+                  id=""
+                  className="h-10 rounded-lg px-2 mb-2 w-full xl:w-full text-black"
+                  required
+                  step="any"
+                />
+                <label className="block lg:text-lg text-black font-medium">
+                  Jumlah Sampah Kasar
+                </label>
+                <input
+                  onChange={(e) => setJumlahSampahKasar(+e.target.value)}
+                  type="number"
+                  name=""
+                  id=""
+                  className="h-10 rounded-lg px-2 mb-2 w-full xl:w-full text-black"
+                  required
+                  step="any"
+                />
+                <label className="block lg:text-lg text-black font-medium">
+                  Jenis Sampah
+                </label>
+                <input
+                  onChange={(e) => setJenisSampah(e.target.value)}
+                  type="text"
+                  name=""
+                  id=""
+                  className="h-10 rounded-lg mb-2 px-2 w-full xl:w-full text-black"
+                  required
+                />
+              </div>
+              <p className="block text-md text-black font-medium py-3">
+                Harga Saat Ini : <span>250</span>
+              </p>
+              <button
+                disabled={btnDisable}
+                type="submit"
+                className="text-white bg-primary font-bold rounded-lg text-base px-5 py-2.5 me-2 mb-2"
+              >
+                Simpan
+              </button>
+            </form>
+          )}
+
+          {/* input langsung jumlah */}
+          {tipeInput === "satu" && (
+            <form
+              ref={form}
+              onSubmit={sendData}
+              className="flex flex-col"
+            >
+              <label className="block lg:text-lg text-black font-medium ">
+                Tanggal
+              </label>
+              <input
+                onChange={(e) => setTanggal(e.target.value)}
+                type="date"
+                name=""
+                id=""
+                className="h-10 rounded-lg px-2 mb-2 text-black"
+                required
+              />
+              <label className="block lg:text-lg text-black font-medium">
+                Nasabah
+              </label>
+              {nasabah.length > 0 && (
+                <Select
+                  ref={selectRef}
+                  options={nasabah}
+                  placeholder="Pilih Nasabah"
+                  className="w-full rounded-lg"
+                  onChange={setId}
+                  required
+                />
+              )}
+              {isEmpty ? (
+                <input
+                  disabled
+                  type="text"
+                  className="h-10 rounded-lg px-2 mb-2 w-full xl:w-full text-black bg-white"
+                  placeholder="Data nasabah kosong"
+                />
+              ) : (
+                ""
+              )}
+              <div className="">
+                <label className="block lg:text-lg  text-black font-medium">
+                  Jumlah Sampah
+                </label>
+                <input
+                  onChange={(e) => setJumlahSampahHalus(+e.target.value)}
+                  type="number"
+                  name=""
+                  id=""
+                  className="h-10 rounded-lg px-2 mb-2 w-full xl:w-full text-black"
+                  required
+                  step="any"
+                />
+                <label className="block lg:text-lg text-black font-medium">
+                  Jenis Sampah
+                </label>
+                <input
+                  onChange={(e) => setJenisSampah(e.target.value)}
+                  type="text"
+                  name=""
+                  id=""
+                  className="h-10 rounded-lg mb-2 px-2 w-full xl:w-full text-black"
+                  required
+                />
+              </div>
+              <p className="block text-md text-black font-medium py-3">
+                Harga Saat Ini : <span>250</span>
+              </p>
+              <button
+                disabled={btnDisable}
+                type="submit"
+                className="text-white bg-primary font-bold rounded-lg text-base px-5 py-2.5 me-2 mb-2"
+              >
+                Simpan
+              </button>
+            </form>
+          )}
+          {/* akhir */}
+        </div>
       </div>
 
       {popUp ? (

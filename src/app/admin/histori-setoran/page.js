@@ -8,7 +8,7 @@ const historiNasabah = () => {
   return (
     <>
       <AdminLayout>
-        <div className="w-80 ml-[78px]">
+        <div className="w-[280px] ml-[73px]">
           <h1 className="text-center text-xl font-bold p-2">Riwayat Setoran</h1>
           <div className="relative">
             <table className="w-full text-sm rtl:text-right text-gray-500 table-fixed text-center">

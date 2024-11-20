@@ -6,7 +6,7 @@ const SetoranMasuk = () => {
     return (
         <>
         <AdminLayout>
-            <div className="w-80 ml-[78px] xl:w-[100%] xl:relative xl:left-32">
+            <div className="w-72 ml-[73px] xl:w-[100%] xl:relative xl:left-32">
                 <h1 className="text-center font-bold text-xl p-2">Form Tambah Setoran</h1>
             <FormInputSampah/>
             </div>/
