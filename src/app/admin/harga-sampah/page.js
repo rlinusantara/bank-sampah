@@ -13,93 +13,71 @@ const hargaSampah = () => {
   const [btnLoading, setBtnLoading] = useState(false);
   const [defaultHarga, setDefaultHarga] = useState(0);
 
-  useState(function () {
-    axios
-      .get("/api/admin/harga-sampah")
-      .then((res) => setDefaultHarga(res.data.data.harga_satuan));
-  }, []);
+  // useState(function () {
+  //   axios
+  //     .get("/api/admin/harga-sampah")
+  //     .then((res) => setDefaultHarga(res.data.data.harga_satuan));
+  // }, []);
 
-  const btnUbahHarga = async (e) => {
-    try {
-      e.preventDefault();
-      setBtnDisable(true);
-      setBtnLoading(true);
-      alert(harga);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const btnUbahHarga = async (e) => {
+  //   try {
+  //     e.preventDefault();
+  //     setBtnDisable(true);
+  //     setBtnLoading(true);
+  //     alert(harga);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <>
       <AdminLayout>
-        <div className="w-80 ml-[78px]">
+        <div className="w-[280px] ml-[73px]">
           <h1 className="text-center text-xl font-bold p-2">Harga Sampah</h1>
-          <div className="w-64">
-            <table className="w-full">
-              <thead className=" bg-accent text-left">
-                <tr>
-                  <th className="p-2">Harga Sampah</th>
-                  <th className="p-2">Aksi</th>
-                </tr>
-              </thead>
-              <tbody className="bg-background">
-                <tr className="text-left">
-                  <td className="p-2">{formatRupiah(250)}</td>
-                  <td className="p-2">
-                    <button
-                      className="bg-primary py-1 px-3 rounded-md text-white"
-                      onClick={() => setPopUp(true)}
-                    >
-                      Edit
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <div className="bg-accent rounded-md p-2">
+              <div className="">
+                <h1 className="text-center text-xl font-bold p-2">
+                  Ubah Harga
+                </h1>
+                <label>Harga Saat ini :</label>
+                <p className="bg-background p-2 rounded-lg">250</p>
+              </div>
+              <form className="flex flex-col" onSubmit={()=>setPopUp(true)} >
+                <label className="block lg:text-lg text-black font-medium">
+                  Harga
+                </label>
+                <input
+                  type="number"
+                  className="h-10 rounded-lg mb-2 px-2 w-full xl:w-full text-black"
+                  required
+                  onChange={(e) => setHarga(+e.target.value)}
+                />
+                <button
+                  disabled={btnDisable}
+                  type="submit"
+                  className="text-white bg-primary font-bold rounded-lg text-base px-5 py-2.5 me-2 mt-2"
+                >
+                  {btnLoading ? <SpinnerLoading /> : "Ubah"}
+                </button>
+              </form>
+            </div>
         </div>
-
-        <div>
-          {popUp ? (
-            <div className="w-full h-screen layar-hitam fixed top-0 flex flex-col">
-              <div className="bg-accent w-64 mx-2 p-2 xl:p-4 xl:w-[1000px] rounded-xl ml-[78px] mt-32">
-                <div className="flex justify-between">
-                  <h1 className="text-center text-xl font-bold p-2">
-                    Ubah Harga
-                  </h1>
-                  <button
-                    disabled={btnDisable}
-                    className="flex justify-around items-center py-2 px-3"
-                    onClick={() => setPopUp(false)}
-                  >
-                    <X />
-                  </button>
+        {popUp ? (
+        <div className="w-full h-screen fixed top-0 layar-hitam flex justify-center items-center">
+            <div>
+              <div className="ml-[73px] flex-col p-4 bg-background rounded-md">
+                <h1 className="text-center ">Konfirmasi Perubahan</h1>
+                <div className="flex justify-around p-4 w-full mt-7">
+                  <button className="bg-accent px-8 py-1 rounded-md mx-2 text-white">Ya</button>
+                  <button onClick={()=>setPopUp(false)} className="bg-red-600 px-4 py-1 rounded-md mx-2 text-white">Batal</button>
                 </div>
-                <form className="flex flex-col" onSubmit={btnUbahHarga}>
-                  <label className="block lg:text-lg text-black font-medium">
-                    Harga
-                  </label>
-                  <input
-                    type="number"
-                    className="h-10 rounded-lg mb-2 px-2 w-full xl:w-full text-black"
-                    required
-                    onChange={(e) => setHarga(+e.target.value)}
-                  />
-                  <button
-                    disabled={btnDisable}
-                    type="submit"
-                    className="text-white bg-primary font-bold rounded-lg text-base px-5 py-2.5 me-2 mt-2"
-                  >
-                    {btnLoading ? <SpinnerLoading /> : "Ubah"}
-                  </button>
-                </form>
               </div>
             </div>
-          ) : (
-            ""
-          )}
         </div>
+        ) : (
+          ""
+        )}
       </AdminLayout>
     </>
   );
