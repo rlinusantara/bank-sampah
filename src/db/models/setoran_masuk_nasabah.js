@@ -16,10 +16,12 @@ export const schemaSetoranMasuk = new mongoose.Schema({
   sampah_halus: {
     type: Number,
     required: true,
+    default: 0,
   },
   sampah_kasar: {
     type: Number,
     required: true,
+    default: 0,
   },
   jumlah_setoran: {
     type: Number,
