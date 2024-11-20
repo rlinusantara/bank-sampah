@@ -14,7 +14,6 @@ const Statistik = () => {
       .then((res) => setCounting(res.data.data[0] || {}));
   }, []);
 
-  console.log(counting);
   return (
     <div className="flex">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-7xl">
