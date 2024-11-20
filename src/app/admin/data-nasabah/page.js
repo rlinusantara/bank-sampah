@@ -55,7 +55,7 @@ const DaftarNasabah = () => {
   return (
     <>
       <AdminLayout>
-        <div className="borderw-80 ml-[78px]">
+        <div className="borderw-80 w-[280px] ml-[73px]">
           <h1 className="text-center text-xl font-bold p-2">Data Nasabah</h1>
           <div className="relative overflow-x-auto">
             <div className="flex justify-end py-2">

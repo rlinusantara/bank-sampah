@@ -27,7 +27,7 @@ const SetoranKeluar = () => {
     return (
         <>
         <AdminLayout>
-            <div className="w-80 ml-[78px] xl:w-[100%] xl:relative xl:left-32">
+            <div className="w-[280px] ml-[73px] xl:w-[100%] xl:relative xl:left-32">
                 <h1 className="text-center font-bold text-xl p-2">Form Penarikan Uang</h1>
                 <form onSubmit={() => setPopUp(true)}  className="bg-background p-4 mx-2 rounded-md">
                     <label className="p-1">Nama Nasabah</label>
