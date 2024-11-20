@@ -8,7 +8,9 @@ const getAllSetoranMasuk = async (req) => {
   try {
     await connectDB();
 
-    const setoranMasuk = await SetoranMasukCol.find();
+    const setoranMasuk = await SetoranMasukCol.find().sort({
+      tanggal_setoran: -1,
+    });
 
     return Response.json(
       { message: "Data setoran masuk", data: setoranMasuk },
