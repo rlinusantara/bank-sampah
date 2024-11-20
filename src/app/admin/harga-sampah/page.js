@@ -1,11 +1,35 @@
 "use client";
 import AdminLayout from "@/app/components/adminLayout";
+import SpinnerLoading from "@/app/components/spinner";
 import formatRupiah from "@/helpers/formatRupiah";
+import axios from "axios";
 import { X } from "lucide-react";
 import { useState } from "react";
 
 const hargaSampah = () => {
   const [popUp, setPopUp] = useState(false);
+  const [harga, setHarga] = useState(0);
+  const [btnDisable, setBtnDisable] = useState(false);
+  const [btnLoading, setBtnLoading] = useState(false);
+  const [defaultHarga, setDefaultHarga] = useState(0);
+
+  useState(function () {
+    axios
+      .get("/api/admin/harga-sampah")
+      .then((res) => setDefaultHarga(res.data.data.harga_satuan));
+  }, []);
+
+  const btnUbahHarga = async (e) => {
+    try {
+      e.preventDefault();
+      setBtnDisable(true);
+      setBtnLoading(true);
+      alert(harga);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <AdminLayout>
@@ -45,13 +69,14 @@ const hargaSampah = () => {
                     Ubah Harga
                   </h1>
                   <button
+                    disabled={btnDisable}
                     className="flex justify-around items-center py-2 px-3"
                     onClick={() => setPopUp(false)}
                   >
                     <X />
                   </button>
                 </div>
-                <form className="flex flex-col">
+                <form className="flex flex-col" onSubmit={btnUbahHarga}>
                   <label className="block lg:text-lg text-black font-medium">
                     Harga
                   </label>
@@ -59,12 +84,14 @@ const hargaSampah = () => {
                     type="number"
                     className="h-10 rounded-lg mb-2 px-2 w-full xl:w-full text-black"
                     required
+                    onChange={(e) => setHarga(+e.target.value)}
                   />
                   <button
+                    disabled={btnDisable}
                     type="submit"
                     className="text-white bg-primary font-bold rounded-lg text-base px-5 py-2.5 me-2 mt-2"
                   >
-                    Simpan
+                    {btnLoading ? <SpinnerLoading /> : "Ubah"}
                   </button>
                 </form>
               </div>

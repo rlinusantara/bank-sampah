@@ -186,6 +186,10 @@ const DraftSetoran = () => {
                   <p className="bg-slate-300 rounded-md p-1 px-2">
                     {detilSetoran.jenis_sampah}
                   </p>
+                  <label>Harga Satuan</label>
+                  <p className="bg-slate-300 rounded-md p-1 px-2">
+                    {detilSetoran.harga_satuan}
+                  </p>
                 </div>
                 <div className="flex justify-around w-72 mt-2">
                   <button
