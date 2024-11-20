@@ -45,6 +45,21 @@ async function editHargaSampah(req) {
   }
 }
 
+async function getHargaSampah(req) {
+  try {
+    await connectDB();
+
+    const data = await HargaSampahCol.findOne();
+
+    return Response.json(
+      { message: "Berhasil mengubah harga sampah", data },
+      { status: 201 }
+    );
+  } catch (error) {
+    return errorHandling(error);
+  }
+}
+
 export const POST = async (req) => {
   try {
     if (!process.env.SECRET_KEY) {
@@ -62,6 +77,17 @@ export const PUT = async (req) => {
       throw new ResponseErr(500, "Env error");
     }
     return await onlyLogin(editHargaSampah, req, process.env.SECRET_KEY);
+  } catch (error) {
+    return errorHandling(error);
+  }
+};
+
+export const GET = async (req) => {
+  try {
+    if (!process.env.SECRET_KEY) {
+      throw new ResponseErr(500, "Env error");
+    }
+    return await onlyLogin(getHargaSampah, req, process.env.SECRET_KEY);
   } catch (error) {
     return errorHandling(error);
   }

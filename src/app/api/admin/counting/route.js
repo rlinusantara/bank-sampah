@@ -1,5 +1,4 @@
 import connectDB from "@/db/connection";
-import SetoranMasukCol from "@/db/models/setoran_masuk_nasabah";
 import onlyLogin from "@/middlewares/onlyLogin";
 import NasabahCol from "@/db/models/nasabah";
 
