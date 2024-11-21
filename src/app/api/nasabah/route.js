@@ -1,10 +1,12 @@
 import NasabahCol from "@/db/models/nasabah";
 import errorHandling from "@/middlewares/errorHandling";
 import connectDB from "@/db/connection";
+import HargaSampahCol from "@/db/models/harga_sampah";
 
 async function getAllNasabah(req) {
   try {
     await connectDB();
+    const hargaSampah = await HargaSampahCol.findOne();
     const nasabah = await NasabahCol.aggregate([
       {
         $project: {
@@ -13,7 +15,11 @@ async function getAllNasabah(req) {
         },
       },
     ]);
-    return Response.json({ message: "Semua data nasabah", data: nasabah });
+    return Response.json({
+      message: "Semua data nasabah",
+      data: nasabah,
+      harga_satuan: hargaSampah.harga_satuan,
+    });
   } catch (error) {
     return errorHandling(error);
   }

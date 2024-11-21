@@ -6,8 +6,8 @@ const SetoranKeluarCol = new mongoose.Schema({
     required: true,
   },
   tanggal_setoran_keluar: {
-    type: String,
-    required: true,
+    type: Date,
+    default: Date.now,
   },
 });
 
