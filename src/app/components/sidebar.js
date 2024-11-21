@@ -14,6 +14,7 @@ import {
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+
 export default function SidebarAdmin() {
   const [expanded, setExpanded] = useState();
   const SidebarItem = ({ icon, text, active, alert, link }) => {
@@ -59,15 +60,17 @@ export default function SidebarAdmin() {
         <aside className="h-full">
           <nav className="h-full flex flex-col bg-white border-r shadow-sm">
             <div className="p-4 pb-2 mb-3 flex justify-between items-center">
-              <Image
-                src="/logo.png"
-                alt="logo"
-                width={400}
-                height={400}
-                className={`overflow-hidden transition-all ${
-                  expanded ? "w-24" : "w-0"
-                }`}
-              />
+              <Link href={"/"}>
+                <Image
+                  src="/logo.png"
+                  alt="logo"
+                  width={400}
+                  height={400}
+                  className={`overflow-hidden transition-all ${
+                    expanded ? "w-24" : "w-0"
+                  }`}
+                />
+              </Link>
               <button
                 onClick={() => setExpanded((curr) => !curr)}
                 className="p-1.5 rounded-lg text-black bg bg-indigo-100"
@@ -112,7 +115,7 @@ export default function SidebarAdmin() {
                 link="/admin/histori-setoran"
               />
               <SidebarItem
-                icon={<History size={30}/>}
+                icon={<History size={30} />}
                 text="Riwayat Penarikan"
                 link="/admin/histori-penarikan"
               />
