@@ -3,8 +3,7 @@ import AdminLayout from "@/app/components/adminLayout";
 import SpinnerLoading from "@/app/components/spinner";
 import formatRupiah from "@/helpers/formatRupiah";
 import axios from "axios";
-import { X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const hargaSampah = () => {
   const [popUp, setPopUp] = useState(false);
@@ -12,23 +11,42 @@ const hargaSampah = () => {
   const [btnDisable, setBtnDisable] = useState(false);
   const [btnLoading, setBtnLoading] = useState(false);
   const [defaultHarga, setDefaultHarga] = useState(0);
+  const [btnConfirmDisable, setBtnConfirmDisable] = useState(false);
 
-  // useState(function () {
-  //   axios
-  //     .get("/api/admin/harga-sampah")
-  //     .then((res) => setDefaultHarga(res.data.data.harga_satuan));
-  // }, []);
+  const showHargaTag = useRef();
 
-  // const btnUbahHarga = async (e) => {
-  //   try {
-  //     e.preventDefault();
-  //     setBtnDisable(true);
-  //     setBtnLoading(true);
-  //     alert(harga);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const form = useRef();
+
+  useEffect(function () {
+    axios
+      .get("/api/admin/harga-sampah")
+      .then((res) => setDefaultHarga(res.data.data.harga_satuan));
+  }, []);
+
+  const btnUbahHarga = async (e) => {
+    try {
+      e.preventDefault();
+      setBtnDisable(true);
+      setBtnLoading(true);
+      setBtnConfirmDisable(true);
+
+      await axios.put("/api/admin/harga-sampah", {
+        harga_satuan: harga,
+      });
+
+      setTimeout(() => {
+        setBtnDisable(false);
+        setBtnLoading(false);
+        setBtnConfirmDisable(false);
+        setBtnDisable(false);
+        setPopUp(false);
+        form.current.reset();
+        showHargaTag.current.textContent = formatRupiah(harga);
+      }, 500);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -36,45 +54,68 @@ const hargaSampah = () => {
         <div className="w-[280px] ml-[73px]">
           <h1 className="text-center text-xl font-bold p-2">Harga Sampah</h1>
           <div className="bg-accent rounded-md p-2">
-              <div className="">
-                <h1 className="text-center text-xl font-bold p-2">
-                  Ubah Harga
-                </h1>
-                <label>Harga Saat ini :</label>
-                <p className="bg-background p-2 rounded-lg">250</p>
-              </div>
-              <form className="flex flex-col" onSubmit={()=>setPopUp(true)} >
-                <label className="block lg:text-lg text-black font-medium">
-                  Harga
-                </label>
-                <input
-                  type="number"
-                  className="h-10 rounded-lg mb-2 px-2 w-full xl:w-full text-black"
-                  required
-                  onChange={(e) => setHarga(+e.target.value)}
-                />
-                <button
-                  disabled={btnDisable}
-                  type="submit"
-                  className="text-white bg-primary font-bold rounded-lg text-base px-5 py-2.5 me-2 mt-2"
-                >
-                  {btnLoading ? <SpinnerLoading /> : "Ubah"}
-                </button>
-              </form>
+            <div className="">
+              <h1 className="text-center text-xl font-bold p-2">Ubah Harga</h1>
+              <label>Harga Saat ini :</label>
+              <p className="bg-background p-2 rounded-lg" ref={showHargaTag}>
+                {formatRupiah(defaultHarga)}
+              </p>
             </div>
+            <form
+              ref={form}
+              className="flex flex-col"
+              onSubmit={(e) => {
+                e.preventDefault();
+                setPopUp(true);
+                setBtnDisable(true);
+              }}
+            >
+              <label className="block lg:text-lg text-black font-medium">
+                Harga
+              </label>
+              <input
+                type="number"
+                className="h-10 rounded-lg mb-2 px-2 w-full xl:w-full text-black"
+                required
+                onChange={(e) => setHarga(+e.target.value)}
+              />
+              <button
+                disabled={btnDisable}
+                type="submit"
+                className="text-white bg-primary font-bold rounded-lg text-base px-5 py-2.5 me-2 mt-2"
+              >
+                Ubah
+              </button>
+            </form>
+          </div>
         </div>
         {popUp ? (
-        <div className="w-full h-screen fixed top-0 layar-hitam flex justify-center items-center">
+          <div className="w-full h-screen fixed top-0 layar-hitam flex justify-center items-center">
             <div>
               <div className="ml-[73px] flex-col p-4 bg-background rounded-md">
                 <h1 className="text-center ">Konfirmasi Perubahan</h1>
                 <div className="flex justify-around p-4 w-full mt-7">
-                  <button className="bg-accent px-8 py-1 rounded-md mx-2 text-white">Ya</button>
-                  <button onClick={()=>setPopUp(false)} className="bg-red-600 px-4 py-1 rounded-md mx-2 text-white">Batal</button>
+                  <button
+                    onClick={btnUbahHarga}
+                    className="bg-accent px-8 py-1 rounded-md mx-2 text-white"
+                    disabled={btnConfirmDisable}
+                  >
+                    {btnLoading ? <SpinnerLoading w="w-5" h="h-5" /> : "Ya"}
+                  </button>
+                  <button
+                    disabled={btnConfirmDisable}
+                    onClick={() => {
+                      setPopUp(false);
+                      setBtnDisable(false);
+                    }}
+                    className="bg-red-600 px-4 py-1 rounded-md mx-2 text-white"
+                  >
+                    Batal
+                  </button>
                 </div>
               </div>
             </div>
-        </div>
+          </div>
         ) : (
           ""
         )}
