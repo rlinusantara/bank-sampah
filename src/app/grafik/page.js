@@ -31,11 +31,16 @@ const Grafik = () => {
   const exportToExcel = () => {
     const wb = XLSX.utils.book_new();
 
-    const data = [
-      { name: "Alice", age: 25, city: "New York" },
-      { name: "Bob", age: 30, city: "Los Angeles" },
-      { name: "Charlie", age: 35, city: "Chicago" },
-    ];
+    const data = [];
+    for (let i = 0; i < nasabah.length; i++) {
+      data.push({
+        No: i + 1,
+        Nama: nasabah[i],
+        "Total Tabungan": totalTabungan[i],
+        "Total Setoran": totalSetoran[i],
+      });
+    }
+
     const ws = XLSX.utils.json_to_sheet(data);
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
     XLSX.writeFile(wb, "data.xlsx");
@@ -55,10 +60,18 @@ const Grafik = () => {
                   <SpinnerLoading />
                 </section>
               ) : (
-                <HorizontalBarChart
-                  dataTabungan={totalTabungan}
-                  labels={nasabah}
-                />
+                <section className=" flex flex-col gap-40">
+                  <HorizontalBarChart
+                    dataTabungan={totalTabungan}
+                    labels={nasabah}
+                    text="Grafik Tabungan Customer"
+                  />
+                  <HorizontalBarChart
+                    dataTabungan={totalSetoran}
+                    labels={nasabah}
+                    text="Grafik Total Setoran"
+                  />
+                </section>
               )}
             </section>
           )}
