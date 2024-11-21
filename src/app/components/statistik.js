@@ -11,7 +11,7 @@ const Statistik = () => {
   useEffect(function () {
     axios
       .get("/api/admin/counting")
-      .then((res) => setCounting(res.data.data[0]));
+      .then((res) => setCounting(res.data.data[0] || {}));
   }, []);
 
   return (
@@ -25,7 +25,7 @@ const Statistik = () => {
             </span>
           </div>
           <div className="text-2xl lg:text-3xl xl:text-4xl font-bold mt-4 text-gray-900">
-            {counting.total_nasabah}
+            {counting.total_nasabah || 0}
           </div>
         </div>
 
@@ -37,7 +37,7 @@ const Statistik = () => {
             </span>
           </div>
           <div className="text-2xl lg:text-3xl xl:text-4xl font-bold mt-4 text-gray-900">
-            {counting.total_setoran} Kg.
+            {counting.total_setoran || 0} Kg.
           </div>
         </div>
 
@@ -49,7 +49,7 @@ const Statistik = () => {
             </span>
           </div>
           <div className="text-2xl lg:text-3xl xl:text-4xl font-bold mt-4 text-gray-900">
-            {formatRupiah(counting.total_tabungan)}
+            {formatRupiah(counting.total_tabungan || 0)}
           </div>
         </div>
       </div>

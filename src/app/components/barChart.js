@@ -20,7 +20,11 @@ ChartJS.register(
   Legend
 );
 
-export default function HorizontalBarChart({ dataTabungan = [], labels = [] }) {
+export default function HorizontalBarChart({
+  dataTabungan = [],
+  labels = [],
+  text,
+}) {
   const data = {
     labels: labels,
     datasets: [
@@ -46,7 +50,7 @@ export default function HorizontalBarChart({ dataTabungan = [], labels = [] }) {
       },
       title: {
         display: true,
-        text: "Grafik Tabungan Customer",
+        text: text,
         font: {
           size: 25,
           weight: "bold",
