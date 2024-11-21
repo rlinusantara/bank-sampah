@@ -61,7 +61,9 @@ const handleSetoranMasukSetujui = async (res, params) => {
     if (!checkSetoran) {
       throw new ResponseErr(404, "Setoran tidak ada");
     }
-    const nasabah = await NasabahCol.findById(checkSetoran.id_nasabah);
+    const nasabah = await NasabahCol.findById(checkSetoran.id_nasabah).session(
+      session
+    );
     if (!nasabah) {
       throw new ResponseErr(404, "Setoran tidak ada");
     }
@@ -86,6 +88,9 @@ const handleSetoranMasukSetujui = async (res, params) => {
               jumlah_setoran: checkSetoran.jumlah_setoran,
             },
           },
+        },
+        {
+          session: session,
         }
       );
     } else {
@@ -112,6 +117,9 @@ const handleSetoranMasukSetujui = async (res, params) => {
               jumlah_setoran: checkSetoran.jumlah_setoran,
             },
           },
+        },
+        {
+          session: session,
         }
       );
     }

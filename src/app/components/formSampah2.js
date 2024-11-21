@@ -5,7 +5,7 @@ import axios from "axios";
 import { useRef } from "react";
 import { CircleCheckBig } from "lucide-react";
 
-const FormSampah2 = ({ nasabah = [] }) => {
+const FormSampah2 = ({ nasabah = [], hargaSatuan }) => {
   const [tanggal, setTanggal] = useState("");
   const [jumlahSampahHalus, setJumlahSampahHalus] = useState(0);
   const [jumlahSampahKasar, setJumlahSampahKasar] = useState(0);
@@ -116,7 +116,7 @@ const FormSampah2 = ({ nasabah = [] }) => {
           />
         </div>
         <p className="block text-md text-black font-medium py-3">
-          Harga Saat Ini : <span>250</span>
+          Harga Saat Ini : <span>{hargaSatuan}</span>
         </p>
         <button
           disabled={btnDisable}
