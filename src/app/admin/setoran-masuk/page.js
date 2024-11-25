@@ -7,7 +7,7 @@ const SetoranMasuk = async () => {
   try {
     const cookieStore = cookies();
     const tokenName = (await cookieStore).has("secret");
-    const tokenValue = (await cookieStore).get("secret").value;
+    const tokenValue = (await cookieStore).get("secret")?.value;
 
     const hostname = process.env.VERCEL_URL || "http://localhost:3000";
 
