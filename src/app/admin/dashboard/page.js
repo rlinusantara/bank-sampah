@@ -2,6 +2,8 @@ import DashboardPage from "@/app/components-page/dashboard_page";
 import SpinnerLoading from "@/app/components/spinner";
 import { cookies } from "next/headers";
 
+export const dynamic = "force-dynamic";
+
 const Dashboard = async () => {
   try {
     const cookieStore = cookies();
