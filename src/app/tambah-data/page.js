@@ -7,9 +7,12 @@ const TambahData = async () => {
     const res = await fetch(`${hostname}/api/nasabah`);
     const data = await res.json();
 
-    return (
-      <TambahDataPage nasabah={data.data} hargaSatuan={data.harga_satuan} />
-    );
+    const p = data.data.map((item) => ({
+      label: item.nama,
+      value: item._id,
+    }));
+
+    return <TambahDataPage nasabah={p} hargaSatuan={data.harga_satuan} />;
   } catch (err) {
     console.error("Error fetching data:", err);
     return <TambahDataPage />;

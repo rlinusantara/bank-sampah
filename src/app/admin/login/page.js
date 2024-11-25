@@ -6,7 +6,7 @@ const Login = async () => {
   try {
     const cookieStore = cookies();
     const tokenName = (await cookieStore).has("secret");
-    const tokenValue = (await cookieStore).get("secret");
+    const tokenValue = (await cookieStore).get("secret").value;
 
     let isLogin = false;
     if (tokenName && tokenValue) {
