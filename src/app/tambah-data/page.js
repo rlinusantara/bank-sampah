@@ -1,5 +1,7 @@
 import TambahDataPage from "../components-page/tambah_data_page";
 
+export const dynamic = "force-dynamic";
+
 const TambahData = async () => {
   try {
     const hostname = process.env.VERCEL_URL || "http://localhost:3000";
