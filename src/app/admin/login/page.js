@@ -2,6 +2,8 @@ import LoginPage from "@/app/components-page/login_page";
 import SpinnerLoading from "@/app/components/spinner";
 import { cookies } from "next/headers";
 
+export const dynamic = "force-dynamic";
+
 const Login = async () => {
   try {
     const cookieStore = cookies();

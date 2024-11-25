@@ -2,6 +2,8 @@ import HistorySetoranPage from "@/app/components-page/history_setoran_page";
 import SpinnerLoading from "@/app/components/spinner";
 import { cookies } from "next/headers";
 
+export const dynamic = "force-dynamic";
+
 const HistorySetoran = async () => {
   try {
     const cookieStore = cookies();

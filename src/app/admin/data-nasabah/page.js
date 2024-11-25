@@ -1,6 +1,8 @@
 import DataNasabahPage from "@/app/components-page/data_nasabah_page";
 import SpinnerLoading from "@/app/components/spinner";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
+
+export const dynamic = "force-dynamic";
 
 const DataNasabah = async () => {
   try {

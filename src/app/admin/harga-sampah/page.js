@@ -2,6 +2,8 @@ import HargaSampahPage from "@/app/components-page/harga_sampah_page";
 import SpinnerLoading from "@/app/components/spinner";
 import { cookies } from "next/headers";
 
+export const dynamic = "force-dynamic";
+
 const DraftSetoran = async () => {
   try {
     const cookieStore = cookies();
