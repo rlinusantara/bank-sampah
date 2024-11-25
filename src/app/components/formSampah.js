@@ -1,35 +1,19 @@
 "use client";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import FormSampah2 from "./formSampah2";
 import FormSampah1 from "./formSampah1";
 
-const FormInputSampah = () => {
-  const [loading, setLoading] = useState(true);
-  const [nasabah, setNasabah] = useState([]);
+const FormInputSampah = ({ nasabah = [], hargaSatuan = 0 }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [tipeInput, setTipeInput] = useState("satu");
-  const [harga, setHarga] = useState(0);
 
   useEffect(function () {
-    const getNasabah = async () => {
-      try {
-        const response = await axios.get("/api/nasabah");
-        const p = response.data.data.map((item) => ({
-          label: item.nama,
-          value: item._id,
-        }));
-
-        setNasabah(p);
-        setLoading(false);
-        setHarga(response.data.harga_satuan);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getNasabah();
+    if (nasabah.length) {
+      setIsLoading(false);
+    }
   }, []);
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="text-center">
         <div role="status">
@@ -73,10 +57,10 @@ const FormInputSampah = () => {
             </select>
           </div>
           {tipeInput === "dua" && (
-            <FormSampah2 nasabah={nasabah} hargaSatuan={harga} />
+            <FormSampah2 nasabah={nasabah} hargaSatuan={hargaSatuan} />
           )}
           {tipeInput === "satu" && (
-            <FormSampah1 nasabah={nasabah} hargaSatuan={harga} />
+            <FormSampah1 nasabah={nasabah} hargaSatuan={hargaSatuan} />
           )}
           {/* akhir */}
         </div>
