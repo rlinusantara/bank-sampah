@@ -2,6 +2,8 @@ import PenarikanUangPage from "@/app/components-page/penarikan_uang_page";
 import SpinnerLoading from "@/app/components/spinner";
 import { cookies } from "next/headers";
 
+export const dynamic = "force-dynamic";
+
 const DraftSetoran = async () => {
   try {
     const cookieStore = cookies();

@@ -2,6 +2,8 @@ import DraftSetoranPage from "@/app/components-page/draft_setoran_page";
 import SpinnerLoading from "@/app/components/spinner";
 import { cookies } from "next/headers";
 
+export const dynamic = "force-dynamic";
+
 const DraftSetoran = async () => {
   try {
     const cookieStore = cookies();
