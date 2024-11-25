@@ -1,4 +1,5 @@
 import GrafikPage from "../components-page/grafik_page";
+import SpinnerLoading from "../components/spinner";
 
 const Grafik = async () => {
   try {
