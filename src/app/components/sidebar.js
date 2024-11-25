@@ -92,7 +92,7 @@ export default function SidebarAdmin() {
               <SidebarItem
                 icon={<ClipboardPlus size={30} />}
                 text="Setoran Masuk"
-                link="/tambah-data"
+                link="/admin/setoran-masuk"
               />
               <SidebarItem
                 icon={<DatabaseBackup size={30} />}
