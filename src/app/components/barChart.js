@@ -60,8 +60,14 @@ export default function HorizontalBarChart({
     },
   };
 
-  const barSpacing = 40;
-  const dynamicHeight = data.labels.length * (30 + barSpacing);
+  const barSpacing = 50;
+
+  let dynamicHeight = 0;
+  if (data.labels.length === 1) {
+    dynamicHeight = Math.max(data.labels.length * (30 + barSpacing), 120);
+  } else {
+    dynamicHeight = data.labels.length * (30 + barSpacing);
+  }
 
   return (
     <div className=" overflow-auto w-full">
