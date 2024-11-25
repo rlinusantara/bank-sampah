@@ -8,7 +8,7 @@ const Dashboard = async () => {
   try {
     const cookieStore = cookies();
     const tokenName = (await cookieStore).has("secret");
-    const tokenValue = (await cookieStore).get("secret").value;
+    const tokenValue = (await cookieStore).get("secret")?.value;
 
     let isLogin = false;
     if (tokenName && tokenValue) {
