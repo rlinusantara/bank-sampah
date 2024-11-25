@@ -27,13 +27,9 @@ async function login(req) {
       throw new ResponseErr(500, "Env error");
     }
 
-    const token = await jwt.sign(
-      { _id: checkAdmin._id },
-      process.env.SECRET_KEY,
-      {
-        expiresIn: 604800 * 1000,
-      }
-    );
+    const token = jwt.sign({ _id: checkAdmin._id }, process.env.SECRET_KEY, {
+      expiresIn: 604800 * 1000,
+    });
 
     const cookieStore = await cookies();
     cookieStore.set("secret", token, {

@@ -18,11 +18,29 @@ const onlyLogin = async (handler, req, secret, params = {}) => {
     const decoded = await jwtVerify(secret, token);
 
     if (!mongoose.isValidObjectId(decoded._id)) {
+      cookie.set("secret", "", {
+        path: "/",
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 0,
+        priority: "high",
+      });
+
       throw new ResponseErr(401, "Silahkan login terlebih dahulu");
     }
 
     const checkAdmin = await AdminCol.findById(decoded._id);
     if (!checkAdmin) {
+      cookie.set("secret", "", {
+        path: "/",
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 0,
+        priority: "high",
+      });
+
       throw new ResponseErr(401, "Silahkan login terlebih dahulu");
     }
 
