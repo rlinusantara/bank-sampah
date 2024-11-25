@@ -1,4 +1,4 @@
-import TambahDataPage from "@/app/components-page/tambah_data_page";
+import TambahDataAdminPage from "@/app/components-page/tambah_data_admin_page";
 import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
@@ -25,7 +25,7 @@ const SetoranMasuk = async () => {
     }
 
     return (
-      <TambahDataPage
+      <TambahDataAdminPage
         nasabah={p}
         hargaSatuan={data.harga_satuan}
         isLogin={isLogin}
@@ -33,7 +33,7 @@ const SetoranMasuk = async () => {
     );
   } catch (err) {
     console.error("Error fetching data:", err);
-    return <TambahDataPage />;
+    return <TambahDataAdminPage />;
   }
 };
 
