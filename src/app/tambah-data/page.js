@@ -1,14 +1,19 @@
-import FormInputSampah from "../components/formSampah";
-import Layout from "../components/layout";
-const TambahData = () => {
+import TambahDataPage from "../components-page/tambah_data_page";
+
+const TambahData = async () => {
+  try {
+    const hostname = process.env.VERCEL_URL || "http://localhost:3000";
+
+    const res = await fetch(`${hostname}/api/nasabah`);
+    const data = await res.json();
+
     return (
-        <>
-        <Layout>
-            <h1 className="text-center xl:text-2xl font-bold p-3 font-nunito">FORM INPUT DATA BANK SAMPAH</h1>
-            <FormInputSampah/>
-        </Layout>
-        </>
+      <TambahDataPage nasabah={data.data} hargaSatuan={data.harga_satuan} />
     );
-}
- 
+  } catch (err) {
+    console.error("Error fetching data:", err);
+    return <TambahDataPage />;
+  }
+};
+
 export default TambahData;
