@@ -1,19 +1,23 @@
-"use client";
-import AdminLayout from "@/app/components/adminLayout";
-import Grafik from "../../components/grafik";
-import Statistik from "../../components/statistik";
+import DashboardPage from "@/app/components-page/dashboard_page";
+import SpinnerLoading from "@/app/components/spinner";
+import { cookies } from "next/headers";
 
-const Dashboard = () => {
-  return (
-    <>
-      <AdminLayout>
-        <div className="p-4 ml-16 lg:ml-20">
-          <Statistik />
-          <Grafik />
-        </div>
-      </AdminLayout>
-    </>
-  );
+const Dashboard = async () => {
+  try {
+    const cookieStore = cookies();
+    const tokenName = (await cookieStore).has("secret");
+    const tokenValue = (await cookieStore).get("secret").value;
+
+    let isLogin = false;
+    if (tokenName && tokenValue) {
+      isLogin = true;
+    }
+
+    return <DashboardPage isLogin={isLogin} />;
+  } catch (err) {
+    console.error("Error fetching data:", err);
+    return <SpinnerLoading />;
+  }
 };
 
 export default Dashboard;
