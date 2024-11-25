@@ -190,6 +190,10 @@ const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
                   <p className="bg-slate-300 rounded-md p-1 px-2">
                     {detilSetoran.harga_satuan}
                   </p>
+                  <label>Total Harga</label>
+                  <p className="bg-slate-300 rounded-md p-1 px-2">
+                    {detilSetoran.harga_satuan * detilSetoran.jumlah_setoran}
+                  </p>
                 </div>
                 <div className="flex justify-around w-72 mt-2">
                   <button
