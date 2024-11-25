@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import DashNav from "./dashNav";
 import SidebarAdmin from "./sidebar";
