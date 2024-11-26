@@ -54,10 +54,11 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
   return (
     <>
       <AdminLayout isLogin={isLogin}>
-        <div className="borderw-80 w-[280px] ml-[73px]">
-          <h1 className="text-center text-xl font-bold p-2">Data Nasabah</h1>
+        <h1 className="text-center text-xl font-bold p-2">Data Nasabah</h1>
+        <div className="borderw-80 w-[280px] ml-[73px] xl:w-full xl:ml-24">
           <div className="relative overflow-x-auto">
-            <div className="flex justify-end py-2">
+            <div className="w-10/12">
+              <div className="py-2">
               <button
                 onClick={() => setPopUp(true)}
                 className="flex justify-around items-center py-2 px-3 bg-accent rounded-md"
@@ -65,8 +66,8 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
                 <UserRoundPlus />
                 Tambah Nasabah
               </button>
-            </div>
-            <table className="text-sm rtl:text-right text-gray-500 table-fixed text-center rounded-md">
+              </div>
+            <table className="text-sm rtl:text-right text-gray-500 table-fixed text-center rounded-md xl:w-full">
               <thead className="text-xs text-gray-700 bg-accent">
                 <tr>
                   <th scope="col" className="px-6 py-3">
@@ -99,6 +100,7 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
                 ))}
               </tbody>
             </table>
+            </div>
 
             <section className="flex justify-center items-center mt-2">
               {isLoading ? <SpinnerLoading /> : ""}
@@ -169,7 +171,7 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
 
         <div>
           {confirm ? (
-            <div className="bg-background w-80 flex justify-center ml-16 p-5 rounded-lg relative bottom-20">
+            <div className="bg-background w-80 flex justify-center items-center ml-[73px] p-5 rounded-lg fixed top-24">
               <div className="flex flex-col justify-between h-40 my-2">
                 <h1 className="text-xl font-bold">Konfirmasi Penambahan</h1>
                 <div className="flex justify-around">
