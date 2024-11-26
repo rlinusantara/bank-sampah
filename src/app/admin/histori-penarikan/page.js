@@ -10,7 +10,7 @@ const HistoryPenarikan = async () => {
     const tokenName = (await cookieStore).has("secret");
     const tokenValue = (await cookieStore).get("secret")?.value;
 
-    const hostname = process.env.VERCEL_URL || "http://localhost:3000";
+    const hostname = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
     const res = await fetch(`${hostname}/api/admin/history-penarikan`, {
       method: "GET",
