@@ -24,9 +24,9 @@ const HistorySetoranPage = ({ historySetoran = [], isLogin = false }) => {
   return (
     <>
       <AdminLayout isLogin={isLogin}>
-        <div className="w-[280px] ml-[73px]">
-          <h1 className="text-center text-xl font-bold p-2">Riwayat Setoran</h1>
-          <div className="relative">
+        <h1 className="text-center text-xl font-bold p-2">Riwayat Setoran</h1>
+        <div className="w-[280px] ml-[73px] xl:w-full xl:ml-24">
+          <div className="relative w-10/12">
             <table className="w-full text-sm rtl:text-right text-gray-500 table-fixed text-center">
               <thead className="text-xs text-gray-700 bg-accent ">
                 <tr>
@@ -92,7 +92,7 @@ const HistorySetoranPage = ({ historySetoran = [], isLogin = false }) => {
           </div>
           {popUp ? (
             <section className="fixed top-0 left-0 right-0 bottom-0 layar-hitam z-10 flex justify-center items-center">
-              <div className="bg-background rounded-md relative bottom-20 py-5 mx-2 w-80 mt-20">
+              <div className="bg-background rounded-md relative bottom-20 py-5 mx-2 w-80 xl:w-96 mt-20">
                 <div className="flex justify-between p-2 mx-5">
                   <h1 className="w-96 text-center text-lg font-bold">
                     Detil Setoran Nasabah

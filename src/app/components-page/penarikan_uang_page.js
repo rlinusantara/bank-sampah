@@ -52,10 +52,10 @@ const PenarikanUangPage = ({ nasabahInit = [], isLogin = false }) => {
   return (
     <>
       <AdminLayout isLogin={isLogin}>
-        <div className="w-[280px] ml-[73px] xl:w-[100%] xl:relative xl:left-32">
-          <h1 className="text-center font-bold text-xl p-2">
+        <div className="w-[280px] ml-[73px] xl:w-[100%] xl:relative xl:ml-24">
+        <h1 className="text-center font-bold text-xl p-2">
             Form Penarikan Uang
-          </h1>
+        </h1>
           <form
             ref={form}
             onSubmit={(e) => {
