@@ -21,11 +21,11 @@ const HistoryPenarikanPage = ({ historyPenarikan = [], isLogin = false }) => {
   return (
     <>
       <AdminLayout isLogin={isLogin}>
-        <div className="w-[280px] ml-[73px]">
           <h1 className="text-center text-xl font-bold p-2">
             Riwayat Penarikan
           </h1>
-          <div className="relative">
+        <div className="w-[280px] ml-[73px] xl:w-full xl:ml-24">
+          <div className="relative w-10/12">
             <table className="w-full text-sm rtl:text-right text-gray-500 table-fixed text-center">
               <thead className="text-xs text-gray-700 bg-accent ">
                 <tr>
