@@ -5,6 +5,7 @@ import SetoranMasukCol from "@/db/models/setoran_masuk_nasabah";
 import ResponseErr from "@/helpers/responseErr";
 import onlyLogin from "@/middlewares/onlyLogin";
 import mongoose from "mongoose";
+import BigNumber from "bignumber.js";
 
 const handleSetoranMasukTolak = async (res, params) => {
   try {
@@ -69,14 +70,20 @@ const handleSetoranMasukSetujui = async (res, params) => {
     }
 
     if (checkSetoran.sampah_halus === 0 && checkSetoran.sampah_kasar === 0) {
+      const totalTabungan = new BigNumber(checkSetoran.jumlah_setoran)
+        .multipliedBy(checkSetoran.harga_satuan)
+        .plus(nasabah.total_tabungan);
+
+      const totalSetoran = new BigNumber(checkSetoran.jumlah_setoran).plus(
+        nasabah.total_setoran
+      );
+
       await NasabahCol.updateOne(
         { _id: checkSetoran.id_nasabah },
         {
           $set: {
-            total_tabungan:
-              checkSetoran.jumlah_setoran * checkSetoran.harga_satuan +
-              nasabah.total_tabungan,
-            total_setoran: checkSetoran.jumlah_setoran + nasabah.total_setoran,
+            total_tabungan: totalTabungan,
+            total_setoran: totalSetoran,
           },
           $push: {
             history_setoran_masuk: {
@@ -94,18 +101,23 @@ const handleSetoranMasukSetujui = async (res, params) => {
         }
       );
     } else {
+      const totalSampah = new BigNumber(checkSetoran.sampah_halus).plus(
+        checkSetoran.sampah_kasar
+      );
+      const totalTabungan = new BigNumber(totalSampah)
+        .multipliedBy(checkSetoran.harga_satuan)
+        .plus(nasabah.total_tabungan);
+
+      const totalSetoran = new BigNumber(totalSampah).plus(
+        nasabah.total_setoran
+      );
+
       await NasabahCol.updateOne(
         { _id: checkSetoran.id_nasabah },
         {
           $set: {
-            total_tabungan:
-              (checkSetoran.sampah_halus + checkSetoran.sampah_kasar) *
-                checkSetoran.harga_satuan +
-              nasabah.total_tabungan,
-            total_setoran:
-              checkSetoran.sampah_halus +
-              checkSetoran.sampah_kasar +
-              nasabah.total_setoran,
+            total_tabungan: totalTabungan,
+            total_setoran: totalSetoran,
           },
           $push: {
             history_setoran_masuk: {

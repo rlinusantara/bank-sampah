@@ -1,207 +1,37 @@
-"use client";
-import { useState, useEffect } from "react";
-import AdminLayout from "@/app/components/adminLayout";
+import DataNasabahPage from "@/app/components-page/data_nasabah_page";
 import SpinnerLoading from "@/app/components/spinner";
-import formatRupiah from "@/helpers/formatRupiah";
-import axios from "axios";
-import { UserRoundPlus, X } from "lucide-react";
+import { cookies } from "next/headers";
 
-const DaftarNasabah = () => {
-  const [nasabah, setNasabah] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isEmpty, setIsEmpty] = useState(false);
-  const [popUp, setPopUp] = useState(false);
-  const [confirm, setConfirm] = useState(false);
+export const dynamic = "force-dynamic";
 
-  const [namaNasabah, setNamaNasabah] = useState("");
-  const [msg, setMsg] = useState("");
-  const [addLoading, setAddLoading] = useState(false);
-  const [addBtnDisable, setAddBtnDisable] = useState(false);
-  const [addBtnDisableTolak, setAddBtnDisableTolak] = useState(false);
+const DataNasabah = async () => {
+  try {
+    const cookieStore = cookies();
+    const tokenName = (await cookieStore).has("secret");
+    const tokenValue = (await cookieStore).get("secret")?.value;
 
-  useEffect(function () {
-    axios.get("/api/admin/nasabah").then((res) => {
-      if (res.data.data.length === 0) {
-        setIsEmpty(true);
-      }
-      setNasabah(res.data.data);
-      setIsLoading(false);
+    const hostname = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+
+    const res = await fetch(`${hostname}/api/admin/nasabah`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: `secret=${tokenValue}`,
+      },
+      credentials: "include",
     });
-  }, []);
+    const data = await res.json();
 
-  const AddNasabah = async () => {
-    try {
-      setAddLoading(true);
-      setAddBtnDisable(true);
-      setAddBtnDisableTolak(true);
-      const res = await axios.post("/api/admin/nasabah/register", {
-        nama: namaNasabah,
-      });
-
-      setMsg(res.data.message);
-      setAddLoading(false);
-      setAddBtnDisableTolak(false);
-      setConfirm(false);
-      setPopUp(false);
-      setIsEmpty(false);
-      setNasabah([res.data.data, ...nasabah]);
-    } catch (error) {
-      setAddBtnDisableTolak(false);
-      setAddLoading(false);
-      console.log(error);
+    let isLogin = false;
+    if (tokenName && tokenValue) {
+      isLogin = true;
     }
-  };
 
-  return (
-    <>
-      <AdminLayout>
-        <div className="borderw-80 w-[280px] ml-[73px]">
-          <h1 className="text-center text-xl font-bold p-2">Data Nasabah</h1>
-          <div className="relative overflow-x-auto">
-            <div className="flex justify-end py-2">
-              <button
-                onClick={() => setPopUp(true)}
-                className="flex justify-around items-center py-2 px-3 bg-accent rounded-md"
-              >
-                <UserRoundPlus />
-                Tambah Nasabah
-              </button>
-            </div>
-            <table className="text-sm rtl:text-right text-gray-500 table-fixed text-center rounded-md">
-              <thead className="text-xs text-gray-700 bg-accent">
-                <tr>
-                  <th scope="col" className="px-6 py-3">
-                    Nama
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Total Saldo
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Total Sampah
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {nasabah.map((v, i) => (
-                  <tr key={i} className="bg-white border-b">
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                    >
-                      {v.nama}
-                    </th>
-                    <td className="px-6 py-4">
-                      {formatRupiah(v.total_tabungan)}
-                    </td>
-                    <td className="px-6 py-4 text-center">
-                      {v.total_setoran} <span>Kg.</span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            <section className="flex justify-center items-center mt-2">
-              {isLoading ? <SpinnerLoading /> : ""}
-            </section>
-
-            {isEmpty ? (
-              <section className="flex justify-center">
-                <p>Data kosong</p>
-              </section>
-            ) : (
-              ""
-            )}
-          </div>
-        </div>
-
-        <div>
-          {popUp ? (
-            <div className="w-full h-screen layar-hitam fixed top-0 flex flex-col">
-              <div className="bg-accent mx-2 p-2 xl:p-4 xl:w-[1000px] w-72 rounded-xl ml-[78px] mt-32">
-                <div className="flex justify-between">
-                  <h1 className="text-center text-xl font-bold p-2">
-                    Tambah Nasabah
-                  </h1>
-                  <button
-                    className="flex justify-around items-center py-2 px-3"
-                    onClick={() => {
-                      setPopUp(false);
-                      setConfirm(false);
-                      setNamaNasabah("");
-                    }}
-                    disabled={addBtnDisable}
-                  >
-                    <X />
-                  </button>
-                </div>
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    if (namaNasabah) {
-                      setConfirm(true);
-                      setAddBtnDisable(false);
-                    }
-                  }}
-                  className="flex flex-col"
-                >
-                  <label className="block lg:text-lg text-black font-medium">
-                    nama
-                  </label>
-                  <input
-                    type="text"
-                    className="h-10 rounded-lg mb-2 px-2 w-full xl:w-full text-black"
-                    required
-                    onChange={(e) => setNamaNasabah(e.target.value)}
-                  />
-                  <button
-                    type="submit"
-                    className="text-white bg-primary font-bold rounded-lg text-base px-5 py-2.5 me-2 mt-2"
-                  >
-                    Simpan
-                  </button>
-                </form>
-              </div>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
-
-        <div>
-          {confirm ? (
-            <div className="bg-background w-80 flex justify-center ml-16 p-5 rounded-lg relative bottom-20">
-              <div className="flex flex-col justify-between h-40 my-2">
-                <h1 className="text-xl font-bold">Konfirmasi Penambahan</h1>
-                <div className="flex justify-around">
-                  <button
-                    className="text-center font-medium bg-accent py-1 w-20 rounded-md flex justify-center items-center"
-                    onClick={AddNasabah}
-                    disabled={addBtnDisable}
-                  >
-                    {addLoading ? <SpinnerLoading w="w-5" h="h-5" /> : "Simpan"}
-                  </button>
-                  <button
-                    onClick={() => {
-                      setConfirm(false);
-                      setNamaNasabah("");
-                      setPopUp(false);
-                    }}
-                    className="text-center text-white font-medium bg-red-600 py-1 w-20 rounded-md"
-                    disabled={addBtnDisableTolak}
-                  >
-                    Batal
-                  </button>
-                </div>
-              </div>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
-      </AdminLayout>
-    </>
-  );
+    return <DataNasabahPage nasabahInit={data.data} isLogin={isLogin} />;
+  } catch (err) {
+    console.error("Error fetching data:", err);
+    return <SpinnerLoading />;
+  }
 };
 
-export default DaftarNasabah;
+export default DataNasabah;

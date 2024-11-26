@@ -1,18 +1,40 @@
-"use client"
-import AdminLayout from "../../components/adminLayout";
-import FormInputSampah from "../../components/formSampah";
+import TambahDataAdminPage from "@/app/components-page/tambah_data_admin_page";
+import { cookies } from "next/headers";
 
-const SetoranMasuk = () => {
+export const dynamic = "force-dynamic";
+
+const SetoranMasuk = async () => {
+  try {
+    const cookieStore = cookies();
+    const tokenName = (await cookieStore).has("secret");
+    const tokenValue = (await cookieStore).get("secret")?.value;
+
+    const hostname = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+
+    const res = await fetch(`${hostname}/api/nasabah`);
+    const data = await res.json();
+
+    const p = data.data.map((item) => ({
+      label: item.nama,
+      value: item._id,
+    }));
+
+    let isLogin = false;
+    if (tokenName && tokenValue) {
+      isLogin = true;
+    }
+
     return (
-        <>
-        <AdminLayout>
-            <div className="w-72 ml-[73px] xl:w-[100%] xl:relative xl:left-32">
-                <h1 className="text-center font-bold text-xl p-2">Form Tambah Setoran</h1>
-            <FormInputSampah/>
-            </div>/
-        </AdminLayout>
-        </>
+      <TambahDataAdminPage
+        nasabah={p}
+        hargaSatuan={data.harga_satuan}
+        isLogin={isLogin}
+      />
     );
-}
- 
+  } catch (err) {
+    console.error("Error fetching data:", err);
+    return <TambahDataAdminPage />;
+  }
+};
+
 export default SetoranMasuk;
