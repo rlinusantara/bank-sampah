@@ -3,7 +3,7 @@ import SpinnerLoading from "../components/spinner";
 
 const DaftarNasabah = async () => {
   try {
-    const hostname = process.env.VERCEL_URL || "http://localhost:3000";
+    const hostname = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
     const res = await fetch(`${hostname}/api/nasabah`);
     const data = await res.json();
