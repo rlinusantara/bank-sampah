@@ -24,12 +24,13 @@ export default function HorizontalBarChart({
   dataTabungan = [],
   labels = [],
   text,
+  label,
 }) {
   const data = {
     labels: labels,
     datasets: [
       {
-        label: "Tabungan",
+        label: label,
         data: dataTabungan,
         backgroundColor: ["#347928"],
         borderColor: ["#347928"],
