@@ -44,6 +44,7 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
       setPopUp(false);
       setIsEmpty(false);
       setNasabah([res.data.data, ...nasabah]);
+      setAddBtnDisable(false);
     } catch (error) {
       setAddBtnDisableTolak(false);
       setAddLoading(false);
@@ -59,47 +60,47 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
           <div className="relative overflow-x-auto">
             <div className="w-10/12">
               <div className="py-2">
-              <button
-                onClick={() => setPopUp(true)}
-                className="flex justify-around items-center py-2 px-3 bg-accent rounded-md"
-              >
-                <UserRoundPlus />
-                Tambah Nasabah
-              </button>
+                <button
+                  onClick={() => setPopUp(true)}
+                  className="flex justify-around items-center py-2 px-3 bg-accent rounded-md"
+                >
+                  <UserRoundPlus />
+                  Tambah Nasabah
+                </button>
               </div>
-            <table className="text-sm rtl:text-right text-gray-500 table-fixed text-center rounded-md xl:w-full">
-              <thead className="text-xs text-gray-700 bg-accent">
-                <tr>
-                  <th scope="col" className="px-6 py-3">
-                    Nama
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Total Saldo
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Total Sampah
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {nasabah.map((v, i) => (
-                  <tr key={i} className="bg-white border-b">
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                    >
-                      {v.nama}
+              <table className="text-sm rtl:text-right text-gray-500 table-fixed text-center rounded-md xl:w-full">
+                <thead className="text-xs text-gray-700 bg-accent">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      Nama
                     </th>
-                    <td className="px-6 py-4">
-                      {formatRupiah(v.total_tabungan)}
-                    </td>
-                    <td className="px-6 py-4 text-center">
-                      {v.total_setoran} <span>Kg.</span>
-                    </td>
+                    <th scope="col" className="px-6 py-3">
+                      Total Saldo
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Total Sampah
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {nasabah.map((v, i) => (
+                    <tr key={i} className="bg-white border-b">
+                      <th
+                        scope="row"
+                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                      >
+                        {v.nama}
+                      </th>
+                      <td className="px-6 py-4">
+                        {formatRupiah(v.total_tabungan)}
+                      </td>
+                      <td className="px-6 py-4 text-center">
+                        {v.total_setoran} <span>Kg.</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
             <section className="flex justify-center items-center mt-2">

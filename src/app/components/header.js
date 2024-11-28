@@ -32,6 +32,7 @@ const Header = () => {
                   <li>
                     <Link
                       href="/tambah-data"
+                      prefetch={true}
                       className="text-gray-900 dark:text-white hover:underline"
                       aria-current="page"
                     >
@@ -41,6 +42,7 @@ const Header = () => {
                   <li>
                     <Link
                       href="/grafik"
+                      prefetch={true}
                       className="text-gray-900 dark:text-white hover:underline"
                     >
                       Grafik
@@ -49,6 +51,7 @@ const Header = () => {
                   <li>
                     <Link
                       href="/daftar-nasabah"
+                      prefetch={true}
                       className="text-gray-900 dark:text-white hover:underline"
                     >
                       Daftar Nasabah
@@ -57,6 +60,7 @@ const Header = () => {
                   <li>
                     <Link
                       href="/admin/login"
+                      prefetch={true}
                       className="text-gray-900 dark:text-white hover:underline"
                     >
                       Dashboard

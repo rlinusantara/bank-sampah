@@ -1,5 +1,6 @@
 import FormInputSampah from "../components/formSampah";
 import Layout from "../components/layout";
+
 const TambahDataPage = ({ nasabah = [], hargaSatuan = 0 }) => {
   return (
     <>
