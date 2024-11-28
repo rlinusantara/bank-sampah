@@ -88,9 +88,9 @@ const GrafikPage = ({
             className="flex justify-end w-full px-10 mb-10 cursor-pointer"
             onClick={exportToExcel}
           >
-            <section className="w-24 border flex flex-col items-center justify-center rounded-sm border-gray-300">
-              <img src="/excel.png" alt="exel" />
-              <p className="font-medium text-sm">Export ke excel</p>
+            <section className="w-24 flex flex-col items-center justify-center rounded-md bg-gray-200 pb-3">
+              <img src="/excel.png" className="w-24" alt="excel" />
+              <p className="font-medium text-sm -mt-3">Export</p>
             </section>
           </section>
         ) : (
