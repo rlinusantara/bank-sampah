@@ -20,6 +20,7 @@ const LoginPage = ({ isLogin = false }) => {
   useEffect(() => {
     if (isLogin) {
       router.push("/admin/dashboard");
+      return;
     }
   }, []);
 
