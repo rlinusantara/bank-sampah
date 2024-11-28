@@ -57,16 +57,26 @@ const GrafikPage = ({
                 </section>
               ) : (
                 <section className=" flex flex-col gap-40">
-                  <HorizontalBarChart
-                    dataTabungan={totalTabungan}
-                    labels={nasabah}
-                    text="Grafik Tabungan Customer"
-                  />
-                  <HorizontalBarChart
-                    dataTabungan={totalSetoran}
-                    labels={nasabah}
-                    text="Grafik Total Setoran"
-                  />
+                  <section>
+                    <p className="text-center font-bold text-2xl">
+                      Grafik Total Tabungan
+                    </p>
+                    <HorizontalBarChart
+                      dataTabungan={totalTabungan}
+                      labels={nasabah}
+                      text=""
+                    />
+                  </section>
+                  <section>
+                    <p className="text-center font-bold text-2xl">
+                      Grafik Total Setoran
+                    </p>
+                    <HorizontalBarChart
+                      dataTabungan={totalSetoran}
+                      labels={nasabah}
+                      text=""
+                    />
+                  </section>
                 </section>
               )}
             </section>
@@ -78,9 +88,9 @@ const GrafikPage = ({
             className="flex justify-end w-full px-10 mb-10 cursor-pointer"
             onClick={exportToExcel}
           >
-            <section className="w-24 border flex flex-col items-center justify-center rounded-sm border-gray-300">
-              <img src="/excel.png" alt="exel" />
-              <p className="font-medium text-sm">Export ke excel</p>
+            <section className="w-24 flex flex-col items-center justify-center rounded-md bg-gray-200 pb-3">
+              <img src="/excel.png" className="w-24" alt="excel" />
+              <p className="font-medium text-sm -mt-3">Export</p>
             </section>
           </section>
         ) : (
