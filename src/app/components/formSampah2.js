@@ -33,12 +33,10 @@ const FormSampah2 = ({ nasabah = [], hargaSatuan }) => {
         jenis_sampah: jenisSampah,
       });
 
-      setTimeout(() => {
-        setPopUpisLoading(false);
-        setMsg(res.data?.message);
-        form.current.reset();
-        selectRef.current.clearValue();
-      }, 1000);
+      setPopUpisLoading(false);
+      setMsg(res.data?.message);
+      form.current.reset();
+      selectRef.current.clearValue();
     } catch (error) {
       setPopUpisLoading(false);
       if (error?.response?.data?.errors) {
