@@ -65,6 +65,7 @@ const GrafikPage = ({
                       dataTabungan={totalTabungan}
                       labels={nasabah}
                       text=""
+                      label={"Tabungan"}
                     />
                   </section>
                   <section>
@@ -75,6 +76,7 @@ const GrafikPage = ({
                       dataTabungan={totalSetoran}
                       labels={nasabah}
                       text=""
+                      label={"Setoran"}
                     />
                   </section>
                 </section>
