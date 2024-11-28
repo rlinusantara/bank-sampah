@@ -1,5 +1,5 @@
 import DataNasabahPage from "@/app/components-page/data_nasabah_page";
-import SpinnerLoading from "@/app/components/spinner";
+import ErrorPage from "@/app/components/errorPage";
 import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
@@ -28,9 +28,8 @@ const DataNasabah = async () => {
     }
 
     return <DataNasabahPage nasabahInit={data.data} isLogin={isLogin} />;
-  } catch (err) {
-    console.error("Error fetching data:", err);
-    return <SpinnerLoading />;
+  } catch (error) {
+    return <ErrorPage err={error.message} statusCode={error.status} />;
   }
 };
 
