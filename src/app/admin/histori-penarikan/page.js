@@ -1,5 +1,5 @@
 import HistoryPenarikanPage from "@/app/components-page/history_penarikan_page";
-import SpinnerLoading from "@/app/components/spinner";
+import ErrorPage from "@/app/components/errorPage";
 import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
@@ -30,9 +30,8 @@ const HistoryPenarikan = async () => {
     return (
       <HistoryPenarikanPage historyPenarikan={data.data} isLogin={isLogin} />
     );
-  } catch (err) {
-    console.error("Error fetching data:", err);
-    return <SpinnerLoading />;
+  } catch (error) {
+    return <ErrorPage err={error.message} statusCode={error.status} />;
   }
 };
 

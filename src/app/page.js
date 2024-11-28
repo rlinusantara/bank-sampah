@@ -1,11 +1,12 @@
 import connectDB from "@/db/connection";
 import Main from "./components/home";
+import ErrorPage from "./components/errorPage";
 export default async function Home() {
-  await connectDB();
+  try {
+    await connectDB();
 
-  return (
-    <>
-      <Main />
-    </>
-  );
+    return <Main />;
+  } catch (error) {
+    return <ErrorPage err={error.message} statusCode={error.status} />;
+  }
 }

@@ -1,5 +1,5 @@
 import DashboardPage from "@/app/components-page/dashboard_page";
-import SpinnerLoading from "@/app/components/spinner";
+import ErrorPage from "@/app/components/errorPage";
 import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
@@ -28,9 +28,8 @@ const Dashboard = async () => {
     }
 
     return <DashboardPage counting={data.data[0] || {}} isLogin={isLogin} />;
-  } catch (err) {
-    console.error("Error fetching data:", err);
-    return <SpinnerLoading />;
+  } catch (error) {
+    return <ErrorPage err={error.message} statusCode={error.status} />;
   }
 };
 
