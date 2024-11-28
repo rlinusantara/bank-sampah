@@ -5,7 +5,7 @@ const TambahDataPage = ({ nasabah = [], hargaSatuan = 0 }) => {
   return (
     <>
       <Layout>
-        <section className="ml-20">
+        <section>
           <h1 className="text-center xl:text-2xl font-bold p-3 font-nunito">
             FORM INPUT DATA BANK SAMPAH
           </h1>
