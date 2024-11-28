@@ -1,5 +1,5 @@
 import GrafikPage from "../components-page/grafik_page";
-import SpinnerLoading from "../components/spinner";
+import ErrorPage from "../components/errorPage";
 
 export const dynamic = "force-dynamic";
 
@@ -18,9 +18,8 @@ const Grafik = async () => {
         data={data.data}
       />
     );
-  } catch (err) {
-    console.error("Error fetching data:", err);
-    return <SpinnerLoading />;
+  } catch (error) {
+    return <ErrorPage err={error.message} statusCode={error.status} />;
   }
 };
 

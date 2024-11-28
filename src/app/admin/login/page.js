@@ -1,5 +1,5 @@
 import LoginPage from "@/app/components-page/login_page";
-import SpinnerLoading from "@/app/components/spinner";
+import ErrorPage from "@/app/components/errorPage";
 import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
@@ -16,9 +16,8 @@ const Login = async () => {
     }
 
     return <LoginPage isLogin={isLogin} />;
-  } catch (err) {
-    console.error("Error fetching data:", err);
-    return <SpinnerLoading />;
+  } catch (error) {
+    return <ErrorPage err={error.message} statusCode={error.status} />;
   }
 };
 

@@ -1,5 +1,5 @@
 import HargaSampahPage from "@/app/components-page/harga_sampah_page";
-import SpinnerLoading from "@/app/components/spinner";
+import ErrorPage from "@/app/components/errorPage";
 import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
@@ -33,9 +33,8 @@ const DraftSetoran = async () => {
         isLogin={isLogin}
       />
     );
-  } catch (err) {
-    console.error("Error fetching data:", err);
-    return <SpinnerLoading />;
+  } catch (error) {
+    return <ErrorPage err={error.message} statusCode={error.status} />;
   }
 };
 

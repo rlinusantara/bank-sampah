@@ -1,5 +1,6 @@
 import TambahDataAdminPage from "@/app/components-page/tambah_data_admin_page";
 import { cookies } from "next/headers";
+import ErrorPage from "@/app/components/errorPage";
 
 export const dynamic = "force-dynamic";
 
@@ -31,9 +32,8 @@ const SetoranMasuk = async () => {
         isLogin={isLogin}
       />
     );
-  } catch (err) {
-    console.error("Error fetching data:", err);
-    return <TambahDataAdminPage />;
+  } catch (error) {
+    return <ErrorPage err={error.message} statusCode={error.status} />;
   }
 };
 

@@ -1,5 +1,5 @@
 import PenarikanUangPage from "@/app/components-page/penarikan_uang_page";
-import SpinnerLoading from "@/app/components/spinner";
+import ErrorPage from "@/app/components/errorPage";
 import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
@@ -29,9 +29,8 @@ const DraftSetoran = async () => {
     }
 
     return <PenarikanUangPage nasabahInit={p} isLogin={isLogin} />;
-  } catch (err) {
-    console.error("Error fetching data:", err);
-    return <SpinnerLoading />;
+  } catch (error) {
+    return <ErrorPage err={error.message} statusCode={error.status} />;
   }
 };
 
