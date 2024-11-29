@@ -15,6 +15,7 @@ const Dashboard = async () => {
     let isLogin = false;
 
     let counting = {};
+
     if (tokenName && tokenValue) {
       const res = await fetch(`${hostname}/api/admin/counting`, {
         method: "GET",
@@ -25,15 +26,13 @@ const Dashboard = async () => {
         credentials: "include",
       });
 
-      counting = await res.json();
+      counting = (await res.json()).data[0];
+
       isLogin = true;
     }
 
-    return (
-      <DashboardPage counting={counting.data[0] || {}} isLogin={isLogin} />
-    );
+    return <DashboardPage counting={counting} isLogin={isLogin} />;
   } catch (error) {
-    console.log(error);
     return <ErrorPage err={error.message} statusCode={error.status} />;
   }
 };
