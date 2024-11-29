@@ -12,23 +12,28 @@ const Dashboard = async () => {
 
     const hostname = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
-    const res = await fetch(`${hostname}/api/admin/counting`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Cookie: `secret=${tokenValue}`,
-      },
-      credentials: "include",
-    });
-    const data = await res.json();
-
     let isLogin = false;
+
+    let counting = {};
     if (tokenName && tokenValue) {
+      const res = await fetch(`${hostname}/api/admin/counting`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: `secret=${tokenValue}`,
+        },
+        credentials: "include",
+      });
+
+      counting = await res.json();
       isLogin = true;
     }
 
-    return <DashboardPage counting={data.data[0] || {}} isLogin={isLogin} />;
+    return (
+      <DashboardPage counting={counting.data[0] || {}} isLogin={isLogin} />
+    );
   } catch (error) {
+    console.log(error);
     return <ErrorPage err={error.message} statusCode={error.status} />;
   }
 };
