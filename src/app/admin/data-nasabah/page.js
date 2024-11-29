@@ -12,22 +12,23 @@ const DataNasabah = async () => {
 
     const hostname = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
-    const res = await fetch(`${hostname}/api/admin/nasabah`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Cookie: `secret=${tokenValue}`,
-      },
-      credentials: "include",
-    });
-    const data = await res.json();
-
+    let nasabahInit = [];
     let isLogin = false;
     if (tokenName && tokenValue) {
+      const res = await fetch(`${hostname}/api/admin/nasabah`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: `secret=${tokenValue}`,
+        },
+        credentials: "include",
+      });
+
+      nasabahInit = (await res.json()).data;
       isLogin = true;
     }
 
-    return <DataNasabahPage nasabahInit={data.data} isLogin={isLogin} />;
+    return <DataNasabahPage nasabahInit={nasabahInit} isLogin={isLogin} />;
   } catch (error) {
     return <ErrorPage err={error.message} statusCode={error.status} />;
   }
