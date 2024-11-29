@@ -12,23 +12,26 @@ const DraftSetoran = async () => {
 
     const hostname = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
-    const res = await fetch(`${hostname}/api/admin/setoran-masuk`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Cookie: `secret=${tokenValue}`,
-      },
-      credentials: "include",
-    });
-    const data = await res.json();
-
+    let dataSetoranMasukInit = [];
     let isLogin = false;
     if (tokenName && tokenValue) {
+      const res = await fetch(`${hostname}/api/admin/setoran-masuk`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: `secret=${tokenValue}`,
+        },
+        credentials: "include",
+      });
+      dataSetoranMasukInit = (await res.json()).data;
       isLogin = true;
     }
 
     return (
-      <DraftSetoranPage dataSetoranMasukInit={data.data} isLogin={isLogin} />
+      <DraftSetoranPage
+        dataSetoranMasukInit={dataSetoranMasukInit}
+        isLogin={isLogin}
+      />
     );
   } catch (error) {
     return <ErrorPage err={error.message} statusCode={error.status} />;

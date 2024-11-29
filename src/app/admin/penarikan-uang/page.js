@@ -12,23 +12,24 @@ const DraftSetoran = async () => {
 
     const hostname = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
-    const res = await fetch(`${hostname}/api/nasabah`);
-    const data = await res.json();
-
-    const p = data.data.map((item) => {
-      return {
-        label: item.nama,
-        value: item._id,
-        saldo: item.total_tabungan,
-      };
-    });
-
+    let nasabahInit = [];
     let isLogin = false;
     if (tokenName && tokenValue) {
+      const res = await fetch(`${hostname}/api/nasabah`);
+      const data = await res.json();
+
+      const p = data.data.map((item) => {
+        return {
+          label: item.nama,
+          value: item._id,
+          saldo: item.total_tabungan,
+        };
+      });
+      nasabahInit = p;
       isLogin = true;
     }
 
-    return <PenarikanUangPage nasabahInit={p} isLogin={isLogin} />;
+    return <PenarikanUangPage nasabahInit={nasabahInit} isLogin={isLogin} />;
   } catch (error) {
     return <ErrorPage err={error.message} statusCode={error.status} />;
   }
