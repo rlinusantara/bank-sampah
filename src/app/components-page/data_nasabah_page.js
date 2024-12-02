@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import AdminLayout from "@/app/components/adminLayout";
 import SpinnerLoading from "@/app/components/spinner";
 import formatRupiah from "@/helpers/formatRupiah";
-import axios from "axios";
 import { UserRoundPlus, X } from "lucide-react";
 
 const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
@@ -33,22 +32,31 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
       setAddLoading(true);
       setAddBtnDisable(true);
       setAddBtnDisableTolak(true);
-      const res = await axios.post("/api/admin/nasabah/register", {
-        nama: namaNasabah,
+
+      const res = await fetch("/api/admin/nasabah/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          nama: namaNasabah,
+        }),
       });
 
-      setMsg(res.data.message);
+      const data = await res.json();
+
+      setMsg(data?.message);
       setAddLoading(false);
       setAddBtnDisableTolak(false);
       setConfirm(false);
       setPopUp(false);
       setIsEmpty(false);
-      setNasabah([res.data.data, ...nasabah]);
+      setNasabah([data.data, ...nasabah]);
       setAddBtnDisable(false);
     } catch (error) {
       setAddBtnDisableTolak(false);
       setAddLoading(false);
-      console.log(error);
     }
   };
 
@@ -155,6 +163,7 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
                     className="h-10 rounded-lg mb-2 px-2 w-full xl:w-full text-black"
                     required
                     onChange={(e) => setNamaNasabah(e.target.value)}
+                    minLength={3}
                   />
                   <button
                     type="submit"
