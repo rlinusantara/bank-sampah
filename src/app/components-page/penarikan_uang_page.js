@@ -2,7 +2,6 @@
 import AdminLayout from "@/app/components/adminLayout";
 import { useRef, useState } from "react";
 import Select from "react-select";
-import axios from "axios";
 import formatRupiah from "@/helpers/formatRupiah";
 import SpinnerLoading from "@/app/components/spinner";
 
@@ -22,9 +21,16 @@ const PenarikanUangPage = ({ nasabahInit = [], isLogin = false }) => {
       setBtnDisable(true);
       setBtnLoading(true);
 
-      await axios.post("/api/admin/tarik-tabungan", {
-        id_nasabah: detilNasabah.value,
-        saldo: saldoTarik,
+      await fetch("/api/admin/tarik-tabungan", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          id_nasabah: detilNasabah.value,
+          saldo: saldoTarik,
+        }),
       });
 
       const filter = nasabah.map((v) => {
@@ -53,9 +59,9 @@ const PenarikanUangPage = ({ nasabahInit = [], isLogin = false }) => {
     <>
       <AdminLayout isLogin={isLogin}>
         <div className="w-[280px] ml-[73px] xl:w-[100%] xl:relative xl:ml-24">
-        <h1 className="text-center font-bold text-xl p-2">
+          <h1 className="text-center font-bold text-xl p-2">
             Form Penarikan Uang
-        </h1>
+          </h1>
           <form
             ref={form}
             onSubmit={(e) => {
