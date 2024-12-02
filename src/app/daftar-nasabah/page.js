@@ -1,5 +1,7 @@
 import DaftarNasabahPage from "../components-page/daftar_nasabah_page";
-import SpinnerLoading from "../components/spinner";
+import ErrorPage from "../components/errorPage";
+
+export const dynamic = "force-dynamic";
 
 const DaftarNasabah = async () => {
   try {
@@ -9,9 +11,8 @@ const DaftarNasabah = async () => {
     const data = await res.json();
 
     return <DaftarNasabahPage allNasabah={data.data} />;
-  } catch (err) {
-    console.error("Error fetching data:", err);
-    return <SpinnerLoading />;
+  } catch (error) {
+    return <ErrorPage err={error.message} statusCode={error.status} />;
   }
 };
 

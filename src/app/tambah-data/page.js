@@ -1,4 +1,5 @@
 import TambahDataPage from "../components-page/tambah_data_page";
+import ErrorPage from "../components/errorPage";
 
 export const dynamic = "force-dynamic";
 
@@ -15,9 +16,8 @@ const TambahData = async () => {
     }));
 
     return <TambahDataPage nasabah={p} hargaSatuan={data.harga_satuan} />;
-  } catch (err) {
-    console.error("Error fetching data:", err);
-    return <TambahDataPage />;
+  } catch (error) {
+    return <ErrorPage err={error.message} statusCode={error.status} />;
   }
 };
 

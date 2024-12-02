@@ -14,7 +14,7 @@ const AdminLayout = ({ children, isLogin }) => {
       if (isLogin) {
         setIsLoading(false);
       } else {
-        router.push("/admin/login");
+        return router.push("/admin/login");
       }
     },
     [isLogin]

@@ -19,7 +19,7 @@ export default function SidebarAdmin() {
   const [expanded, setExpanded] = useState();
   const SidebarItem = ({ icon, text, active, alert, link }) => {
     return (
-      <Link href={link}>
+      <Link href={link} prefetch={true}>
         <li
           className={`relative flex items-center p-2  h-12 lg:h-16 rounded-md cursor-pointer transition-colors group ${
             active
@@ -60,7 +60,7 @@ export default function SidebarAdmin() {
         <aside className="h-full">
           <nav className="h-full flex flex-col bg-white border-r shadow-sm">
             <div className="p-4 pb-2 mb-3 flex justify-between items-center">
-              <Link href={"/"}>
+              <Link href={"/"} prefetch={true}>
                 <Image
                   src="/logo.png"
                   alt="logo"

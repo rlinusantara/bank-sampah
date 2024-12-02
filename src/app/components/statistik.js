@@ -1,19 +1,9 @@
 "use client";
 
 import { UsersRound, Weight, CircleDollarSign } from "lucide-react";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import formatRupiah from "@/helpers/formatRupiah";
 
-const Statistik = () => {
-  const [counting, setCounting] = useState({});
-
-  useEffect(function () {
-    axios
-      .get("/api/admin/counting")
-      .then((res) => setCounting(res.data.data[0] || {}));
-  }, []);
-
+const Statistik = ({ counting }) => {
   return (
     <div className="flex">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-7xl">
