@@ -63,10 +63,10 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
   return (
     <>
       <AdminLayout isLogin={isLogin}>
+        <div className="w-[280px] ml-[73px] xl:w-[900px] xl:ml-20">
         <h1 className="text-center text-xl font-bold p-2">Data Nasabah</h1>
-        <div className="borderw-80 w-[280px] ml-[73px] xl:w-full xl:ml-24">
-          <div className="relative overflow-x-auto">
-            <div className="w-10/12">
+          <div className="relative overflow-x-auto xl:w-[900px]">
+            <div className="">
               <div className="py-2">
                 <button
                   onClick={() => setPopUp(true)}
@@ -79,13 +79,16 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
               <table className="text-sm rtl:text-right text-gray-500 table-fixed text-center rounded-md xl:w-full">
                 <thead className="text-xs text-gray-700 bg-accent">
                   <tr>
-                    <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-2 py-2">
+                      No.
+                    </th>
+                    <th scope="col" className="px-2 py-2">
                       Nama
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-2 py-2">
                       Total Saldo
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className="px-2 py-2">
                       Total Sampah
                     </th>
                   </tr>
@@ -95,7 +98,13 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
                     <tr key={i} className="bg-white border-b">
                       <th
                         scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                        className="px-6 py-4 "
+                      >
+                        {i+1}
+                      </th>
+                      <th
+                        scope="row"
+                        className="px-6 py-4 "
                       >
                         {v.nama}
                       </th>

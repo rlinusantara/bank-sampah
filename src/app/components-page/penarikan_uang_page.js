@@ -1,6 +1,6 @@
 "use client";
 import AdminLayout from "@/app/components/adminLayout";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import formatRupiah from "@/helpers/formatRupiah";
 import SpinnerLoading from "@/app/components/spinner";
@@ -13,8 +13,20 @@ const PenarikanUangPage = ({ nasabahInit = [], isLogin = false }) => {
   const [btnDisable, setBtnDisable] = useState(false);
   const [btnLoading, setBtnLoading] = useState(false);
   const [msg, setMsg] = useState("");
+  const [cek, setCek] = useState(false)
   const form = useRef();
   const selectRef = useRef();
+
+  const checkboxRef = useRef()
+  const inputJumlahRef = useRef()
+
+  useEffect(function(){
+
+    if(checkboxRef.current){
+      checkboxRef.current.checked = false
+      inputJumlahRef.current.value = ""
+    }
+  },[detilNasabah])
 
   const btnTarikTabungan = async () => {
     try {
@@ -55,6 +67,7 @@ const PenarikanUangPage = ({ nasabahInit = [], isLogin = false }) => {
     }
   };
 
+
   return (
     <>
       <AdminLayout isLogin={isLogin}>
@@ -85,6 +98,8 @@ const PenarikanUangPage = ({ nasabahInit = [], isLogin = false }) => {
                 className="w-full rounded-lg p-1 mb-2"
                 required
                 onChange={setDetilNasabah}
+       
+                
               />
             )}
             <label className="p-1">Saldo Nasabah</label>
@@ -93,14 +108,30 @@ const PenarikanUangPage = ({ nasabahInit = [], isLogin = false }) => {
             </p>
             <label className="p-1">Jumlah Penarikan</label>
             <input
+            ref={inputJumlahRef}
               required
               type="number"
               placeholder="Jumlah Uang"
               className="p-2 rounded-lg w-full mb-2"
               onChange={(e) => setSaldoTarik(+e.target.value)}
             />
+            
+            <div className="flex items-center justify-around w-full">
+              <input
+              ref={checkboxRef}
+                type="checkbox"
+                placeholder="Jumlah Uang"
+             
+                onClick={(e) => {
+                  setSaldoTarik(detilNasabah.saldo)
+                  inputJumlahRef.current.value = detilNasabah.saldo
+             
+                }}
+              />
+              <label className="text-xs w-full p-1">Ambil Semua</label>
+            </div>
             <section className="flex justify-between items-center">
-              <button className="bg-accent py-1 px-2 text-center rounded-md my-2">
+              <button className="bg-accent py-1 px-4 text-center rounded-md mt-4">
                 Tarik
               </button>
               <p className="text-red-500">{msg}</p>
