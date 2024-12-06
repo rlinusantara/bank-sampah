@@ -1,20 +1,39 @@
 "use client";
 
 import AdminLayout from "@/app/components/adminLayout";
-
+import Select from "react-select";
 import { useEffect, useState } from "react";
 import format from "date-format";
 import SpinnerLoading from "@/app/components/spinner";
-import { options } from "joi";
 
 const HistorySetoranPage = ({ historySetoran = [], isLogin = false }) => {
   const [popUp, setPopUp] = useState(false);
   const [detilHistorySetoran, setDetilHistorySetoran] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [selectNasabah, setSelectNasabah] = useState([]);
+  const [historySetoranFilter, setHistorySetoranFilter] =
+    useState(historySetoran);
+
+  const [nasabahSelectValue, setNasabahSelectValue] = useState({});
 
   useEffect(function () {
     if (historySetoran.length) {
+      const nasabah = [{ value: "", label: "All" }];
+      historySetoran.forEach((item) => {
+        const alreadyExists = nasabah.some(
+          (nasabahItem) => nasabahItem.value === item._id
+        );
+
+        if (!alreadyExists) {
+          nasabah.push({
+            label: item.nama,
+            value: item._id,
+          });
+        }
+      });
+
+      setSelectNasabah(nasabah);
       setIsLoading(false);
     } else {
       setIsLoading(false);
@@ -22,28 +41,45 @@ const HistorySetoranPage = ({ historySetoran = [], isLogin = false }) => {
     }
   }, []);
 
+  useEffect(
+    function () {
+      if (Object.keys(nasabahSelectValue).length) {
+        if (nasabahSelectValue.label === "All") {
+          setHistorySetoranFilter(historySetoran);
+          setNasabahSelectValue({});
+        } else {
+          const filter = historySetoran.filter(
+            (item) => item._id === nasabahSelectValue.value
+          );
+          setHistorySetoranFilter(filter);
+        }
+      }
+    },
+    [nasabahSelectValue]
+  );
 
   return (
     <>
       <AdminLayout isLogin={isLogin}>
         <div className="w-[280px] ml-[73px] xl:w-[900px] xl:ml-24">
-        <h1 className="text-center text-xl font-bold p-2">Riwayat Setoran</h1>
+          <h1 className="text-center text-xl font-bold p-2">Riwayat Setoran</h1>
           <div className="relative">
-            <div className="flex my-1">
-              <select className="w-16 xl:w-fit border-2 border-accent p-1 mr-2 rounded-md">
-                <option value="" key="">Pilih Nasabah</option>
-                {
-                  historySetoran.map((x)=>(
-                    <option value={x.nama}>{x.nama}</option>
-                  ))
-                }
-              </select>
-              <input type="text" className="xl:w-full border-2 border-accent p-1 rounded-md" placeholder="Cari Nasabah"/>
+            <div className="flex">
+              {selectNasabah.length > 0 ? (
+                <Select
+                  className="border-2 border-accent w-32 rounded-md my-1"
+                  options={selectNasabah}
+                  defaultValue={selectNasabah[0]}
+                  onChange={setNasabahSelectValue}
+                />
+              ) : (
+                ""
+              )}
             </div>
             <table className="w-full text-sm rtl:text-right text-gray-500 table-fixed text-center">
               <thead className="text-xs text-gray-700 bg-accent ">
                 <tr>
-                <th scope="col" className="px-2 py-3">
+                  <th scope="col" className="px-2 py-3">
                     No.
                   </th>
                   <th scope="col" className="px-2 py-3">
@@ -58,18 +94,12 @@ const HistorySetoranPage = ({ historySetoran = [], isLogin = false }) => {
                 </tr>
               </thead>
               <tbody>
-                {historySetoran.map((v, i) => (
+                {historySetoranFilter.map((v, i) => (
                   <tr key={i} className="bg-white border-b">
-                    <th
-                      scope="row"
-                      className="px-3 py-4"
-                    >
-                      {i+1}
+                    <th scope="row" className="px-3 py-4">
+                      {i + 1}
                     </th>
-                    <th
-                      scope="row"
-                      className="px-3 py-4"
-                    >
+                    <th scope="row" className="px-3 py-4">
                       {v.nama}
                     </th>
                     <td className="px-3 py-4">
