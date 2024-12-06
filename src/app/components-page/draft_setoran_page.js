@@ -17,6 +17,8 @@ const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
   const [isEmpty, setIsEmpty] = useState(false);
   const [btnXDisable, setBtnXDisable] = useState(false);
 
+  const [msgError, setMsgError] = useState("");
+
   useEffect(function () {
     if (dataSetoranMasuk.length) {
       setIsloading(false);
@@ -46,7 +48,7 @@ const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
         setIsEmpty(true);
       }
     } catch (error) {
-      console.log(error);
+      setMsgError(error.message);
     }
   };
 
@@ -70,16 +72,30 @@ const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
         setIsEmpty(true);
       }
     } catch (error) {
-      console.log(error);
+      setMsgError(error.message);
     }
   };
 
   return (
     <>
+      {msgError ? (
+        <section className="fixed top-0 left-0 bottom-0 right-0 bg-white z-10 flex justify-center  items-center">
+          <section>
+            <p className="text-center text-red-500  font-medium text-lg">
+              {msgError}
+            </p>
+            <p className="text-centerfont-semibold text-lg">
+              Cobalah untuk merefresh halaman
+            </p>
+          </section>
+        </section>
+      ) : (
+        ""
+      )}
       <AdminLayout isLogin={isLogin}>
-          <h1 className="text-center text-xl font-bold p-2">
-            Draft Setoran Menunggu Acc
-          </h1>
+        <h1 className="text-center text-xl font-bold p-2">
+          Draft Setoran Menunggu Acc
+        </h1>
         <div className="w-[280px] ml-[73px] xl:w-full xl:ml-24">
           <div className="relative w-10/12">
             <table className="w-full text-sm rtl:text-right text-gray-500 table-fixed text-center">
