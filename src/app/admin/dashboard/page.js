@@ -26,6 +26,10 @@ const Dashboard = async () => {
         credentials: "include",
       });
 
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
+      }
+
       counting = (await res.json()).data[0];
 
       isLogin = true;

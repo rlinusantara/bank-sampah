@@ -24,6 +24,9 @@ const DraftSetoran = async () => {
         },
         credentials: "include",
       });
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
+      }
       const data = await res.json();
       defaultHarga = data.data.harga_satuan;
       isLogin = true;

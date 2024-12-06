@@ -23,6 +23,9 @@ const HistorySetoran = async () => {
         },
         credentials: "include",
       });
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
+      }
       const data = await res.json();
       historySetoran = data.data;
       isLogin = true;

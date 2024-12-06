@@ -17,6 +17,9 @@ const SetoranMasuk = async () => {
     let isLogin = false;
     if (tokenName && tokenValue) {
       const res = await fetch(`${hostname}/api/nasabah`);
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
+      }
       const data = await res.json();
 
       const p = data.data.map((item) => ({
