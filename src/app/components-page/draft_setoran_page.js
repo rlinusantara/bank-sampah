@@ -93,21 +93,24 @@ const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
         ""
       )}
       <AdminLayout isLogin={isLogin}>
-        <h1 className="text-center text-xl font-bold p-2">
-          Draft Setoran Menunggu Acc
-        </h1>
-        <div className="w-[280px] ml-[73px] xl:w-full xl:ml-24">
-          <div className="relative w-10/12">
-            <table className="w-full text-sm rtl:text-right text-gray-500 table-fixed text-center">
+        <div className="w-[280px] ml-[73px] xl:w-[900px] xl:ml-20">
+          <h1 className="text-center text-lg font-bold p-2">
+            Draft Setoran Menunggu Acc
+          </h1>
+          <div className="relative w-fit xl:w-full">
+            <table className="w-full text-sm rtl:text-right text-gray-500">
               <thead className="text-xs text-gray-700 bg-accent ">
                 <tr>
-                  <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-3 py-3">
+                    No.
+                  </th>
+                  <th scope="col" className="px-3 py-3">
                     Nama
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-3 py-3">
                     Tanggal
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-3 py-3">
                     Aksi
                   </th>
                 </tr>
@@ -117,14 +120,20 @@ const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
                   <tr key={i} className="bg-white border-b">
                     <th
                       scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                      className="px-3 py-4"
+                    >
+                      {i+1}
+                    </th>
+                    <th
+                      scope="row"
+                      className="px-3 py-4"
                     >
                       {value.nama_nasabah}
                     </th>
-                    <td className="px-6 py-4">
+                    <td className="px-3 py-4 text-center">
                       {format("dd:MM:yyyy", new Date(value.tanggal_setoran))}
                     </td>
-                    <td className="px-6 py-4 text-center">
+                    <td className="px-3 py-4 text-center">
                       <button
                         onClick={() => {
                           setDetilSetoran(value);

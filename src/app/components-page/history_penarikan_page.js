@@ -21,21 +21,24 @@ const HistoryPenarikanPage = ({ historyPenarikan = [], isLogin = false }) => {
   return (
     <>
       <AdminLayout isLogin={isLogin}>
+        <div className="w-[300px] ml-[73px] xl:w-[900px] xl:ml-20">
           <h1 className="text-center text-xl font-bold p-2">
             Riwayat Penarikan
           </h1>
-        <div className="w-[280px] ml-[73px] xl:w-full xl:ml-24">
-          <div className="relative w-10/12">
-            <table className="w-full text-sm rtl:text-right text-gray-500 table-fixed text-center">
+          <div className="relative xl:w-full">
+            <table className="w-full text-sm rtl:text-right text-gray-500 text-left">
               <thead className="text-xs text-gray-700 bg-accent ">
                 <tr>
-                  <th scope="col" className="px-6 py-3">
+                <th scope="col" className="px-2 py-2">
+                    No.
+                  </th>
+                  <th scope="col" className="px-3 py-2">
                     Nama
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-3 py-2">
                     Tanggal
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-3 py-2">
                     Jumlah
                   </th>
                 </tr>
@@ -45,17 +48,23 @@ const HistoryPenarikanPage = ({ historyPenarikan = [], isLogin = false }) => {
                   <tr key={i} className="bg-white border-b">
                     <th
                       scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                      className="px-2 py-2"
+                    >
+                      {i+1}
+                    </th>
+                    <th
+                      scope="row"
+                      className="px-3 py-2"
                     >
                       {v.nama}
                     </th>
-                    <td className="px-6 py-4">
+                    <td className="px-3 py-2">
                       {format(
                         "dd:MM:yyyy",
                         new Date(v.setoran_keluar.tanggal_setoran_keluar)
                       )}
                     </td>
-                    <td className="px-6 py-4 text-center">
+                    <td className="px-3 py-2">
                       {formatRupiah(v.setoran_keluar.tabungan_keluar)}
                     </td>
                   </tr>
