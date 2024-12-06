@@ -1,7 +1,7 @@
 "use client";
 
 import AdminLayout from "@/app/components/adminLayout";
-
+import Select from "react-select";
 import { useEffect, useState } from "react";
 import format from "date-format";
 import SpinnerLoading from "@/app/components/spinner";
@@ -22,23 +22,16 @@ const HistorySetoranPage = ({ historySetoran = [], isLogin = false }) => {
     }
   }, []);
 
-
   return (
     <>
       <AdminLayout isLogin={isLogin}>
         <div className="w-[280px] ml-[73px] xl:w-[900px] xl:ml-24">
         <h1 className="text-center text-xl font-bold p-2">Riwayat Setoran</h1>
           <div className="relative">
-            <div className="flex my-1">
-              <select className="w-16 xl:w-fit border-2 border-accent p-1 mr-2 rounded-md">
-                <option value="" key="">Pilih Nasabah</option>
-                {
-                  historySetoran.map((x)=>(
-                    <option value={x.nama}>{x.nama}</option>
-                  ))
-                }
-              </select>
-              <input type="text" className="xl:w-full border-2 border-accent p-1 rounded-md" placeholder="Cari Nasabah"/>
+            <div className="flex">
+              <Select
+              className="border-2 border-accent w-32 rounded-md my-1"
+              />
             </div>
             <table className="w-full text-sm rtl:text-right text-gray-500 table-fixed text-center">
               <thead className="text-xs text-gray-700 bg-accent ">
