@@ -12,7 +12,6 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
   const [popUp, setPopUp] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [nasabah, setNasabah] = useState(nasabahInit);
-
   const [namaNasabah, setNamaNasabah] = useState("");
   const [msg, setMsg] = useState("");
   const [addLoading, setAddLoading] = useState(false);
@@ -22,9 +21,10 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
   const [editNasabah, setEditNasabah] = useState(false);
   const [detilDataNasabah, setDetilDataNasabah] = useState({});
   const [editNamaNasabah, setEditNamaNasabah] = useState("");
-
   const [btnDisableEditHapus, setBtnDisableEditHapus] = useState(false);
   const [btnLoadingEditHapus, setBtnLoadingEditHapus] = useState(false);
+  const [confirmHapus, setConfirmHapus] = useState(true);
+  const [btnLoadingHapus, setBtnLoadingHapus] = useState(false);
 
   useEffect(function () {
     if (nasabah.length) {
@@ -99,6 +99,28 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
     } catch (error) {
       setBtnDisableEditHapus(false);
       setBtnLoadingEditHapus(false);
+      console.log(error);
+    }
+  };
+
+  const btnDelNasabah = async () => {
+    try {
+      setBtnLoadingHapus(true);
+      setBtnDisableEditHapus(true);
+
+      await axios.delete(`/api/admin/nasabah/${detilDataNasabah._id}`);
+
+      const hapus = [...nasabah].filter((v) => v._id !== detilDataNasabah._id);
+      setNasabah(hapus);
+
+      setBtnLoadingHapus(false);
+      setBtnDisableEditHapus(false);
+      setMenuEdit(true);
+      setEditNasabah(false);
+      setConfirmHapus(true);
+    } catch (error) {
+      setBtnLoadingHapus(false);
+      setBtnDisableEditHapus(false);
       console.log(error);
     }
   };
@@ -198,7 +220,7 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
                     className="flex justify-around items-center py-2 px-3"
                     onClick={() => {
                       setPopUp(false);
-                      setConfirm(false);
+                      setConfirmHapus(false);
                       setNamaNasabah("");
                     }}
                     disabled={addBtnDisable}
@@ -296,7 +318,11 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
                 <button
                   type="button"
                   disabled={btnDisableEditHapus}
-                  onClick={() => setEditNasabah(false)}
+                  onClick={() => {
+                    setMenuEdit(true);
+                    setEditNasabah(false);
+                    setConfirmHapus(true);
+                  }}
                   className="font-bold p-1 cursor-pointer"
                 >
                   X
@@ -304,7 +330,9 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
               </div>
               {menuEdit ? (
                 <div>
-                  <h1 className="text-center">Edit Nasabah</h1>
+                  <h1 className="text-center text-lg font-bold">
+                    Edit Nasabah
+                  </h1>
                   <form className="flex flex-col" onSubmit={btnEditNasabah}>
                     <label>Nama</label>
                     <input
@@ -328,10 +356,44 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
                 </div>
               ) : (
                 <div>
-                  <h1 className="text-center">Hapus Nasabah</h1>
-                  <button className="text-center text-white font-medium bg-red-600 py-1 px-2 rounded-md mt-5">
+                  <h1 className="text-center text-lg font-bold">
                     Hapus Nasabah
-                  </button>
+                  </h1>
+
+                  {confirmHapus ? (
+                    <button
+                      onClick={() => {
+                        setConfirmHapus(false);
+                        setBtnDisableEditHapus(true);
+                      }}
+                      className="text-center text-white font-medium bg-red-600 py-1 px-2 rounded-md mt-5"
+                    >
+                      Hapus Nasabah
+                    </button>
+                  ) : (
+                    <div className="flex justify-between w-56 ">
+                      <button
+                        disabled={btnDisableEditHapus}
+                        onClick={() => {
+                          setConfirmHapus(true);
+                          setBtnDisableEditHapus(false);
+                        }}
+                        className="text-center text-black font-medium bg-accent py-1 px-2 rounded-md mt-5"
+                      >
+                        Batal
+                      </button>
+                      <button
+                        onClick={btnDelNasabah}
+                        className="text-center text-white font-medium bg-red-600 py-1 px-2 rounded-md mt-5"
+                      >
+                        {btnLoadingHapus ? (
+                          <SpinnerLoading w="w-5" h="h-5" />
+                        ) : (
+                          "Konfirmasi hapus"
+                        )}
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
