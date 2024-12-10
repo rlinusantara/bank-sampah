@@ -17,6 +17,8 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
   const [addLoading, setAddLoading] = useState(false);
   const [addBtnDisable, setAddBtnDisable] = useState(false);
   const [addBtnDisableTolak, setAddBtnDisableTolak] = useState(false);
+  const [menuEdit, setMenuEdit] = useState(true)
+  const[editNasabah, setEditNasabah] = useState(false)
 
   useEffect(function () {
     if (nasabah.length) {
@@ -79,17 +81,20 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
               <table className="text-sm rtl:text-right text-gray-500 table-fixed text-center rounded-md xl:w-full">
                 <thead className="text-xs text-gray-700 bg-accent">
                   <tr>
-                  <th scope="col" className="px-2 py-2">
+                  <th scope="col" className="px-1.5 py-2">
                       No.
                     </th>
-                    <th scope="col" className="px-2 py-2">
+                    <th scope="col" className="px-1.5 py-2">
                       Nama
                     </th>
-                    <th scope="col" className="px-2 py-2">
-                      Total Saldo
+                    <th scope="col" className="px-1.5 py-2">
+                      Jml. Saldo
                     </th>
-                    <th scope="col" className="px-2 py-2">
-                      Total Sampah
+                    <th scope="col" className="px-1.5 py-2">
+                      Jml. Sampah
+                    </th>
+                    <th scope="col" className="px-1.5 py-2">
+                      Aksi
                     </th>
                   </tr>
                 </thead>
@@ -98,21 +103,29 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
                     <tr key={i} className="bg-white border-b">
                       <th
                         scope="row"
-                        className="px-6 py-4 "
+                        className="px-1.5 py-4 "
                       >
                         {i+1}
                       </th>
                       <th
                         scope="row"
-                        className="px-6 py-4 "
+                        className="px-1.5 py-4 "
                       >
                         {v.nama}
                       </th>
-                      <td className="px-6 py-4">
+                      <td className="px-1.5 py-4">
                         {formatRupiah(v.total_tabungan)}
                       </td>
-                      <td className="px-6 py-4 text-center">
+                      <td className="px-1.5 py-4 text-center">
                         {v.total_setoran} <span>Kg.</span>
+                      </td>
+                      <td className="px-1.5 py-4 text-center">
+                      <button
+                        onClick={() => setEditNasabah(true)}
+                        className="bg-primary py-1 px-3 rounded-md text-white text-center"
+                      >
+                        Edit
+                      </button>
                       </td>
                     </tr>
                   ))}
@@ -219,6 +232,34 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
             ""
           )}
         </div>
+        {editNasabah ? (
+          <div className="layar-hitam absolute top-0 bottom-0 left-0 right-0 h-screen w-full">
+          <div className="bg-background w-[270px] ml-[77px] xl:w-[900px] xl:ml-20 mt-28 p-2">
+            <div className="flex justify-between p-2">
+            <div className="flex">
+              <p onClick={() => setMenuEdit(true)} className="p-1 cursor-pointer underline">Edit</p>
+              <p onClick={() => setMenuEdit(false)} className="p-1 cursor-pointer underline">Hapus</p>
+            </div>
+            <p onClick={() => setEditNasabah(false)} className="font-bold p-1 cursor-pointer">X</p>
+            </div>
+            {menuEdit ? (
+            <div>
+            <h1 className="text-center">Edit Nasabah</h1>
+            <form className="flex flex-col">
+              <label>Nama</label>
+              <input type="text" className="h-10 rounded-lg mb-2 px-2 w-full xl:w-full text-black border border-accent"/>
+              <button className="text-center font-medium bg-accent py-1 w-20 rounded-md flex justify-center items-center">Simpan</button>
+            </form>
+            </div>
+            ) : (
+              <div>
+                <h1 className="text-center">Hapus Nasabah</h1>
+                <button className="text-center text-white font-medium bg-red-600 py-1 px-2 rounded-md mt-5">Hapus Nasabah</button>
+              </div>
+            )}
+          </div>
+        </div>
+        ):("")}
       </AdminLayout>
     </>
   );
