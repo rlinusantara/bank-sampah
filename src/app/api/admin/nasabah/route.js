@@ -18,7 +18,7 @@ async function getAllNasabah(req) {
         },
       },
     ]);
-    return Response.json({ message: "Hello World1", data: nasabah });
+    return Response.json({ message: "Semua data nasabah", data: nasabah });
   } catch (error) {
     return errorHandling(error);
   }
