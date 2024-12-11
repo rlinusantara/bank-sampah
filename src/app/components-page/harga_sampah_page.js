@@ -4,6 +4,7 @@ import SpinnerLoading from "@/app/components/spinner";
 import formatRupiah from "@/helpers/formatRupiah";
 import axios from "axios";
 import { useRef, useState } from "react";
+import PopUpError from "../components/popUpError";
 
 const HargaSampahPage = ({ defaultHarga = 0, isLogin = false }) => {
   const [popUp, setPopUp] = useState(false);
@@ -12,6 +13,7 @@ const HargaSampahPage = ({ defaultHarga = 0, isLogin = false }) => {
   const [btnLoading, setBtnLoading] = useState(false);
 
   const [btnConfirmDisable, setBtnConfirmDisable] = useState(false);
+  const [msgError, setMsgError] = useState("");
   const showHargaTag = useRef();
   const form = useRef();
 
@@ -22,9 +24,15 @@ const HargaSampahPage = ({ defaultHarga = 0, isLogin = false }) => {
       setBtnLoading(true);
       setBtnConfirmDisable(true);
 
-      await axios.put("/api/admin/harga-sampah", {
-        harga_satuan: harga,
-      });
+      await axios.put(
+        "/api/admin/harga-sampah",
+        {
+          harga_satuan: harga,
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
       setTimeout(() => {
         setBtnDisable(false);
@@ -36,12 +44,18 @@ const HargaSampahPage = ({ defaultHarga = 0, isLogin = false }) => {
         showHargaTag.current.textContent = formatRupiah(harga);
       }, 500);
     } catch (error) {
-      console.log(error);
+      setBtnDisable(false);
+      setBtnLoading(false);
+      setBtnConfirmDisable(false);
+      setBtnDisable(false);
+      setPopUp(false);
+      setMsgError(error.message);
     }
   };
 
   return (
     <>
+      {msgError ? <PopUpError msgError={msgError} /> : ""}
       <AdminLayout isLogin={isLogin}>
         <div className="w-[280px] ml-[73px]">
           <h1 className="text-center text-xl font-bold p-2">Harga Sampah</h1>
