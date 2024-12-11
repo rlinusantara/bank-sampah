@@ -86,6 +86,9 @@ const HistorySetoranPage = ({ historySetoran = [], isLogin = false }) => {
                     Nama
                   </th>
                   <th scope="col" className="px-2 py-3">
+                    Kg
+                  </th>
+                  <th scope="col" className="px-2 py-3">
                     Tanggal
                   </th>
                   <th scope="col" className="px-2 py-3">
@@ -102,12 +105,13 @@ const HistorySetoranPage = ({ historySetoran = [], isLogin = false }) => {
                     <th scope="row" className="px-3 py-4">
                       {v.nama}
                     </th>
+                    <th scope="row" className="px-3 py-4">
+                      {v.history_setoran_masuk.jumlah_setoran}
+                    </th>
                     <td className="px-3 py-4">
                       {format(
                         "dd:MM:yyyy",
-                        new Date(
-                          v.history_setoran_masuk.tanggal_setoran_disetujui
-                        )
+                        new Date(v.history_setoran_masuk.tanggal_setoran)
                       )}
                     </td>
                     <td className="px-3 py-4 text-center">
