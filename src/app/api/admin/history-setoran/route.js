@@ -21,7 +21,7 @@ const historySetoran = async (req) => {
       },
       {
         $sort: {
-          tanggal_setoran_disetujui: -1,
+          tanggal_setoran: -1,
         },
       },
     ]);
