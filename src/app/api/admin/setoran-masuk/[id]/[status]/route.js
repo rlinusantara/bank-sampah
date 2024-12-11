@@ -146,7 +146,7 @@ const handleSetoranMasukSetujui = async (res, params) => {
   }
 };
 
-export const POST = async (req, { params }) => {
+export const GET = async (req, { params }) => {
   try {
     if (!process.env.SECRET_KEY) {
       throw new ResponseErr(500, "Env error");
