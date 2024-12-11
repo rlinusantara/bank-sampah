@@ -83,6 +83,8 @@ const HargaSampahPage = ({ defaultHarga = 0, isLogin = false }) => {
                 type="number"
                 className="h-10 rounded-lg mb-2 px-2 w-full xl:w-full text-black"
                 required
+                step="any"
+                min={1}
                 onChange={(e) => setHarga(+e.target.value)}
               />
               <button
