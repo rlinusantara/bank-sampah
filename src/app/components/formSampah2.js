@@ -3,6 +3,7 @@ import { useState } from "react";
 import Select from "react-select";
 import { useRef } from "react";
 import { CircleCheckBig } from "lucide-react";
+import axios from "axios";
 
 const FormSampah2 = ({ nasabah = [], hargaSatuan }) => {
   const [tanggal, setTanggal] = useState("");
@@ -24,25 +25,22 @@ const FormSampah2 = ({ nasabah = [], hargaSatuan }) => {
       setPopUp(true);
       setPopUpisLoading(true);
 
-      const res = await fetch("/api/setoran-masuk", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
+      const res = await axios.post(
+        "/api/setoran-masuk",
+        {
           id_nasabah: _id.valueOf().value,
           tanggal_setoran: tanggal,
           sampah_halus: jumlahSampahHalus,
           sampah_kasar: jumlahSampahKasar,
           jenis_sampah: jenisSampah,
-        }),
-      });
-
-      const data = await res.json();
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
       setPopUpisLoading(false);
-      setMsg(data?.message);
+      setMsg(res.data?.message);
       form.current.reset();
       selectRef.current.clearValue();
     } catch (error) {
