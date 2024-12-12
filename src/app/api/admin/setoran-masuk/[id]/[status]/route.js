@@ -7,7 +7,7 @@ import onlyLogin from "@/middlewares/onlyLogin";
 import mongoose from "mongoose";
 import BigNumber from "bignumber.js";
 
-const handleSetoranMasukTolak = async (res, params) => {
+const handleSetoranMasukTolak = async (req, params) => {
   try {
     await connectDB();
     const { id, status } = await params;
@@ -39,7 +39,7 @@ export const DELETE = async (req, { params }) => {
   }
 };
 
-const handleSetoranMasukSetujui = async (res, params) => {
+const handleSetoranMasukSetujui = async (req, params) => {
   await connectDB();
   const session = await mongoose.startSession();
 
