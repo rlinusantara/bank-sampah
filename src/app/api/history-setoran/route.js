@@ -55,13 +55,4 @@ const historySetoran = async (req) => {
   }
 };
 
-export const POST = async (req) => {
-  try {
-    if (!process.env.SECRET_KEY) {
-      throw new ResponseErr(500, "Env error");
-    }
-    return await onlyLogin(historySetoran, req, process.env.SECRET_KEY);
-  } catch (error) {
-    return errorHandling(error);
-  }
-};
+export const POST = (req) => historySetoran(req);
