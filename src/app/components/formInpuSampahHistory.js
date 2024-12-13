@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { CircleCheckBig } from "lucide-react";
 import axios from "axios";
 
-const FormSampah1 = ({ nasabah = [], hargaSatuan }) => {
+const FormInputSampahHistory = ({ nasabah = [], hargaSatuan }) => {
   const [tanggal, setTanggal] = useState("");
   const [jumlahSetoran, setJumlahSetoran] = useState(0);
   const [jenisSampah, setJenisSampah] = useState("");
@@ -25,7 +25,7 @@ const FormSampah1 = ({ nasabah = [], hargaSatuan }) => {
       setPopUpisLoading(true);
 
       const res = await axios.post(
-        "/api/setoran-masuk/total",
+        "/api/history-setoran",
         {
           id_nasabah: _id.valueOf().value,
           tanggal_setoran: tanggal,
@@ -179,4 +179,4 @@ const FormSampah1 = ({ nasabah = [], hargaSatuan }) => {
   );
 };
 
-export default FormSampah1;
+export default FormInputSampahHistory;

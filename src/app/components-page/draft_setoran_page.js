@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import format from "date-format";
 import SpinnerLoading from "@/app/components/spinner";
+import PopUpError from "../components/popUpError";
 
 const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
   const [popUp, setPopUp] = useState(false);
@@ -34,7 +35,9 @@ const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
       setBtnLoadingTolak(true);
       setBtnXDisable(true);
 
-      await axios.delete(`/api/admin/setoran-masuk/${id}/tolak`);
+      await axios.delete(`/api/admin/setoran-masuk/${id}/tolak`, {
+        withCredentials: true,
+      });
 
       const filterData = [...dataSetoranMasuk].filter((v) => v._id !== id);
       setDataSetoranMasuk(filterData);
@@ -48,6 +51,14 @@ const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
         setIsEmpty(true);
       }
     } catch (error) {
+      setBtnDisable(false);
+      setBtnLoadingTolak(false);
+      setBtnXDisable(false);
+      setPopUp(false);
+      if (error?.response?.data?.errors?.join("-")) {
+        setMsgError(error.response.data.errors.join("-"));
+        return;
+      }
       setMsgError(error.message);
     }
   };
@@ -58,7 +69,9 @@ const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
       setBtnLoadingSetuju(true);
       setBtnXDisable(true);
 
-      await axios.post(`/api/admin/setoran-masuk/${id}/setuju`);
+      await axios.get(`/api/admin/setoran-masuk/${id}/setuju`, {
+        withCredentials: true,
+      });
 
       const filterData = [...dataSetoranMasuk].filter((v) => v._id !== id);
       setDataSetoranMasuk(filterData);
@@ -72,26 +85,21 @@ const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
         setIsEmpty(true);
       }
     } catch (error) {
+      setBtnDisable(false);
+      setBtnLoadingSetuju(false);
+      setPopUp(false);
+      setBtnXDisable(false);
+      if (error?.response?.data?.errors?.join("-")) {
+        setMsgError(error.response.data.errors.join("-"));
+        return;
+      }
       setMsgError(error.message);
     }
   };
 
   return (
     <>
-      {msgError ? (
-        <section className="fixed top-0 left-0 bottom-0 right-0 bg-white z-10 flex justify-center  items-center">
-          <section>
-            <p className="text-center text-red-500  font-medium text-lg">
-              {msgError}
-            </p>
-            <p className="text-centerfont-semibold text-lg">
-              Cobalah untuk merefresh halaman
-            </p>
-          </section>
-        </section>
-      ) : (
-        ""
-      )}
+      {msgError ? <PopUpError msgError={msgError} uniq={true} /> : ""}
       <AdminLayout isLogin={isLogin}>
         <div className="w-[280px] ml-[73px] xl:w-[900px] xl:ml-20">
           <h1 className="text-center text-lg font-bold p-2">
@@ -101,7 +109,7 @@ const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
             <table className="w-full text-sm rtl:text-right text-gray-500">
               <thead className="text-xs text-gray-700 bg-accent ">
                 <tr>
-                <th scope="col" className="px-3 py-3">
+                  <th scope="col" className="px-3 py-3">
                     No.
                   </th>
                   <th scope="col" className="px-3 py-3">
@@ -118,16 +126,10 @@ const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
               <tbody>
                 {dataSetoranMasuk.map((value, i) => (
                   <tr key={i} className="bg-white border-b">
-                    <th
-                      scope="row"
-                      className="px-3 py-4"
-                    >
-                      {i+1}
+                    <th scope="row" className="px-3 py-4">
+                      {i + 1}
                     </th>
-                    <th
-                      scope="row"
-                      className="px-3 py-4"
-                    >
+                    <th scope="row" className="px-3 py-4">
                       {value.nama_nasabah}
                     </th>
                     <td className="px-3 py-4 text-center">

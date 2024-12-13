@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import formatRupiah from "@/helpers/formatRupiah";
 import SpinnerLoading from "@/app/components/spinner";
+import PopUpError from "../components/popUpError";
 
 const PenarikanUangPage = ({ nasabahInit = [], isLogin = false }) => {
   const [popUp, setPopUp] = useState(false);
@@ -13,20 +14,22 @@ const PenarikanUangPage = ({ nasabahInit = [], isLogin = false }) => {
   const [btnDisable, setBtnDisable] = useState(false);
   const [btnLoading, setBtnLoading] = useState(false);
   const [msg, setMsg] = useState("");
-  const [cek, setCek] = useState(false)
+  const [msgError, setMsgError] = useState(false);
   const form = useRef();
   const selectRef = useRef();
 
-  const checkboxRef = useRef()
-  const inputJumlahRef = useRef()
+  const checkboxRef = useRef();
+  const inputJumlahRef = useRef();
 
-  useEffect(function(){
-
-    if(checkboxRef.current){
-      checkboxRef.current.checked = false
-      inputJumlahRef.current.value = ""
-    }
-  },[detilNasabah])
+  useEffect(
+    function () {
+      if (checkboxRef.current) {
+        checkboxRef.current.checked = false;
+        inputJumlahRef.current.value = "";
+      }
+    },
+    [detilNasabah]
+  );
 
   const btnTarikTabungan = async () => {
     try {
@@ -63,13 +66,16 @@ const PenarikanUangPage = ({ nasabahInit = [], isLogin = false }) => {
         setNasabah([...filter]);
       }, 500);
     } catch (error) {
-      console.log(error);
+      setBtnDisable(false);
+      setBtnLoading(false);
+      setPopUp(false);
+      setMsgError(error.message);
     }
   };
 
-
   return (
     <>
+      {msgError ? <PopUpError msgError={msgError} /> : ""}
       <AdminLayout isLogin={isLogin}>
         <div className="w-[280px] ml-[73px] xl:w-[100%] xl:relative xl:ml-24">
           <h1 className="text-center font-bold text-xl p-2">
@@ -98,8 +104,6 @@ const PenarikanUangPage = ({ nasabahInit = [], isLogin = false }) => {
                 className="w-full rounded-lg p-1 mb-2"
                 required
                 onChange={setDetilNasabah}
-       
-                
               />
             )}
             <label className="p-1">Saldo Nasabah</label>
@@ -108,24 +112,22 @@ const PenarikanUangPage = ({ nasabahInit = [], isLogin = false }) => {
             </p>
             <label className="p-1">Jumlah Penarikan</label>
             <input
-            ref={inputJumlahRef}
+              ref={inputJumlahRef}
               required
               type="number"
               placeholder="Jumlah Uang"
               className="p-2 rounded-lg w-full mb-2"
               onChange={(e) => setSaldoTarik(+e.target.value)}
             />
-            
+
             <div className="flex items-center justify-around w-full">
               <input
-              ref={checkboxRef}
+                ref={checkboxRef}
                 type="checkbox"
                 placeholder="Jumlah Uang"
-             
                 onClick={(e) => {
-                  setSaldoTarik(detilNasabah.saldo)
-                  inputJumlahRef.current.value = detilNasabah.saldo
-             
+                  setSaldoTarik(detilNasabah.saldo);
+                  inputJumlahRef.current.value = detilNasabah.saldo;
                 }}
               />
               <label className="text-xs w-full p-1">Ambil Semua</label>
