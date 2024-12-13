@@ -1,11 +1,11 @@
 import connectDB from "@/db/connection";
-import onlyLogin from "@/middlewares/onlyLogin";
+import onlyLogin from "@/app/middlewares/onlyLogin";
 import TarikTabunganValidation from "@/validation/tarik_tabungan";
 import ResponseErr from "@/helpers/responseErr";
 import NasabahCol from "@/db/models/nasabah";
 import mongoose from "mongoose";
 
-const { default: errorHandling } = require("@/middlewares/errorHandling");
+const { default: errorHandling } = require("@/app/middlewares/errorHandling");
 
 const tarikTabungan = async (req) => {
   await connectDB();
