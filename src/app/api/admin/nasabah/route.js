@@ -1,5 +1,5 @@
 import NasabahCol from "@/db/models/nasabah";
-import onlyLogin from "@/middlewares/onlyLogin";
+import onlyLogin from "@/app/middlewares/onlyLogin";
 import connectDB from "@/db/connection";
 
 async function getAllNasabah(req) {

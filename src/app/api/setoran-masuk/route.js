@@ -2,7 +2,7 @@ import HargaSampahCol from "@/db/models/harga_sampah";
 import NasabahCol from "@/db/models/nasabah";
 import SetoranMasukCol from "@/db/models/setoran_masuk_nasabah";
 import ResponseErr from "@/helpers/responseErr";
-import errorHandling from "@/middlewares/errorHandling";
+import errorHandling from "@/app/middlewares/errorHandling";
 import SetoranMasukValidation from "@/validation/setoran_masuk";
 import connectDB from "@/db/connection";
 import mongoose from "mongoose";

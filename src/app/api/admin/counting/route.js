@@ -1,8 +1,8 @@
 import connectDB from "@/db/connection";
-import onlyLogin from "@/middlewares/onlyLogin";
+import onlyLogin from "@/app/middlewares/onlyLogin";
 import NasabahCol from "@/db/models/nasabah";
 
-const { default: errorHandling } = require("@/middlewares/errorHandling");
+const { default: errorHandling } = require("@/app/middlewares/errorHandling");
 
 const countNasabahTotalSampahTotalUang = async (req) => {
   try {

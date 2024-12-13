@@ -1,8 +1,8 @@
 import connectDB from "@/db/connection";
 import SetoranMasukCol from "@/db/models/setoran_masuk_nasabah";
-import onlyLogin from "@/middlewares/onlyLogin";
+import onlyLogin from "@/app/middlewares/onlyLogin";
 
-const { default: errorHandling } = require("@/middlewares/errorHandling");
+const { default: errorHandling } = require("@/app/middlewares/errorHandling");
 
 const getAllSetoranMasuk = async (req) => {
   try {

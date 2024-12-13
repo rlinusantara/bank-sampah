@@ -2,8 +2,8 @@ import NasabahCol from "@/db/models/nasabah";
 import ResponseErr from "@/helpers/responseErr";
 import SetoranMasukValidation from "@/validation/setoran_masuk";
 import HargaSampahCol from "@/db/models/harga_sampah";
-import errorHandling from "@/middlewares/errorHandling";
-import onlyLogin from "@/middlewares/onlyLogin";
+import errorHandling from "@/app/middlewares/errorHandling";
+import onlyLogin from "@/app/middlewares/onlyLogin";
 import connectDB from "@/db/connection";
 import BigNumber from "bignumber.js";
 
