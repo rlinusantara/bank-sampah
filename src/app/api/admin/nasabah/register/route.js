@@ -1,7 +1,7 @@
 import NasabahCol from "@/db/models/nasabah";
 import ResponseErr from "@/helpers/responseErr";
-import errorHandling from "@/middlewares/errorHandling";
-import onlyLogin from "@/middlewares/onlyLogin";
+import errorHandling from "@/app/middlewares/errorHandling";
+import onlyLogin from "@/app/middlewares/onlyLogin";
 import NasabahValidation from "@/validation/nasabah";
 import connectDB from "@/db/connection";
 

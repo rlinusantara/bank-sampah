@@ -1,5 +1,5 @@
 import NasabahCol from "@/db/models/nasabah";
-import errorHandling from "@/middlewares/errorHandling";
+import errorHandling from "@/app/middlewares/errorHandling";
 import connectDB from "@/db/connection";
 import HargaSampahCol from "@/db/models/harga_sampah";
 

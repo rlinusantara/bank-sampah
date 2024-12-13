@@ -1,9 +1,9 @@
 const { default: connectDB } = require("@/db/connection");
-const { default: errorHandling } = require("@/middlewares/errorHandling");
+const { default: errorHandling } = require("@/app/middlewares/errorHandling");
 import NasabahCol from "@/db/models/nasabah";
 import SetoranMasukCol from "@/db/models/setoran_masuk_nasabah";
 import ResponseErr from "@/helpers/responseErr";
-import onlyLogin from "@/middlewares/onlyLogin";
+import onlyLogin from "@/app/middlewares/onlyLogin";
 import mongoose from "mongoose";
 import BigNumber from "bignumber.js";
 

@@ -1,7 +1,7 @@
 import NasabahCol from "@/db/models/nasabah";
-import onlyLogin from "@/middlewares/onlyLogin";
+import onlyLogin from "@/app/middlewares/onlyLogin";
 import connectDB from "@/db/connection";
-import errorHandling from "@/middlewares/errorHandling";
+import errorHandling from "@/app/middlewares/errorHandling";
 import ResponseErr from "@/helpers/responseErr";
 
 async function editNasabah(req, params) {
