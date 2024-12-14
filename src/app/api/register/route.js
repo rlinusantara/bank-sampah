@@ -1,5 +1,5 @@
 import AuthValidation from "@/validation/auth";
-import errorHandling from "@/middlewares/errorHandling";
+import errorHandling from "@/app/middlewares/errorHandling";
 import connectDB from "@/db/connection";
 import AdminCol from "@/db/models/admin";
 import ResponseErr from "@/helpers/responseErr";

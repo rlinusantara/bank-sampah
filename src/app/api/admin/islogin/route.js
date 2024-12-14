@@ -1,4 +1,4 @@
-const { default: errorHandling } = require("@/middlewares/errorHandling");
+const { default: errorHandling } = require("@/app/middlewares/errorHandling");
 import connectDB from "@/db/connection";
 import { cookies } from "next/headers";
 import mongoose from "mongoose";

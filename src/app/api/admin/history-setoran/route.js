@@ -1,9 +1,9 @@
 import connectDB from "@/db/connection";
 import NasabahCol from "@/db/models/nasabah";
 import ResponseErr from "@/helpers/responseErr";
-import onlyLogin from "@/middlewares/onlyLogin";
+import onlyLogin from "@/app/middlewares/onlyLogin";
 
-const { default: errorHandling } = require("@/middlewares/errorHandling");
+const { default: errorHandling } = require("@/app/middlewares/errorHandling");
 
 const historySetoran = async (req) => {
   try {
