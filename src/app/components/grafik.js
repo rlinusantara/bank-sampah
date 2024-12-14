@@ -1,7 +1,8 @@
 import { Line, Bar, Pie } from 'react-chartjs-2';
 import { Chart as ChartJS } from 'chart.js/auto';
-const Grafik = () => {
-    
+const Grafik = ({ grafikTotalSetoran }) => {
+    console.log(grafikTotalSetoran.data[0].tahun[0].list_tahun)
+    const listTahun = grafikTotalSetoran.data[0].tahun[0].list_tahun;
       const barChartData = {
         labels: ['January', 'February', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
         datasets: [
@@ -28,10 +29,15 @@ const Grafik = () => {
         <div className="mt-4">
         <div className="flex">
           <h1 className="p-1 xl:text-lg">Pilih tahun : </h1>
-          <select className="p-1 w-20">
+          <select className="p-1 w-20 lg:w-fit">
             <option value="" key="">
-              Pilih
+              Pilih tahun
             </option>
+            {listTahun?.map((tahun) => (
+              <option value={tahun} key={tahun}>
+                {tahun}
+              </option>
+            ))}
           </select>
         </div>
         <div>
