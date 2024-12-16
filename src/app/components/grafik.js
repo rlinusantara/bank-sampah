@@ -48,11 +48,13 @@ const Grafik = ({ grafikTotalSetoran, tahun }) => {
       const mGrafik = grafikTotalSetoran[indexGrafik]?._id;
       if (i === mGrafik) {
         data.push(grafikTotalSetoran[indexGrafik].total_setoran);
+
         indexGrafik++;
       } else {
         data.push(0);
       }
     }
+
     setBarChartData({
       labels: [
         "January",
