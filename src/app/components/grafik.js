@@ -1,79 +1,201 @@
-import { Line, Bar, Pie } from 'react-chartjs-2';
-import { Chart as ChartJS } from 'chart.js/auto';
-const Grafik = () => {
-    const lineChartData = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-        datasets: [
-          {
-            label: 'My First Dataset',
-            data: [65, 59, 80, 81, 56, 70],
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1,
-          },
+import { Bar } from "react-chartjs-2";
+import { useEffect, useState } from "react";
+import "chart.js/auto";
+import axios from "axios";
+import SpinnerLoading from "./spinner";
+
+const Grafik = ({ grafikTotalSetoran, tahun }) => {
+  const [loadingGrafik, setLoadingGrafik] = useState(false);
+  const [barChartData, setBarChartData] = useState({
+    labels: [
+      "January",
+      "February",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember",
+    ],
+    datasets: [
+      {
+        label: `Grafik Setoran Tahun`,
+        data: [],
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 206, 86, 0.2)",
         ],
-      };
-    
-      const barChartData = {
-        labels: ['Red', 'Blue', 'Yellow'],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  });
+  const [msgError, setMsgError] = useState("");
+
+  const fil = () => {
+    const data = [];
+    let indexGrafik = 0;
+    for (let i = 1; i <= 12; i++) {
+      const mGrafik = grafikTotalSetoran[indexGrafik]?._id;
+      if (i === mGrafik) {
+        data.push(grafikTotalSetoran[indexGrafik].total_setoran);
+        indexGrafik++;
+      } else {
+        data.push(0);
+      }
+    }
+    setBarChartData({
+      labels: [
+        "January",
+        "February",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember",
+      ],
+      datasets: [
+        {
+          label: `Grafik Setoran Tahun`,
+          data: data,
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    });
+  };
+
+  useEffect(function () {
+    fil();
+  }, []);
+
+  const ubahTahun = async (e) => {
+    try {
+      setLoadingGrafik(true);
+      const changeTahun = +e.target.value;
+
+      const { data } = await axios.get(
+        `/api/admin/grafik-total-setoran/${changeTahun}`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      const grafikTotalSetoran = data?.data;
+
+      const dataBaru = [];
+      let indexGrafik = 0;
+      for (let i = 1; i <= 12; i++) {
+        const mGrafik = grafikTotalSetoran[indexGrafik]?._id;
+
+        if (i === mGrafik) {
+          dataBaru.push(grafikTotalSetoran[indexGrafik].total_setoran);
+          indexGrafik++;
+        } else {
+          dataBaru.push(0);
+        }
+      }
+
+      setBarChartData({
+        labels: [
+          "January",
+          "February",
+          "Maret",
+          "April",
+          "Mei",
+          "Juni",
+          "Juli",
+          "Agustus",
+          "September",
+          "Oktober",
+          "November",
+          "Desember",
+        ],
         datasets: [
           {
-            label: 'My First Dataset',
-            data: [120, 50, 100],
+            label: `Grafik Setoran Tahun`,
+            data: dataBaru,
             backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(255, 206, 86, 0.2)",
             ],
             borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
+              "rgba(255, 99, 132, 1)",
+              "rgba(54, 162, 235, 1)",
+              "rgba(255, 206, 86, 1)",
             ],
             borderWidth: 1,
           },
         ],
-      };
-    
-      const pieChartData = {
-        labels: ['Red', 'Blue', 'Yellow'],
-        datasets: [
-          {
-            label: '# of Votes',
-            data: [12, 19, 3],
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-            ],
-            borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-            ],
-            borderWidth: 1,
-          },
-        ],
-      };
-    
-    return (
-        <>
-            <div className="text-black font-nunito">
-                <div>
-                    <h2>Line Chart</h2>
-                    <Line data={lineChartData} />
-                </div>
-                <div>
-                    <h2>Bar Chart</h2>
-                    <Bar data={barChartData} />
-                </div>
-                <div>
-                    <h2>Pie Chart</h2>
-                    <Pie data={pieChartData} />
-                </div>
-            </div>
-        </>
-    );
-}
- 
+      });
+
+      setLoadingGrafik(false);
+    } catch (error) {
+      setMsgError(error.message);
+    }
+  };
+
+  return (
+    <>
+      <div className="mt-4">
+        <div className="flex">
+          <h1 className="p-1 xl:text-lg">Pilih tahun : </h1>
+          <select className="p-1 w-20 lg:w-fit rounded-sm" onChange={ubahTahun}>
+            {tahun.map((v, i) => (
+              <option value={v} key={i}>
+                {v}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="relative mt-4">
+          {loadingGrafik ? (
+            <section className="absolute top-0 left-0 right-0 bottom-0 bg-white flex justify-center items-center rounded-md">
+              {msgError ? (
+                <section>
+                  <p className="text-center text-red-500  font-medium text-lg">
+                    {msgError}
+                  </p>
+                  <p className="text-centerfont-semibold text-lg">
+                    Cobalah untuk merefresh halaman
+                  </p>
+                </section>
+              ) : (
+                <SpinnerLoading />
+              )}
+            </section>
+          ) : (
+            ""
+          )}
+          <Bar data={barChartData} />
+        </div>
+      </div>
+    </>
+  );
+};
+
 export default Grafik;
