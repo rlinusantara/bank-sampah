@@ -15,6 +15,7 @@ const Dashboard = async () => {
     let isLogin = false;
 
     let counting = {};
+    let grafikTotalSetoran = [];
 
     if (tokenName && tokenValue) {
       const res = await fetch(`${hostname}/api/admin/counting`, {
@@ -30,12 +31,27 @@ const Dashboard = async () => {
         throw new Error(`HTTP error! Status: ${res.status}`);
       }
 
+      const getGrafik = await fetch(`${hostname}/api/admin/grafik-total-setoran`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: `secret=${tokenValue}`,
+        },
+        credentials: "include",
+      });
+
+      if (!getGrafik.ok) {
+        throw new Error(`HTTP error! Status: ${getGrafik.status}`);
+      }
+
+      grafikTotalSetoran = await getGrafik.json();
+
       counting = (await res.json()).data[0];
 
       isLogin = true;
     }
 
-    return <DashboardPage counting={counting} isLogin={isLogin} />;
+    return <DashboardPage counting={counting} isLogin={isLogin} grafikTotalSetoran={grafikTotalSetoran} />;
   } catch (error) {
     return <ErrorPage err={error.message} statusCode={error.status} />;
   }
