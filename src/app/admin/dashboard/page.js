@@ -16,6 +16,8 @@ const Dashboard = async () => {
 
     let counting = {};
     let grafikTotalSetoran = [];
+    let tahun = [];
+    let dataGrafik = [];
 
     if (tokenName && tokenValue) {
       const res = await fetch(`${hostname}/api/admin/counting`, {
@@ -49,12 +51,11 @@ const Dashboard = async () => {
 
       grafikTotalSetoran = await getGrafik.json();
       counting = (await res.json()).data[0];
+      tahun = grafikTotalSetoran?.data[0]?.tahun[0]?.list_tahun || [];
+      dataGrafik = grafikTotalSetoran?.data[0]?.data || [];
 
       isLogin = true;
     }
-
-    const tahun = grafikTotalSetoran?.data[0]?.tahun[0]?.list_tahun || [];
-    const dataGrafik = grafikTotalSetoran?.data[0]?.data || [];
 
     return (
       <DashboardPage
