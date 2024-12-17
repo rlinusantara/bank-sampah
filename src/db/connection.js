@@ -1,20 +1,34 @@
-import ResponseErr from "@/helpers/responseErr";
 import mongoose from "mongoose";
 
-let isConnected = false;
+const MONGODB_URI = process.env.DB;
 
-async function connectDB() {
-  if (isConnected) {
-    return;
-  }
-  const url = process.env.DB;
-
-  if (!url) {
-    throw new ResponseErr(500, "Env Err");
-  }
-
-  await mongoose.connect(url);
-  isConnected = true;
+if (!MONGODB_URI) {
+  throw new Error(500, "Env Err");
 }
 
-export default connectDB;
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function dbConnect() {
+  if (cached.conn) {
+    return cached.conn;
+  }
+
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false, // Nonaktifkan buffering agar koneksi lebih cepat
+    };
+
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      return mongoose;
+    });
+  }
+
+  cached.conn = await cached.promise;
+  return cached.conn;
+}
+
+export default dbConnect;
