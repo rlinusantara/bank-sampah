@@ -8,8 +8,8 @@ const Grafik = ({ grafikTotalSetoran, tahun }) => {
   const [loadingGrafik, setLoadingGrafik] = useState(false);
   const [barChartData, setBarChartData] = useState({
     labels: [
-      "January",
-      "February",
+      "Januari",
+      "Februari",
       "Maret",
       "April",
       "Mei",
@@ -57,8 +57,8 @@ const Grafik = ({ grafikTotalSetoran, tahun }) => {
 
     setBarChartData({
       labels: [
-        "January",
-        "February",
+        "Januari",
+        "Februari",
         "Maret",
         "April",
         "Mei",
@@ -138,7 +138,7 @@ const Grafik = ({ grafikTotalSetoran, tahun }) => {
         ],
         datasets: [
           {
-            label: `Grafik Setoran Tahun`,
+            label: `Grafik Setoran Tahun ${changeTahun}`,
             data: dataBaru,
             backgroundColor: [
               "rgba(255, 99, 132, 0.2)",
@@ -176,7 +176,7 @@ const Grafik = ({ grafikTotalSetoran, tahun }) => {
         </div>
         <div className="relative mt-4">
           {loadingGrafik ? (
-            <section className="absolute top-0 left-0 right-0 bottom-0 bg-white flex justify-center items-center rounded-md">
+            <section className="absolute top-0 left-0 right-0 bottom-0 bg-transparent flex justify-center items-center rounded-md">
               {msgError ? (
                 <section>
                   <p className="text-center text-red-500  font-medium text-lg">
