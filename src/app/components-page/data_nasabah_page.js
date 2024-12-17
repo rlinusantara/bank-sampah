@@ -223,7 +223,7 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
 
         <div>
           {popUp ? (
-            <div className="w-full h-screen layar-hitam fixed top-0 flex flex-col">
+            <div className="w-full h-screen layar-hitam fixed top-0 left-0 right-0  items-center flex flex-col">
               <div className="bg-accent mx-2 p-2 xl:p-4 xl:w-[1000px] w-72 rounded-xl ml-[78px] mt-32">
                 <div className="flex justify-between">
                   <h1 className="text-center text-xl font-bold p-2">
@@ -277,7 +277,8 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
 
         <div>
           {confirm ? (
-            <div className="bg-background w-80 flex justify-center items-center ml-[73px] p-5 rounded-lg fixed top-24">
+            <div  className="w-screen flex justify-center layar-hitam h-screen absolute top-0">
+            <div className="bg-background w-80 flex justify-center items-center  ml-[73px] p-5 rounded-lg fixed top-24">
               <div className="flex flex-col justify-between h-40 my-2">
                 <h1 className="text-xl font-bold">Konfirmasi Penambahan</h1>
                 <div className="flex justify-around">
@@ -302,12 +303,13 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
                 </div>
               </div>
             </div>
+            </div>
           ) : (
             ""
           )}
         </div>
         {editNasabah ? (
-          <div className="layar-hitam absolute top-0 bottom-0 left-0 right-0 h-screen w-full">
+          <div className="layar-hitam absolute top-0 bottom-0 left-0 right-0 flex flex-col items-center h-screen w-full">
             <div className="bg-background w-[270px] ml-[77px] xl:w-[900px] xl:ml-20 mt-28 p-2">
               <div className="flex justify-between p-2">
                 <div className="flex">

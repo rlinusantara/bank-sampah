@@ -9,7 +9,7 @@ const TambahDataAdminPage = ({
   return (
     <>
       <AdminLayout isLogin={isLogin}>
-        <section className="ml-20">
+        <section className="ml-20 xl:flex xl:justify-center xl:flex-col">
           <h1 className="text-center xl:text-2xl font-bold p-3 font-nunito">
             FORM INPUT DATA BANK SAMPAH
           </h1>
