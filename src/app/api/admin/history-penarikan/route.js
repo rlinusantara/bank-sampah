@@ -21,7 +21,7 @@ const historyPenarikan = async (req) => {
       },
       {
         $sort: {
-          tanggal_setoran_keluar: -1,
+          "setoran_keluar.tanggal_setoran_keluar": -1,
         },
       },
     ]);
