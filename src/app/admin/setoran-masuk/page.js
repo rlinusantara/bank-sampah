@@ -17,20 +17,24 @@ const SetoranMasuk = async () => {
     let isLogin = false;
     if (tokenName && tokenValue) {
       const res = await fetch(`${hostname}/api/nasabah`);
-      if (!res.ok) {
+
+      if (res.status >= 500) {
         throw new Error(`HTTP error! Status: ${res.status}`);
       }
-      const data = await res.json();
 
-      const p = data.data.map((item) => ({
-        label: item.nama,
-        value: item._id,
-      }));
+      if (res.ok) {
+        const data = await res.json();
 
-      nasabah = p;
-      hargaSatuan = data.harga_satuan;
+        const dataConvert = data.data.map((item) => ({
+          label: item.nama,
+          value: item._id,
+        }));
 
-      isLogin = true;
+        nasabah = dataConvert;
+        hargaSatuan = data.harga_satuan;
+
+        isLogin = true;
+      }
     }
 
     return (

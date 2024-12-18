@@ -24,12 +24,16 @@ const DraftSetoran = async () => {
         },
         credentials: "include",
       });
-      if (!res.ok) {
+
+      if (res.status >= 500) {
         throw new Error(`HTTP error! Status: ${res.status}`);
       }
-      const data = await res.json();
-      defaultHarga = data.data.harga_satuan;
-      isLogin = true;
+
+      if (res.ok) {
+        const data = await res.json();
+        defaultHarga = data.data.harga_satuan;
+        isLogin = true;
+      }
     }
 
     return <HargaSampahPage defaultHarga={defaultHarga} isLogin={isLogin} />;

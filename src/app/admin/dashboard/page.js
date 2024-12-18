@@ -29,32 +29,34 @@ const Dashboard = async () => {
         credentials: "include",
       });
 
-      if (!res.ok) {
+      if (res.status >= 500) {
         throw new Error(`HTTP error! Status: ${res.status}`);
       }
 
-      const getGrafik = await fetch(
-        `${hostname}/api/admin/grafik-total-setoran`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Cookie: `secret=${tokenValue}`,
-          },
-          credentials: "include",
+      if (res.ok) {
+        const getGrafik = await fetch(
+          `${hostname}/api/admin/grafik-total-setoran`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Cookie: `secret=${tokenValue}`,
+            },
+            credentials: "include",
+          }
+        );
+
+        if (!getGrafik.ok) {
+          throw new Error(`HTTP error! Status: ${getGrafik.status}`);
         }
-      );
 
-      if (!getGrafik.ok) {
-        throw new Error(`HTTP error! Status: ${getGrafik.status}`);
+        grafikTotalSetoran = await getGrafik.json();
+        counting = (await res.json()).data[0];
+        tahun = grafikTotalSetoran?.data[0]?.tahun[0]?.list_tahun || [];
+        dataGrafik = grafikTotalSetoran?.data[0]?.data || [];
+
+        isLogin = true;
       }
-
-      grafikTotalSetoran = await getGrafik.json();
-      counting = (await res.json()).data[0];
-      tahun = grafikTotalSetoran?.data[0]?.tahun[0]?.list_tahun || [];
-      dataGrafik = grafikTotalSetoran?.data[0]?.data || [];
-
-      isLogin = true;
     }
 
     return (

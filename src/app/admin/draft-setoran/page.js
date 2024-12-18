@@ -23,11 +23,15 @@ const DraftSetoran = async () => {
         },
         credentials: "include",
       });
-      if (!res.ok) {
+
+      if (res.status >= 500) {
         throw new Error(`HTTP error! Status: ${res.status}`);
       }
-      dataSetoranMasukInit = (await res.json()).data;
-      isLogin = true;
+
+      if (res.ok) {
+        dataSetoranMasukInit = (await res.json()).data;
+        isLogin = true;
+      }
     }
 
     return (

@@ -6,6 +6,7 @@ import formatRupiah from "@/helpers/formatRupiah";
 import { UserRoundPlus, X } from "lucide-react";
 import axios from "axios";
 import PopUpError from "../components/popUpError";
+import { useRouter } from "next/navigation";
 
 const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,6 +28,7 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
   const [confirmHapus, setConfirmHapus] = useState(true);
   const [btnLoadingHapus, setBtnLoadingHapus] = useState(false);
   const [msgError, setMsgError] = useState("");
+  const router = useRouter();
 
   useEffect(function () {
     if (nasabah.length) {
@@ -62,6 +64,10 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
       setNasabah([res.data.data, ...nasabah]);
       setAddBtnDisable(false);
     } catch (error) {
+      if (error.status === 401) {
+        router.push("/admin/login");
+        return;
+      }
       setAddBtnDisableTolak(false);
       setAddLoading(false);
       setMsgError(error.message);
@@ -98,8 +104,13 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
       setBtnLoadingEditHapus(false);
       setEditNasabah(false);
     } catch (error) {
+      if (error.status === 401) {
+        router.push("/admin/login");
+        return;
+      }
       setBtnDisableEditHapus(false);
       setBtnLoadingEditHapus(false);
+
       if (error?.response?.data?.errors?.join("-")) {
         setMsgError(error.response.data.errors.join("-"));
         return;
@@ -126,6 +137,10 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
       setEditNasabah(false);
       setConfirmHapus(true);
     } catch (error) {
+      if (error.status === 401) {
+        router.push("/admin/login");
+        return;
+      }
       setBtnLoadingHapus(false);
       setBtnDisableEditHapus(false);
 
@@ -277,32 +292,36 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
 
         <div>
           {confirm ? (
-            <div  className="w-screen flex justify-center layar-hitam h-screen absolute top-0">
-            <div className="bg-background w-80 flex justify-center items-center  ml-[73px] p-5 rounded-lg fixed top-24">
-              <div className="flex flex-col justify-between h-40 my-2">
-                <h1 className="text-xl font-bold">Konfirmasi Penambahan</h1>
-                <div className="flex justify-around">
-                  <button
-                    className="text-center font-medium bg-accent py-1 w-20 rounded-md flex justify-center items-center"
-                    onClick={AddNasabah}
-                    disabled={addBtnDisable}
-                  >
-                    {addLoading ? <SpinnerLoading w="w-5" h="h-5" /> : "Simpan"}
-                  </button>
-                  <button
-                    onClick={() => {
-                      setConfirm(false);
-                      setNamaNasabah("");
-                      setPopUp(false);
-                    }}
-                    className="text-center text-white font-medium bg-red-600 py-1 w-20 rounded-md"
-                    disabled={addBtnDisableTolak}
-                  >
-                    Batal
-                  </button>
+            <div className="w-screen flex justify-center layar-hitam h-screen absolute top-0">
+              <div className="bg-background w-80 flex justify-center items-center  ml-[73px] p-5 rounded-lg fixed top-24">
+                <div className="flex flex-col justify-between h-40 my-2">
+                  <h1 className="text-xl font-bold">Konfirmasi Penambahan</h1>
+                  <div className="flex justify-around">
+                    <button
+                      className="text-center font-medium bg-accent py-1 w-20 rounded-md flex justify-center items-center"
+                      onClick={AddNasabah}
+                      disabled={addBtnDisable}
+                    >
+                      {addLoading ? (
+                        <SpinnerLoading w="w-5" h="h-5" />
+                      ) : (
+                        "Simpan"
+                      )}
+                    </button>
+                    <button
+                      onClick={() => {
+                        setConfirm(false);
+                        setNamaNasabah("");
+                        setPopUp(false);
+                      }}
+                      className="text-center text-white font-medium bg-red-600 py-1 w-20 rounded-md"
+                      disabled={addBtnDisableTolak}
+                    >
+                      Batal
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
             </div>
           ) : (
             ""

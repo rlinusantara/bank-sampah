@@ -5,6 +5,7 @@ import formatRupiah from "@/helpers/formatRupiah";
 import axios from "axios";
 import { useRef, useState } from "react";
 import PopUpError from "../components/popUpError";
+import { useRouter } from "next/navigation";
 
 const HargaSampahPage = ({ defaultHarga = 0, isLogin = false }) => {
   const [popUp, setPopUp] = useState(false);
@@ -16,6 +17,7 @@ const HargaSampahPage = ({ defaultHarga = 0, isLogin = false }) => {
   const [msgError, setMsgError] = useState("");
   const showHargaTag = useRef();
   const form = useRef();
+  const router = useRouter();
 
   const btnUbahHarga = async (e) => {
     try {
@@ -44,6 +46,10 @@ const HargaSampahPage = ({ defaultHarga = 0, isLogin = false }) => {
         showHargaTag.current.textContent = formatRupiah(harga);
       }, 500);
     } catch (error) {
+      if (error.status === 401) {
+        router.push("/admin/login");
+        return;
+      }
       setBtnDisable(false);
       setBtnLoading(false);
       setBtnConfirmDisable(false);
@@ -101,7 +107,9 @@ const HargaSampahPage = ({ defaultHarga = 0, isLogin = false }) => {
           <div className="w-full h-screen fixed top-0 layar-hitam flex justify-center items-center">
             <div>
               <div className="ml-[73px] flex-col p-4 bg-background rounded-md w-80">
-                <h1 className="text-center text-xl font-bold">Konfirmasi Perubahan</h1>
+                <h1 className="text-center text-xl font-bold">
+                  Konfirmasi Perubahan
+                </h1>
                 <div className="flex justify-around p-4 w-full mt-7">
                   <button
                     onClick={btnUbahHarga}
