@@ -49,8 +49,8 @@ const LoginPage = ({ isLogin = false }) => {
 
         setTimeout(() => {
           router.push("/admin/dashboard");
-        }, 1000);
-      }, 2000);
+        }, 500);
+      }, 500);
     } catch (error) {
       setBtnLoading(false);
       setBtnDisable(false);
