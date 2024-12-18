@@ -23,12 +23,15 @@ const DataNasabah = async () => {
         },
         credentials: "include",
       });
-      if (!res.ok) {
+
+      if (res.status >= 500) {
         throw new Error(`HTTP error! Status: ${res.status}`);
       }
 
-      nasabahInit = (await res.json()).data;
-      isLogin = true;
+      if (res.ok) {
+        nasabahInit = (await res.json()).data;
+        isLogin = true;
+      }
     }
 
     return <DataNasabahPage nasabahInit={nasabahInit} isLogin={isLogin} />;

@@ -16,20 +16,24 @@ const DraftSetoran = async () => {
     let isLogin = false;
     if (tokenName && tokenValue) {
       const res = await fetch(`${hostname}/api/nasabah`);
-      if (!res.ok) {
+
+      if (res.status >= 500) {
         throw new Error(`HTTP error! Status: ${res.status}`);
       }
-      const data = await res.json();
 
-      const p = data.data.map((item) => {
-        return {
-          label: item.nama,
-          value: item._id,
-          saldo: item.total_tabungan,
-        };
-      });
-      nasabahInit = p;
-      isLogin = true;
+      if (res.ok) {
+        const data = await res.json();
+
+        const dataConvert = data.data.map((item) => {
+          return {
+            label: item.nama,
+            value: item._id,
+            saldo: item.total_tabungan,
+          };
+        });
+        nasabahInit = dataConvert;
+        isLogin = true;
+      }
     }
 
     return <PenarikanUangPage nasabahInit={nasabahInit} isLogin={isLogin} />;
