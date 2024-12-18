@@ -5,6 +5,7 @@ import axios from "axios";
 import format from "date-format";
 import SpinnerLoading from "@/app/components/spinner";
 import PopUpError from "../components/popUpError";
+import { useRouter } from "next/navigation";
 
 const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
   const [popUp, setPopUp] = useState(false);
@@ -17,8 +18,9 @@ const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
   const [btnLoadingSetuju, setBtnLoadingSetuju] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
   const [btnXDisable, setBtnXDisable] = useState(false);
-
   const [msgError, setMsgError] = useState("");
+
+  const router = useRouter();
 
   useEffect(function () {
     if (dataSetoranMasuk.length) {
@@ -51,6 +53,10 @@ const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
         setIsEmpty(true);
       }
     } catch (error) {
+      if (error.status === 401) {
+        router.push("/admin/login");
+        return;
+      }
       setBtnDisable(false);
       setBtnLoadingTolak(false);
       setBtnXDisable(false);
@@ -85,6 +91,10 @@ const DraftSetoranPage = ({ dataSetoranMasukInit = [], isLogin = false }) => {
         setIsEmpty(true);
       }
     } catch (error) {
+      if (error.status === 401) {
+        router.push("/admin/login");
+        return;
+      }
       setBtnDisable(false);
       setBtnLoadingSetuju(false);
       setPopUp(false);
