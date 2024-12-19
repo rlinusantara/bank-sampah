@@ -5,6 +5,7 @@ import Select from "react-select";
 import formatRupiah from "@/helpers/formatRupiah";
 import SpinnerLoading from "@/app/components/spinner";
 import PopUpError from "../components/popUpError";
+import { useRouter } from "next/navigation";
 
 const PenarikanUangPage = ({ nasabahInit = [], isLogin = false }) => {
   const [popUp, setPopUp] = useState(false);
@@ -20,6 +21,7 @@ const PenarikanUangPage = ({ nasabahInit = [], isLogin = false }) => {
 
   const checkboxRef = useRef();
   const inputJumlahRef = useRef();
+  const router = useRouter();
 
   useEffect(
     function () {
@@ -66,6 +68,10 @@ const PenarikanUangPage = ({ nasabahInit = [], isLogin = false }) => {
         setNasabah([...filter]);
       }, 500);
     } catch (error) {
+      if (error.status === 401) {
+        router.push("/admin/login");
+        return;
+      }
       setBtnDisable(false);
       setBtnLoading(false);
       setPopUp(false);
