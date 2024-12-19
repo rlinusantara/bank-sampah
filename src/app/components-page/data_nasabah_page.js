@@ -328,8 +328,8 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
           )}
         </div>
         {editNasabah ? (
-          <div className="layar-hitam absolute top-0 bottom-0 left-0 right-0 flex flex-col items-center h-screen w-full">
-            <div className="bg-background w-[270px] ml-[77px] xl:w-[900px] xl:ml-20 mt-28 p-2">
+          <div className="layar-hitam fixed top-0  bottom-0 left-0 right-0 flex flex-col items-center h-screen w-full">
+            <div className="bg-background w-[270px] ml-[77px] xl:w-[900px] xl:ml-20 mt-28 p-2 rounded-md">
               <div className="flex justify-between p-2">
                 <div className="flex">
                   <button
