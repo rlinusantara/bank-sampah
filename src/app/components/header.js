@@ -59,7 +59,7 @@ const Header = () => {
                   </li>
                   <li>
                     <Link
-                      href="/admin/login"
+                      href="/admin/dashboard"
                       prefetch={true}
                       className="text-gray-900 dark:text-white hover:underline"
                     >
