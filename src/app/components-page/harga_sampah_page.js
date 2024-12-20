@@ -63,7 +63,7 @@ const HargaSampahPage = ({ defaultHarga = 0, isLogin = false }) => {
     <>
       {msgError ? <PopUpError msgError={msgError} /> : ""}
       <AdminLayout isLogin={isLogin}>
-        <div className="w-[280px] ml-[73px] xl:w-[900px] xl:ml-20">
+        <div className="w-fit ml-[73px] xl:w-[900px] xl:ml-20">
           <h1 className="text-center text-xl font-bold p-2">Harga Sampah</h1>
           <div className="bg-accent rounded-md p-2">
             <div className="">
