@@ -14,10 +14,7 @@ const storageDatabase = async (req) => {
       db: stats.db,
       collections: stats.collections,
       documents: stats.objects,
-      dataSize: `${(stats.dataSize / 1024).toFixed(2)} KB`,
-      storageSize: `${(stats.storageSize / 1024).toFixed(2)} KB`,
-      indexSize: `${(stats.indexSize / 1024).toFixed(2)} KB`,
-      totalSize: `${totalSizeMB.toFixed(2)} MB`,
+      penyimpananTerpakai: `${totalSizeMB.toFixed(2)} MB`,
     };
 
     return Response.json(
