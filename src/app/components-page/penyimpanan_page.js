@@ -22,7 +22,7 @@ const PenyimpananPage = ({ isLogin }) => {
               </tr>
               <tr>
                 <td className="p-1">Penyimpanan Terpakai</td>
-                <t className="p-1">:</t`d>
+                <td className="p-1">:</td>
                 <td className="p-1">11kb</td>
               </tr>
               <tr>
