@@ -156,7 +156,7 @@ const DataNasabahPage = ({ nasabahInit = [], isLogin = false }) => {
     <>
       {msgError ? <PopUpError msgError={msgError} uniq={true} /> : ""}
       <AdminLayout isLogin={isLogin}>
-        <div className="w-[280px] ml-[73px] xl:w-[900px] xl:ml-20">
+        <div className="w-fit ml-[73px] xl:w-[900px] xl:ml-20">
           <h1 className="text-center text-xl font-bold p-2">Data Nasabah</h1>
           <div className="relative overflow-x-auto xl:w-[900px]">
             <div className="">
