@@ -1,6 +1,5 @@
 import LoginPage from "@/app/components-page/login_page";
 import ErrorPage from "@/app/components/errorPage";
-import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
