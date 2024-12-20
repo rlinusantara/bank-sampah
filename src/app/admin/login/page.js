@@ -6,16 +6,7 @@ export const dynamic = "force-dynamic";
 
 const Login = async () => {
   try {
-    const cookieStore = cookies();
-    const tokenName = (await cookieStore).has("secret");
-    const tokenValue = (await cookieStore).get("secret")?.value;
-
-    let isLogin = false;
-    if (tokenName && tokenValue) {
-      isLogin = true;
-    }
-
-    return <LoginPage isLogin={isLogin} />;
+    return <LoginPage isLogin={false} />;
   } catch (error) {
     return <ErrorPage err={error.message} statusCode={error.status} />;
   }
