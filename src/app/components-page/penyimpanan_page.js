@@ -1,6 +1,6 @@
 import AdminLayout from "../components/adminLayout";
 
-const PenyimpananPage = ({ isLogin }) => {
+const PenyimpananPage = ({ data, isLogin }) => {
   return (
     <AdminLayout isLogin={isLogin}>
       <div className="w-fit ml-[73px] xl:w-[900px] xl:ml-20">
@@ -11,19 +11,19 @@ const PenyimpananPage = ({ isLogin }) => {
           <table className="w-full text-xs lg:text-md xl:text-lg">
             <tbody>
               <tr>
-                <td className="p-1">Nama Collection</td>
+                <td className="p-1">Nama Database</td>
                 <td className="p-1">:</td>
-                <td className="p-1">Bank Sampah</td>
+                <td className="p-1">{data.db}</td>
               </tr>
               <tr>
                 <td className="p-1">Total Document</td>
                 <td className="p-1">:</td>
-                <td className="p-1">8</td>
+                <td className="p-1">{data.documents || 0}</td>
               </tr>
               <tr>
                 <td className="p-1">Penyimpanan Terpakai</td>
                 <td className="p-1">:</td>
-                <td className="p-1">11kb</td>
+                <td className="p-1">{data.penyimpananTerpakai || "0 MB"}</td>
               </tr>
               <tr>
                 <td className="p-1">Total Penyimpanan</td>
