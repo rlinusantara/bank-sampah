@@ -10,6 +10,7 @@ import {
   DatabaseBackup,
   FileClock,
   History,
+  Warehouse
 } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
@@ -127,7 +128,12 @@ export default function SidebarAdmin() {
               <SidebarItem
                 icon={<Egg size={30} />}
                 text="Pendataan Telur BSF"
-                link="/admin/data-nasabah"
+                link="/admin/data-telur"
+              />
+              <SidebarItem
+              icon={<Warehouse size={30}/>}
+              text="Penyimpanan Database"
+              link="/admin/penyimpanan"
               />
             </ul>
           </nav>
