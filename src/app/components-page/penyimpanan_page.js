@@ -4,7 +4,7 @@ const PenyimpananPage = ({ isLogin }) => {
   return (
     <AdminLayout isLogin={isLogin}>
       <div className="w-fit ml-[73px] xl:w-[900px] xl:ml-20">
-        <h1 className="text-center text-xl font-bold p-5">
+        <h1 className="text-center text-xl font-bold p-3">
           Status Penyimpanan Database
         </h1>
         <div className="bg-background border border-dotted border-gray-800 w-full p-4 rounded-md">
