@@ -29,4 +29,13 @@ const storageDatabase = async (req) => {
   }
 };
 
-export const GET = (req) => storageDatabase(req);
+export const GET = async (req) => {
+  try {
+    if (!process.env.SECRET_KEY) {
+      throw new ResponseErr(500, "Env error");
+    }
+    return await onlyLogin(storageDatabase, req, process.env.SECRET_KEY);
+  } catch (error) {
+    return errorHandling(error);
+  }
+};
