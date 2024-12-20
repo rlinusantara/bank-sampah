@@ -1,10 +1,10 @@
 "use client";
-
 import AdminLayout from "@/app/components/adminLayout";
 import Select from "react-select";
 import { useEffect, useState } from "react";
 import format from "date-format";
 import SpinnerLoading from "@/app/components/spinner";
+import * as XLSX from "xlsx";
 
 const HistorySetoranPage = ({ historySetoran = [], isLogin = false }) => {
   const [popUp, setPopUp] = useState(false);
@@ -14,6 +14,7 @@ const HistorySetoranPage = ({ historySetoran = [], isLogin = false }) => {
   const [selectNasabah, setSelectNasabah] = useState([]);
   const [historySetoranFilter, setHistorySetoranFilter] =
     useState(historySetoran);
+  const [excelShow, setExcelShow] = useState(false);
 
   const [nasabahSelectValue, setNasabahSelectValue] = useState({});
 
@@ -58,12 +59,48 @@ const HistorySetoranPage = ({ historySetoran = [], isLogin = false }) => {
     [nasabahSelectValue]
   );
 
+  useEffect(function () {
+    setExcelShow(true);
+    if (historySetoran.length === 0) {
+      setExcelShow(false);
+      setIsEmpty(true);
+    }
+    setIsLoading(false);
+  }, []);
+  const exportToExcel = () => {
+    const wb = XLSX.utils.book_new();
+    const data = [...historySetoranFilter].map((item) => ({
+      nama: item.nama,
+      jenis_sampah: item.history_setoran_masuk.jenis_sampah,
+      jumlah_setoran: item.history_setoran_masuk.jumlah_setoran,
+      tanggal_setoran: item.history_setoran_masuk.tanggal_setoran,
+      tanggal_setoran_disetujui:
+        item.history_setoran_masuk.tanggal_setoran_disetujui,
+    }));
+    const dataExcel = [];
+    for (let i = 0; i < data.length; i++) {
+      dataExcel.push({
+        No: i + 1,
+        nama: data[i].nama,
+        "jenis sampah": data[i].jenis_sampah,
+        "jumlah setoran": data[i].jumlah_setoran,
+        "tanggal setoran": data[i].tanggal_setoran,
+        "tanggal setoran disetujui": data[i].tanggal_setoran_disetujui,
+      });
+    }
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+    XLSX.writeFile(wb, "riwayat-setroran.xlsx");
+  };
+
   return (
     <>
       <AdminLayout isLogin={isLogin}>
-        <div className="w-[280px] ml-[73px] xl:w-[900px] xl:ml-24">
+        <div className="w-fit ml-[73px] xl:w-[900px] lg:w-fit xl:ml-24">
           <h1 className="text-center text-xl font-bold p-2">Riwayat Setoran</h1>
           <div className="relative">
+            <section className="flex items-center justify-between">
             <div className="flex">
               {selectNasabah.length > 0 ? (
                 <Select
@@ -76,22 +113,32 @@ const HistorySetoranPage = ({ historySetoran = [], isLogin = false }) => {
                 ""
               )}
             </div>
+           <div>
+           {excelShow ? (
+                <section onClick={exportToExcel} className="bg-accent px-3 py-2 rounded-md cursor-pointer">
+                  <p className="font-medium text-md">Export Excel</p>
+                </section>
+            ) : (
+              ""
+            )}
+           </div>
+            </section>
             <table className="w-full text-sm rtl:text-right text-gray-500 table-fixed text-center">
               <thead className="text-xs text-gray-700 bg-accent ">
                 <tr>
-                  <th scope="col" className="px-2 py-3">
+                  <th scope="col" className="px-0.5 w-7">
                     No.
                   </th>
-                  <th scope="col" className="px-2 py-3">
+                  <th scope="col" className="px-1 py-1">
                     Nama
                   </th>
-                  <th scope="col" className="px-2 py-3">
-                    Kg
+                  <th scope="col" className="px-1 py-1">
+                    Jumlah Setoran (Kg.)
                   </th>
-                  <th scope="col" className="px-2 py-3">
+                  <th scope="col" className="px-1 py-1">
                     Tanggal
                   </th>
-                  <th scope="col" className="px-2 py-3">
+                  <th scope="col" className="px-1 py-1">
                     Aksi
                   </th>
                 </tr>
@@ -99,22 +146,22 @@ const HistorySetoranPage = ({ historySetoran = [], isLogin = false }) => {
               <tbody>
                 {historySetoranFilter.map((v, i) => (
                   <tr key={i} className="bg-white border-b">
-                    <th scope="row" className="px-3 py-4">
+                    <th scope="row" className="">
                       {i + 1}
                     </th>
-                    <th scope="row" className="px-3 py-4">
+                    <th scope="row" className="px-1 py-2">
                       {v.nama}
                     </th>
-                    <th scope="row" className="px-3 py-4">
+                    <th scope="row" className="px-1 py-2">
                       {v.history_setoran_masuk.jumlah_setoran}
                     </th>
-                    <td className="px-3 py-4">
+                    <td className="px-1 py-2">
                       {format(
                         "dd:MM:yyyy",
                         new Date(v.history_setoran_masuk.tanggal_setoran)
                       )}
                     </td>
-                    <td className="px-3 py-4 text-center">
+                    <td className="py-1 text-center">
                       <button
                         onClick={() => {
                           setPopUp(true);
