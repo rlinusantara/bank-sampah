@@ -9,6 +9,11 @@ async function getAllNasabah(req) {
     const hargaSampah = await HargaSampahCol.findOne();
     const nasabah = await NasabahCol.aggregate([
       {
+        $sort: {
+          total_tabungan: -1,
+        },
+      },
+      {
         $project: {
           setoran_keluar: 0,
           history_setoran_masuk: 0,
